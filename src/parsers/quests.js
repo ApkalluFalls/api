@@ -54,7 +54,7 @@ module.exports = async (data) => {
       journal: {
         category: helper.getLocalisedNamesObject(JournalGenre.JournalCategory),
         genre: helper.getLocalisedNamesObject(JournalGenre),
-        icon: JournalGenre.IconID
+        iconPath: JournalGenre.Icon
       },
       level: quest.ClassJobLevel0,
       name: helper.getLocalisedNamesObject(quest)

@@ -24,7 +24,7 @@ module.exports = async (data) => {
       description: {
         ...helper.getLocalisedNamesObject(entry, 'Description')
       },
-      iconId: entry.IconID,
+      iconPath: entry.Icon,
       id: entry.ID,
       isUntradable: entry.IsUntradable,
       name: helper.getLocalisedNamesObject(entry),

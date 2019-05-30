@@ -34,7 +34,7 @@ module.exports = async (data) => {
           ...arr,
           {
             amount,
-            icon: ingredient.IconID,
+            iconPath: ingredient.Icon,
             name: helper.getLocalisedNamesObject(ingredient, undefined, amount)
           }
         ];

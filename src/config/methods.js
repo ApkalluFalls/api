@@ -34,7 +34,7 @@ module.exports = {
     /**
      * For items we need to extract the following fields:
      * `Description_{lang}` - Localised description;
-     * `IconID` - Icon ID for the sprite sheet;
+     * `Icon` - Icon path for the sprite sheet;
      * `ID` - The item's ID;
      * `IsUntradable` - Whether the item is untradable;
      * `ItemAction` - Used to determine what the item can be used to obtain;
@@ -43,7 +43,7 @@ module.exports = {
      */
     columns: [
       ...helper.localisedColumnProperty('Description'),
-      'IconID',
+      'Icon',
       'ID',
       'IsUntradable',
       'ItemAction',
@@ -84,7 +84,7 @@ module.exports = {
      * `ClassJob` - The crafter's class's...
      *   `Name_{lang}` - Localised name.
      * `ItemIngredient0...9` - Each indexed ingredient's...
-     *   `IconID` - Icon ID for the sprite sheet;
+     *   `Icon` - Icon path for the sprite sheet;
      *   `Name_{lang}` - Localised name;
      *   `Pural_{lang}` - Localised plural name.
      * `ItemResult` - The item which gets crafted's...
@@ -97,7 +97,7 @@ module.exports = {
       ...(new Array(recipeIngredientMax).fill(1).reduce((arr, _, index) => ([
         ...arr,
         `AmountIngredient${index}`,
-        `ItemIngredient${index}.IconID`,
+        `ItemIngredient${index}.Icon`,
         ...helper.localisedColumnProperty(`ItemIngredient${index}.Name`),
         ...helper.localisedColumnProperty(`ItemIngredient${index}.Plural`)
       ]), [])),

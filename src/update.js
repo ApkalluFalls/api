@@ -4,6 +4,7 @@ const APICrawler = require('./APICrawler');
 class API {
   async init(optionsIn) {
     const validOptions = [
+      'icons',
       'minions',
       'methods'
     ];
@@ -44,6 +45,15 @@ class API {
    * @param {String} name - The option name.
    */
   async process(name) {
+    if (name === 'icons') {
+      console.time('Icons');
+      console.info('Starting creation of icon sprite sheets...');
+      await require('./parsers/icons')();
+      console.info('Finished parsing of icon sprite sheets.');
+      console.timeEnd('Icons');
+      return;
+    }
+
     const config = require(`./config/${name}`);
 
     if (name === 'methods') {

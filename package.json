@@ -7,6 +7,7 @@
   "author": "James Donnelly @ApkalluFalls",
   "license": "MIT",
   "dependencies": {
+    "cli-progress": "^2.1.1",
     "imagemin": "^5.3.1",
     "imagemin-advpng": "^5.0.0",
     "imagemin-optipng": "^7.0.0",

@@ -1,6 +1,5 @@
 const fetch = require('node-fetch');
 const urls = require('./xivapi/urls');
-const fs = require('fs');
 
 module.exports = class APICrawler {
   constructor(config = {}, apiKey = '') {
@@ -37,7 +36,8 @@ module.exports = class APICrawler {
     const apiPath = urls[name.toLowerCase()]();
 
     const queryStringParts = [
-      `apiKey=${this.apiKey}`
+      `apiKey=${this.apiKey}`,
+      'limit=3000'
     ];
 
     if (Array.isArray(columns) && columns.length) {
