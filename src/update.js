@@ -4,9 +4,9 @@ const APICrawler = require('./APICrawler');
 class API {
   async init(optionsIn) {
     const validOptions = [
-      'icons',
       'minions',
-      'methods'
+      'methods',
+      'icons',
     ];
   
     const args = (
