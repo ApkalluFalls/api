@@ -10,8 +10,10 @@ const request = require('request');
 const Spritesmith = require('spritesmith');
 
 module.exports = async () => {
-  await parseItemIcons();
   await parseCraftingItemIcons();
+  await parseGatheringIcons();
+  await parseItemIcons();
+  await parseQuestJournalIcons();
 };
 
 /**
@@ -44,7 +46,7 @@ async function createSpriteSheet(folderRef = '') {
       resolve(result);
     })
   }).then(result => {
-    console.info(`  Writing ${folderRef} co-ordinates...`);
+    console.info(`Writing ${folderRef} co-ordinates...`);
 
     const coordinates = {};
     Object.keys(result.coordinates).forEach(k => {
@@ -66,7 +68,7 @@ async function createSpriteSheet(folderRef = '') {
       }
 
       coordinates[k.replace(
-        new RegExp(`^\\.\\.\\/icons-raw\\/${folderRef}\\/\\w+\\/|\\.png$`, 'g'),
+        new RegExp(`^\\.\\.\\/icons-raw\\/${folderRef}\\/|\\.png$`, 'g'),
         ''
       )] = response;
     });
@@ -83,7 +85,7 @@ async function createSpriteSheet(folderRef = '') {
     return;
   }
 
-  console.info(`  Optimising ${folderRef} sprite sheet...`);
+  console.info(`Optimising ${folderRef} sprite sheet...`);
 
   await imagemin([`${saveFolder}${folderRef}.png`], saveFolder, {
     plugins: [
@@ -108,6 +110,7 @@ async function fetchIconsFromPaths(paths = [], folderRef = '') {
   console.info(`Fetching ${folderRef} icons...`);
 
   const savedImagePaths = [];
+  let alreadyExists = 0;
 
   const progressBar = new Progress.Bar({}, Progress.Presets.shades_grey);
   progressBar.start(paths.length, 0);
@@ -124,6 +127,7 @@ async function fetchIconsFromPaths(paths = [], folderRef = '') {
 
       // Do not fetch the image if it already exists.
       if (fs.existsSync(savePath)) {
+        alreadyExists++;
         savedImagePaths.push(savePath);
         resolve();
         return;
@@ -139,7 +143,16 @@ async function fetchIconsFromPaths(paths = [], folderRef = '') {
   }
 
   progressBar.stop();
-  console.info(`Finished fetching ${folderRef} icons.`);
+
+  if (alreadyExists === savedImagePaths.length) {
+    return false;
+  }
+
+  const newEntries = savedImagePaths.length - alreadyExists;
+
+  console.info(`Finished fetching ${folderRef} icons; found ${newEntries} new ${(
+    newEntries === 1 ? 'entry' : 'entries'
+  )}.`);
   console.timeEnd(`${folderRef}Fetch`);
 
   return savedImagePaths;
@@ -196,8 +209,32 @@ async function parseCraftingItemIcons() {
     paths.push(iconPath);
   });
 
-  await processIconGroup(paths, 'crafting-item');
+  await processIconGroup(paths, 'craft-item');
   console.timeEnd('CraftingItemIcons');
+}
+
+/**
+ * Parse and create sprite sheet for data/methods/quest.json journal entries.
+ */
+async function parseGatheringIcons() {
+  console.time('GatheringIcons');
+  const nodes = require('../../data/methods/gathering.json');
+
+  const paths = [];
+
+  Object.values(nodes).reduce((arr, nodeGroup) => ([
+    ...arr,
+    ...nodeGroup.map(node => node.iconPath)
+  ]), []).forEach(iconPath => {
+    if (paths.indexOf(iconPath) !== -1) {
+      return;
+    }
+
+    paths.push(iconPath);
+  });
+
+  await processIconGroup(paths, 'gathering');
+  console.timeEnd('GatheringIcons');
 }
 
 /**
@@ -229,15 +266,42 @@ async function parseItemIcons() {
 }
 
 /**
+ * Parse and create sprite sheet for data/methods/quest.json journal entries.
+ */
+async function parseQuestJournalIcons() {
+  console.time('QuestIcons');
+  const quests = require('../../data/methods/quests.json');
+
+  const paths = [];
+
+  Object.values(quests).reduce((arr, questGroup) => ([
+    ...arr,
+    ...questGroup.map(quest => quest.iconPath)
+  ]), []).forEach(iconPath => {
+    if (paths.indexOf(iconPath) !== -1) {
+      return;
+    }
+
+    paths.push(iconPath);
+  });
+
+  await processIconGroup(paths, 'quest');
+  console.timeEnd('QuestIcons');
+}
+
+/**
  * 
  * @param {Array} paths - An array of image paths to process.
  * @param {String} folderRef - A reference to a folder within the top-level icons-raw folder.
  */
 async function processIconGroup(paths = [], folderRef = '') {
-  await minifySavedIcons(
-    await fetchIconsFromPaths(paths, folderRef),
-    folderRef
-  );
+  const savedIcons = await fetchIconsFromPaths(paths, folderRef);
 
+  if (!savedIcons) {
+    console.info(`No new ${folderRef} icons found; skipping.`);
+    return;
+  }
+
+  await minifySavedIcons(savedIcons, folderRef);
   await createSpriteSheet(folderRef);
 }

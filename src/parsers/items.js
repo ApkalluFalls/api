@@ -5,7 +5,7 @@ const fs = require('fs');
  * Parse item data from XIVAPI.
  */
 module.exports = async (data) => {
-  const config = require('../config/methods').items;
+  const config = require('../config/data').items;
   const parsed = {};
 
   data.forEach(entry => {
@@ -24,6 +24,7 @@ module.exports = async (data) => {
       description: {
         ...helper.getLocalisedNamesObject(entry, 'Description')
       },
+      icon: entry.IconID,
       iconPath: entry.Icon,
       id: entry.ID,
       isUntradable: entry.IsUntradable,

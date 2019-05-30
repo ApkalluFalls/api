@@ -2,11 +2,15 @@ const fs = require('fs');
 const APICrawler = require('./APICrawler');
 
 class API {
+  async crawl(config) {
+    return await new APICrawler(config, this.apiKey)[config.method]();
+  }
+
   async init(optionsIn) {
     const validOptions = [
+      'data',
       'minions',
-      'methods',
-      'icons',
+      'icons'
     ];
   
     const args = (
@@ -56,25 +60,32 @@ class API {
 
     const config = require(`./config/${name}`);
 
-    if (name === 'methods') {
-      console.time('Methods');
-      console.info('Starting parsing of obtain methods...');
+    if (name === 'data') {
+      console.time('Data');
+      console.info('Starting parsing of misc required data...');
 
-      const items = await new APICrawler(config.items, this.apiKey).search();
+      const items = await this.crawl(config.items);
       await require('./parsers/items')(items);
+
+      const gatheringPoints = await this.crawl(config.gathering.points);
+      const gatheringItems = await this.crawl(config.gathering.items);
+      await require('./parsers/gathering')(gatheringPoints, gatheringItems);
+
+      console.info('Finished parsing of misc required data.');
+      console.info('Starting parsing of obtain method data...');
       
-      const quests = await new APICrawler(config.quests, this.apiKey).search();
+      const quests = await this.crawl(config.quests);
       await require('./parsers/quests')(quests);
 
-      const recipes = await new APICrawler(config.recipes, this.apiKey).search();
+      const recipes = await this.crawl(config.recipes);
       await require('./parsers/recipes')(recipes);
 
       console.info('Finished parsing of obtain methods.');
-      console.timeEnd('Methods');
+      console.timeEnd('Data');
       return;
     }
 
-    const list = await new APICrawler(config.list, this.apiKey).fetch();
+    const list = await this.crawl(config.list);
   }
 }
 

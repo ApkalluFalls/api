@@ -10,6 +10,7 @@ module.exports = {
       'GamePatch.ID'
     ],
     isPaginated: true,
+    method: 'fetch',
     name: 'Minions'
   }
 };

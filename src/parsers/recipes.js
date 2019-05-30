@@ -5,7 +5,7 @@ const fs = require('fs');
  * Parse recipe data from XIVAPI.
  */
 module.exports = async (data) => {
-  const config = require('../config/methods').recipes;
+  const config = require('../config/data').recipes;
   const parsed = {};
 
   data.forEach(entry => {
@@ -34,6 +34,7 @@ module.exports = async (data) => {
           ...arr,
           {
             amount,
+            icon: ingredient.IconID,
             iconPath: ingredient.Icon,
             name: helper.getLocalisedNamesObject(ingredient, undefined, amount)
           }

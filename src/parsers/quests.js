@@ -6,7 +6,7 @@ const items = require('../../data/items.json');
  * Parse recipe data from XIVAPI.
  */
 module.exports = async (data) => {
-  const config = require('../config/methods').quests;
+  const config = require('../config/data').quests;
   const parsed = {};
 
   const allItems = Object.values(items).reduce((arr, itemGroup) => ([
@@ -53,9 +53,10 @@ module.exports = async (data) => {
       contentId: item.contentId,
       journal: {
         category: helper.getLocalisedNamesObject(JournalGenre.JournalCategory),
-        genre: helper.getLocalisedNamesObject(JournalGenre),
-        iconPath: JournalGenre.Icon
+        genre: helper.getLocalisedNamesObject(JournalGenre)
       },
+      icon: quest.IconID,
+      iconPath: quest.Icon,
       level: quest.ClassJobLevel0,
       name: helper.getLocalisedNamesObject(quest)
     })

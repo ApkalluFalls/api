@@ -18,6 +18,17 @@ const itemActionTypesQuery = (prefix) => [
   }
 ];
 
+const gatheringItemIDFields = [
+  'Item0',
+  'Item1',
+  'Item2',
+  'Item3',
+  'Item4',
+  'Item5',
+  'Item6',
+  'Item7'
+];
+
 const questItemIDFields = [
   'ItemReward00',
   'ItemReward01',
@@ -30,11 +41,54 @@ const questItemIDFields = [
 const recipeIngredientMax = 10;
 
 module.exports = {
+  gathering: {
+    items: {
+      /**
+       * For gathering items we need to extract the following fields:
+       * `ID` - Used to point to the relevant Gathering Point;
+       * `IsHidden` - Whether the item is hidden by default;
+       * `Item` - Used to point to the relevant Item.
+       */
+      columns: [
+        'ID',
+        'IsHidden',
+        'Item'
+      ],
+      isPaginated: true,
+      log: 'Gathering Items',
+      method: 'fetch',
+      name: 'gatheringItems'
+    },
+    points: {
+      /**
+       * For gathering points we need to extract the following fields:
+       * `GatheringPointBase` - The gathering point's...
+       *   `GatheringLevel` - Level;
+       *   `GatheringType` - Node details;
+       *   `Item{0...n}` - Gathering item reference (gathering item =/= item).
+       * `TerritoryType` - The world map's...
+       *   `PlaceName` - Region.
+       */
+      columns: [
+        'GatheringPointBase.GatheringLevel',
+        'GatheringPointBase.GatheringType',
+        ...gatheringItemIDFields.map(field => `GatheringPointBase.${field}`),
+        'TerritoryType.PlaceName',
+        'ID'
+      ],
+      gatheringItemIDFields,
+      isPaginated: true,
+      log: 'Gathering Points',
+      method: 'fetch',
+      name: 'gatheringPoints'
+    }
+  },
   items: {
     /**
      * For items we need to extract the following fields:
      * `Description_{lang}` - Localised description;
      * `Icon` - Icon path for the sprite sheet;
+     * `IconID` - Icon ID to pull from the sprite sheet;
      * `ID` - The item's ID;
      * `IsUntradable` - Whether the item is untradable;
      * `ItemAction` - Used to determine what the item can be used to obtain;
@@ -44,6 +98,7 @@ module.exports = {
     columns: [
       ...helper.localisedColumnProperty('Description'),
       'Icon',
+      'IconID',
       'ID',
       'IsUntradable',
       'ItemAction',
@@ -52,13 +107,15 @@ module.exports = {
     ],
     indexes: 'item',
     log: 'Items',
-    name: 'search',
+    method: 'search',
     query: itemActionTypesQuery()
   },
   quests: {
     /**
      * For quests we need to extract the following fields:
      * `ClassJobLevel0` - The quest's level;
+     * `Icon` - Icon path for the sprite sheet;
+     * `IconID` - Icon ID to pull from the sprite sheet;
      * `ItemReward{00...n}` - Item ID fields defined in `questItemIDFields`;
      * `JournalGenre` - The quest's Journal entry;
      * `Name_{lang}` - Localised name;
@@ -66,12 +123,14 @@ module.exports = {
     columns: [
       'ClassJobLevel0',
       ...questItemIDFields,
+      'Icon',
+      'IconID',
       'JournalGenre',
       ...helper.localisedColumnProperty('Name'),
     ],
     indexes: 'quest',
     log: 'Quests',
-    name: 'search',
+    method: 'search',
     query: questItemIDFields.map(idField => ({
       range: { [idField]: { gt: 0 }}
     })),
@@ -85,6 +144,7 @@ module.exports = {
      *   `Name_{lang}` - Localised name.
      * `ItemIngredient0...9` - Each indexed ingredient's...
      *   `Icon` - Icon path for the sprite sheet;
+     *   `IconID` - Icon ID to pull from the sprite sheet;
      *   `Name_{lang}` - Localised name;
      *   `Pural_{lang}` - Localised plural name.
      * `ItemResult` - The item which gets crafted's...
@@ -98,6 +158,7 @@ module.exports = {
         ...arr,
         `AmountIngredient${index}`,
         `ItemIngredient${index}.Icon`,
+        `ItemIngredient${index}.IconID`,
         ...helper.localisedColumnProperty(`ItemIngredient${index}.Name`),
         ...helper.localisedColumnProperty(`ItemIngredient${index}.Plural`)
       ]), [])),
@@ -109,7 +170,7 @@ module.exports = {
     indexes: 'recipe',
     log: 'Recipes',
     recipeIngredientMax,
-    name: 'search',
+    method: 'search',
     query: itemActionTypesQuery('ItemResult')
   }
 }

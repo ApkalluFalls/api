@@ -7,8 +7,10 @@ module.exports = class APICrawler {
       throw new Error('Config passed to APICrawler as first argument must be an object.');
     }
 
-    if (!config.name || typeof config.name !== 'string') {
-      throw new Error('Config object passed to APICrawler must specify a name string.')
+    if (config.method === 'fetch' && (!config.name || typeof config.name !== 'string')) {
+      throw new Error(
+        'Config object passed to APICrawler must specify a name string if method is fetch.'
+      );
     }
 
     if (!apiKey || typeof apiKey !== 'string') {
@@ -33,7 +35,14 @@ module.exports = class APICrawler {
       name
     } = this.config;
 
-    const apiPath = urls[name.toLowerCase()]();
+    const log = this.config.log || name;
+
+    if (page === 1) {
+      console.time(log);
+      console.info(`Starting ${isPaginated ? '' : 'un'}paginated fetch of ${log}.`);
+    }
+
+    const apiPath = urls[`${name.charAt(0).toLowerCase()}${name.substr(1)}`]();
 
     const queryStringParts = [
       `apiKey=${this.apiKey}`,
@@ -68,6 +77,8 @@ module.exports = class APICrawler {
 
     // If the resource is not paginated, return the data.
     if (!isPaginated || !data.Pagination) {
+      console.info(`Finished unpaginated fetch of ${log}.`);
+      console.timeEnd(log);
       return data;
     }
 
@@ -81,6 +92,13 @@ module.exports = class APICrawler {
     if (data.Pagination.Page !== data.Pagination.PageTotal) {
       return this.fetch(result, data.Pagination.PageNext);
     }
+
+    const totalCount = data.Pagination.ResultsTotal;
+
+    console.info(`Finished paginated fetch of ${log}; ${totalCount} ${(
+      totalCount === 1 ? 'entry' : 'entries'
+    )} found.`);
+    console.timeEnd(log);
 
     // If we're at the final page, return the result.
     return result;
@@ -99,7 +117,6 @@ module.exports = class APICrawler {
       log,
       query
     } = this.config;
-
 
     if (page === 1 && log) {
       console.time(log);
