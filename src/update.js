@@ -47,8 +47,20 @@ class API {
     const config = require(`./config/${name}`);
 
     if (name === 'methods') {
+      console.time('Methods');
+      console.info('Starting parsing of obtain methods...');
+
+      const items = await new APICrawler(config.items, this.apiKey).search();
+      await require('./parsers/items')(items);
+      
+      const quests = await new APICrawler(config.quests, this.apiKey).search();
+      await require('./parsers/quests')(quests);
+
       const recipes = await new APICrawler(config.recipes, this.apiKey).search();
-      await require('./parsers/recipes')(recipes, config);
+      await require('./parsers/recipes')(recipes);
+
+      console.info('Finished parsing of obtain methods.');
+      console.timeEnd('Methods');
       return;
     }
 

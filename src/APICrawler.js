@@ -1,5 +1,6 @@
 const fetch = require('node-fetch');
 const urls = require('./xivapi/urls');
+const fs = require('fs');
 
 module.exports = class APICrawler {
   constructor(config = {}, apiKey = '') {
@@ -95,8 +96,15 @@ module.exports = class APICrawler {
     const {
       columns,
       indexes,
+      log,
       query
     } = this.config;
+
+
+    if (page === 1 && log) {
+      console.time(log);
+      console.info(`Starting search for ${log}.`);
+    }
 
     const apiPath = urls.search();
 
@@ -106,17 +114,18 @@ module.exports = class APICrawler {
     ];
 
     const apiUrl = `${apiPath}?${queryStringParts.join('&')}`;
+    const size = 100;
 
     const data = await fetch(apiUrl, {
       body: JSON.stringify({
         body: {
-          from: 0,
+          from: (page * size) - 100,
           query: {
             bool: {
               should: query
             }
           },
-          size: 100
+          size
         },
         columns,
         indexes
@@ -145,6 +154,11 @@ module.exports = class APICrawler {
     // If we're not at the final page, continue fetching.
     if (data.Pagination.Page !== data.Pagination.PageTotal) {
       return this.search(result, data.Pagination.PageNext);
+    }
+
+    if (log) {
+      console.info(`Finished search for ${log}; ${data.Pagination.ResultsTotal} result(s) found.`);
+      console.timeEnd(log);
     }
 
     // If we're at the final page, return the result.

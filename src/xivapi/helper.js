@@ -13,23 +13,24 @@ module.exports = {
   /**
    * Pull either the singular or plural localised name depending on an amount.
    * @param {Object} obj - An object containing localised Name_{lang} and optional Plural_{lang} properties.
+   * @param {String} field - An optional override to the field name.
    * @param {Number} [amount] - An optional amount. If not equal to 1 will attempt to use Plural_{lang} property.
    */
-  getLocalisedNamesObject: (obj = {}, amount = 1) => {
+  getLocalisedNamesObject: (obj = {}, field = 'Name', amount = 1) => {
     if (amount === 1) {
       return {
-        de: obj.Name_de,
-        en: obj.Name_en,
-        fr: obj.Name_fr,
-        ja: obj.Name_ja
+        de: obj[`${field}_de`],
+        en: obj[`${field}_en`],
+        fr: obj[`${field}_fr`],
+        ja: obj[`${field}_ja`]
       };
     }
 
     return {
-      de: obj.Plural_de || obj.Name_de,
-      en: obj.Plural_en || obj.Name_en,
-      fr: obj.Plural_fr || obj.Name_fr,
-      ja: obj.Plural_ja || obj.Name_ja
+      de: obj.Plural_de || obj[`${field}_de`],
+      en: obj.Plural_en || obj[`${field}_en`],
+      fr: obj.Plural_fr || obj[`${field}_fr`],
+      ja: obj.Plural_ja || obj[`${field}_ja`]
     };
   },
 
@@ -39,40 +40,46 @@ module.exports = {
    * @param {Object} itemActions - An ItemActions object.
    */
   getContentFromItemActions: (itemActions = {}) => {
-    let type;
+    let contentType;
 
-    switch (itemActions.Type) {
+    const {
+      Data1,
+      Data2,
+      Type
+    } = itemActions;
+
+    switch (Type) {
       case 853:
-        type = 'minion';
+        contentType = 'minion';
         break;
 
       case 1013:
-        type = 'chocobo-barding';
+        contentType = 'chocobo-barding';
         break;
 
       case 1322:
-        type = 'mount';
+        contentType = 'mount';
         break;
 
       case 5845:
-        type = 'minion';
+        contentType = 'orchestrion-roll';
         break;
 
       default:
         break;
     }
 
-    if (!type) {
-      if (itemActions.type >= 5100 && itemActions.type <= 5300) {
-        type = 'emote';
+    if (!contentType) {
+      if (Data1 >= 5100 && Data1 <= 5300 && Data2 > 0) {
+        contentType = 'emote';
       } else {
-        type = 'unknown';
+        contentType = 'unknown';
       }
     }
 
     return {
       id: itemActions.ID,
-      type
+      type: contentType
     }
   }
 }
