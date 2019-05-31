@@ -6,6 +6,7 @@ const items = require('../../data/items.json');
  * Parse recipe data from XIVAPI.
  */
 module.exports = async (
+  eNPCResidents,
   gcScripShopItems
 ) => {
   const config = require('../config/data').shops;
@@ -16,6 +17,55 @@ module.exports = async (
     ...itemGroup
   ]), []);
 
+  const gil = currencies.find(currency => currency.id === 1);
+
+  // Gil shops...
+  eNPCResidents.reduce((arr, eNPCResident) => ([
+    ...arr,
+    ...eNPCResident.GilShop.reduce((arr2, entry) => ([
+      ...arr2,
+      ...entry.Items.reduce((arr3, gilShopItem) => {
+        const match = allItems.find(item => item.id === gilShopItem.ID);
+
+        if (!match) {
+          return arr3;
+        }
+
+        return [
+          ...arr3,
+          {
+            _eNPCResident: eNPCResident.ID,
+            item: {
+              ...match,
+              cost: gilShopItem.PriceMid
+            }
+          }
+        ]
+      }, [])
+    ]), [])
+  ]), []).forEach(entry => {
+    const {
+      _eNPCResident,
+      item
+    } = entry;
+
+    const {
+      contentId,
+      contentType
+    } = item;
+    
+    if (!parsed[contentType]) {
+      parsed[contentType] = [];
+    };
+
+    parsed[contentType].push({
+      contentId,
+      cost: item.cost,
+      currency: gil
+    })
+  });
+
+  // Grand company shops...
   gcScripShopItems.reduce((arr, gcScripShopItem) => {
     const match = allItems.find(item => item.id === gcScripShopItem.ItemTargetID);
 
@@ -45,7 +95,6 @@ module.exports = async (
     }
 
     let currency;
-    let grandCompany;
 
     const {
       ID

@@ -1,6 +1,7 @@
 const xivapiBase = 'https://xivapi.com';
 
 module.exports = {
+  eNPCResident: () => `${xivapiBase}/enpcresident`,
   fishingSpots: () => `${xivapiBase}/fishingspot`,
   gatheringItems: () => `${xivapiBase}/gatheringitem`,
   gatheringPoints: () => `${xivapiBase}/gatheringpoint`,

@@ -61,48 +61,50 @@ class API {
     const config = require(`./config/${name}`);
 
     if (name === 'data') {
-      console.time('Data');
-      console.info('Starting parsing of misc required data...');
+      // console.time('Data');
+      // console.info('Starting parsing of misc required data...');
 
-      // Items.
-      const items = await this.crawl(config.items);
-      await require('./parsers/items')(items);
+      // // Items.
+      // const items = await this.crawl(config.items);
+      // await require('./parsers/items')(items);
 
-      // Currencies.
-      const currencies = await this.crawl(config.currencies);
-      await require('./parsers/currencies')(currencies);
+      // // Currencies.
+      // const currencies = await this.crawl(config.currencies);
+      // await require('./parsers/currencies')(currencies);
 
-      // Gathering.
-      const fishingSpots = await this.crawl(config.gathering.fishingSpots);
-      const gatheringItems = await this.crawl(config.gathering.items);
-      const gatheringPoints = await this.crawl(config.gathering.points);
-      const gatheringTypes = await this.crawl(config.gathering.types);
-      const spearFishingItems = await this.crawl(config.gathering.spearFishingItems);
-      await require('./parsers/gathering')(
-        gatheringPoints,
-        gatheringItems,
-        gatheringTypes,
-        fishingSpots,
-        spearFishingItems
-      );
+      // // Gathering.
+      // const fishingSpots = await this.crawl(config.gathering.fishingSpots);
+      // const gatheringItems = await this.crawl(config.gathering.items);
+      // const gatheringPoints = await this.crawl(config.gathering.points);
+      // const gatheringTypes = await this.crawl(config.gathering.types);
+      // const spearFishingItems = await this.crawl(config.gathering.spearFishingItems);
+      // await require('./parsers/gathering')(
+      //   gatheringPoints,
+      //   gatheringItems,
+      //   gatheringTypes,
+      //   fishingSpots,
+      //   spearFishingItems
+      // );
 
-      // Shops.
+      // // Shops.
+      const eNPCResidents = await this.crawl(config.shops.eNPCResident);
       const gcScripShopItems = await this.crawl(config.shops.gcScripShopItem);
       await require ('./parsers/shops')(
+        eNPCResidents,
         gcScripShopItems
       );
 
-      console.info('Finished parsing of misc required data.');
-      console.info('Starting parsing of obtain method data...');
+      // console.info('Finished parsing of misc required data.');
+      // console.info('Starting parsing of obtain method data...');
       
-      const quests = await this.crawl(config.quests);
-      await require('./parsers/quests')(quests);
+      // const quests = await this.crawl(config.quests);
+      // await require('./parsers/quests')(quests);
 
-      const recipes = await this.crawl(config.recipes);
-      await require('./parsers/recipes')(recipes);
+      // const recipes = await this.crawl(config.recipes);
+      // await require('./parsers/recipes')(recipes);
 
-      console.info('Finished parsing of obtain methods.');
-      console.timeEnd('Data');
+      // console.info('Finished parsing of obtain methods.');
+      // console.timeEnd('Data');
       return;
     }
 

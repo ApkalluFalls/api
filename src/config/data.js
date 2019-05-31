@@ -272,6 +272,37 @@ module.exports = {
     query: itemActionTypesQuery('ItemResult')
   },
   shops: {
+    eNPCResident: {
+      /**
+       * For ENPCResidents we need to extract the following fields:
+       * `GilShop.*` - An array of shops attached to the NPC's...
+       *   `Name_{lang}` - Localised name;
+       *   `ID` - Shop identifier;
+       *   `Items` - The items the shop sells;
+       * `ID` - The ID of the NPC;
+       * `Name_{lang}` - Localised name.
+       */
+      columns: [
+        ...helper.localisedColumnProperty(`GilShop.*.Name`),
+        'GilShop.*.ID',
+        'GilShop.*.Items',
+        'ID',
+        ...helper.localisedColumnProperty(`Name`),
+      ],
+      /**
+       * Filter out any data sets which:
+       * 1. Have no GilShops.
+       */
+      filter: (data) => {
+        return data.filter(eNPCResident => eNPCResident.GilShop.length);
+      },
+      isPaginated: true,
+      // Needed as Special Shops have a lot of data.
+      limit: 100,
+      log: 'ENPCResidents (for Shops)',
+      method: 'fetch',
+      name: 'eNPCResident'
+    },
     gcScripShopItem: {
       /**
        * For GC scrip shop items we need to extract the following fields...

@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const Progress = require('cli-progress');
 const urls = require('./xivapi/urls');
 
 module.exports = class APICrawler {
@@ -25,19 +26,22 @@ module.exports = class APICrawler {
   /**
    * Fetch data from the API and return it to the callee.
    * This function is recursive if the passed-in config's `isPaginated` flag is enabled.
-   * @param {Array} [result] - An optional results array.
-   * @param {Number} [page] - An optional page offset. 
+   * @param {Array} [resultIn] - An optional results array.
+   * @param {Number} [pageIn] - An optional page offset. 
+   * @param {Progress} [progressBarIn] - A progress bar reference if the result set is paginated.
    */
-  async fetch(result = [], page = 1) {
+  async fetch(resultIn = [], pageIn = 1, progressBarIn = undefined) {
     const {
       columns,
+      filter,
       isPaginated,
+      limit,
       name
     } = this.config;
 
     const log = this.config.log || name;
 
-    if (page === 1) {
+    if (pageIn === 1) {
       console.time(log);
       console.info(`Starting ${isPaginated ? '' : 'un'}paginated fetch of ${log}.`);
     }
@@ -46,7 +50,7 @@ module.exports = class APICrawler {
 
     const queryStringParts = [
       `apiKey=${this.apiKey}`,
-      'limit=3000'
+      `limit=${limit || 3000}`
     ];
 
     if (Array.isArray(columns) && columns.length) {
@@ -54,26 +58,35 @@ module.exports = class APICrawler {
     }
 
     if (isPaginated) {
-      queryStringParts.push(`page=${page}`);
+      queryStringParts.push(`page=${pageIn}`);
     }
 
     const apiUrl = `${apiPath}?${queryStringParts.join('&')}`;
+
+    const handleFetchError = (error) => {
+      console.warn(error);
+    
+      if (this.errors > 10) {
+        throw new Error(`XIVDB API error: ${error}.`);
+      }
+
+      ++this.errors;
+      console.info(`API retry attempt ${this.errors}.`);
+      return this.fetch(resultIn, pageIn, progressBarIn);
+    }
 
     const data = await fetch(apiUrl, {
       method: 'GET',
       mode: 'cors'
     })
       .then(response => response.json())
-      .catch(e => {
-        console.warn(e);
-  
-        if (this.errors > 10)
-          throw new Error(`XIVDB API error: ${e}.`);
-  
-        ++this.errors;
-        console.info(`API retry attempt ${this.errors}.`);
-        callApi(apiPath, columns, callback, tag);
-      });
+      .catch(e => handleFetchError);
+
+    if (data.Error) {
+      return handleFetchError(data.Message);
+    } else {
+      this.errors = 0;
+    }
 
     // If the resource is not paginated, return the data.
     if (!isPaginated || !data.Pagination) {
@@ -82,18 +95,46 @@ module.exports = class APICrawler {
       return data;
     }
 
+    const {
+      PageNext,
+      ResultsTotal
+    } = data.Pagination;
+
+    let progressBar = progressBarIn;
+    const processedRecordsCount = data.Pagination.ResultsPerPage * pageIn;
+
+    if (pageIn === 1) {
+      progressBar = new Progress.Bar({}, Progress.Presets.shades_grey);
+      progressBar.start(ResultsTotal, processedRecordsCount);
+    } else {
+      progressBar.update(
+        processedRecordsCount > ResultsTotal
+          ? ResultsTotal
+          : processedRecordsCount
+      );
+    }
+
+    let entries = data.Results;
+
+    // Filter the data if a filter callback was provided.
+    if (typeof filter === 'function') {
+      entries = filter(entries);
+    }
+
     // Extend the result array with the new data.
-    result = [
-      ...result,
-      ...data.Results
+    const result = [
+      ...resultIn,
+      ...entries
     ];
 
     // If we're not at the final page, continue fetching.
-    if (data.Pagination.Page !== data.Pagination.PageTotal) {
-      return this.fetch(result, data.Pagination.PageNext);
+    if (PageNext && PageNext !== 1) {
+      return this.fetch(result, PageNext, progressBar);
     }
 
-    const totalCount = data.Pagination.ResultsTotal;
+    const totalCount = result.length;
+
+    progressBar.stop();
 
     console.info(`Finished paginated fetch of ${log}; ${totalCount} ${(
       totalCount === 1 ? 'entry' : 'entries'
