@@ -67,8 +67,8 @@ module.exports = {
       'ID',
       'Icon',
       'IconID',
-      ...helper.localisedColumnProperty(`Item.Name`),
-      ...helper.localisedColumnProperty(`Item.Plural`)
+      ...helper.localisedColumnProperty(`Name`),
+      ...helper.localisedColumnProperty(`Plural`)
     ],
     indexes: 'item',
     isPaginated: true,
