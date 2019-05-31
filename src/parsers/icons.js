@@ -11,6 +11,7 @@ const Spritesmith = require('spritesmith');
 
 module.exports = async () => {
   await parseCraftingItemIcons();
+  await parseCurrencyIcons();
   await parseGatheringIcons();
   await parseItemIcons();
   await parseQuestJournalIcons();
@@ -211,6 +212,31 @@ async function parseCraftingItemIcons() {
 
   await processIconGroup(paths, 'craft-item');
   console.timeEnd('CraftingItemIcons');
+}
+
+/**
+ * Parse and create sprite sheet for data/currency.json entries.
+ */
+async function parseCurrencyIcons() {
+  console.time('CurrencyIcons');
+  const currencies = require('../../data/currencies.json');
+
+  const paths = [];
+
+  currencies.forEach(currency => {
+    const {
+      iconPath
+    } = currency;
+
+    if (paths.indexOf(iconPath) !== -1) {
+      return;
+    }
+
+    paths.push(iconPath);
+  });
+
+  await processIconGroup(paths, 'currency');
+  console.timeEnd('CurrencyIcons');
 }
 
 /**

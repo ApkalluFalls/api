@@ -115,7 +115,8 @@ module.exports = class APICrawler {
       columns,
       indexes,
       log,
-      query
+      query,
+      queryType
     } = this.config;
 
     if (page === 1 && log) {
@@ -139,7 +140,7 @@ module.exports = class APICrawler {
           from: (page * size) - 100,
           query: {
             bool: {
-              should: query
+              [queryType || 'should']: query
             }
           },
           size

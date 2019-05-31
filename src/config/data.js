@@ -54,8 +54,45 @@ const questItemIDFields = [
 const recipeIngredientMax = 10;
 
 module.exports = {
+  currencies: {
+    /**
+     * For currencies we need to extract the following fields...
+     * `ID` - The currency's ID;
+     * `Icon` - Icon path for the sprite sheet;
+     * `IconID` - Icon ID to pull from the sprite sheet;
+     * `Name_{lang}` - Localised name;
+     * `Pural_{lang}` - Localised plural name.
+     */
+    columns: [
+      'ID',
+      'Icon',
+      'IconID',
+      ...helper.localisedColumnProperty(`Item.Name`),
+      ...helper.localisedColumnProperty(`Item.Plural`)
+    ],
+    indexes: 'item',
+    isPaginated: true,
+    log: 'Currencies',
+    method: 'search',
+    query: [{
+      "range": {
+        "IconID": {
+          "gte": 65000,
+          "lt": 66000
+        }
+      }
+    }],
+    queryType: 'must'
+  },
   gathering: {
     fishingSpots: {
+      /**
+       * For fishing spots we need to extract the following fields:
+       * `GatheringLevel` - The fishing node's level;
+       * `Item{0...n}TargetID` - Items attached to the fishing node;
+       * `TerritoryType` - The world map's...
+       *   `PlaceName` - Region.
+       */
       columns: [
         'GatheringLevel',
         ...fishingSpotItemIDFields,
@@ -108,11 +145,17 @@ module.exports = {
       name: 'gatheringPoints'
     },
     spearFishingItems: {
+      /**
+       * For spear fishing items we need to extract the following fields:
+       * `GatheringItemLevel` - The fishing node's level object;
+       * `IsVisible` - Whether the node is visible by default;
+       * `ItemTargetID` - The item's ID used to link the result to the items data set;
+       * `TerritoryType` - The world map's...
+       *   `PlaceName` - Region.
+       */
       columns: [
         'GatheringItemLevel',
-        'ID',
         'IsVisible',
-        'Item.ItemAction',
         'ItemTargetID',
         'TerritoryType.PlaceName'
       ],

@@ -64,9 +64,15 @@ class API {
       console.time('Data');
       console.info('Starting parsing of misc required data...');
 
+      // Items.
       const items = await this.crawl(config.items);
       await require('./parsers/items')(items);
 
+      // Currencies.
+      const currencies = await this.crawl(config.currencies);
+      await require('./parsers/currencies')(currencies);
+
+      // Gathering.
       const fishingSpots = await this.crawl(config.gathering.fishingSpots);
       const gatheringItems = await this.crawl(config.gathering.items);
       const gatheringPoints = await this.crawl(config.gathering.points);
