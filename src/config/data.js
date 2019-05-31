@@ -18,6 +18,19 @@ const itemActionTypesQuery = (prefix) => [
   }
 ];
 
+const fishingSpotItemIDFields = [
+  'Item0TargetID',
+  'Item1TargetID',
+  'Item2TargetID',
+  'Item3TargetID',
+  'Item4TargetID',
+  'Item5TargetID',
+  'Item6TargetID',
+  'Item7TargetID',
+  'Item8TargetID',
+  'Item9TargetID'
+];
+
 const gatheringItemIDFields = [
   'Item0',
   'Item1',
@@ -42,6 +55,18 @@ const recipeIngredientMax = 10;
 
 module.exports = {
   gathering: {
+    fishingSpots: {
+      columns: [
+        'GatheringLevel',
+        ...fishingSpotItemIDFields,
+        'TerritoryType.PlaceName'
+      ],
+      fishingSpotItemIDFields,
+      isPaginated: true,
+      log: 'Fishing Spots',
+      method: 'fetch',
+      name: 'fishingSpots'
+    },
     items: {
       /**
        * For gathering items we need to extract the following fields:
@@ -81,6 +106,36 @@ module.exports = {
       log: 'Gathering Points',
       method: 'fetch',
       name: 'gatheringPoints'
+    },
+    spearFishingItems: {
+      columns: [
+        'GatheringItemLevel',
+        'ID',
+        'IsVisible',
+        'Item.ItemAction',
+        'ItemTargetID',
+        'TerritoryType.PlaceName'
+      ],
+      isPaginated: true,
+      log: 'Spear Fishing Items',
+      method: 'fetch',
+      name: 'spearfishingItems'
+    },
+    types: {
+      /**
+       * For gathering types we fetch all data for the sake of fishing entries.
+       * Fishing is only listed as spear fishing (ID: 4) and it's only translated into Japanese, so
+       * the parser needs to work to rectify it.
+       */
+      columns: [
+        'IconMain',
+        'IconMainID',
+        'ID'
+      ],
+      isPaginated: true,
+      log: 'Gathering Types (for Fishing)',
+      method: 'fetch',
+      name: 'gatheringTypes'
     }
   },
   items: {

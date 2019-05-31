@@ -5,7 +5,13 @@ const items = require('../../data/items.json');
 /**
  * Parse gathering data from XIVAPI.
  */
-module.exports = async (gatheringPoints, gatheringItems) => {
+module.exports = async (
+  gatheringPoints,
+  gatheringItems,
+  gatheringTypes,
+  fishingSpots,
+  spearFishingItems
+) => {
   const config = require('../config/data').gathering;
   const parsed = {};
 
@@ -14,6 +20,7 @@ module.exports = async (gatheringPoints, gatheringItems) => {
     ...itemGroup
   ]), []);
 
+  // Botany and mining...
   gatheringItems.reduce((arr, gatheringItem) => {
     const match = allItems.find(item => item.id === gatheringItem.Item);
 
@@ -70,6 +77,116 @@ module.exports = async (gatheringPoints, gatheringItems) => {
         },
         location: helper.getLocalisedNamesObject(gatheringPoint.TerritoryType.PlaceName)
       })
+    });
+  });
+
+  const fishingGatheringType = gatheringTypes.find(gatheringType => gatheringType.ID === 4);
+
+  // Fishing...
+  fishingSpots.reduce((arr, fishingSpot) => {
+    let items = [];
+
+    config.fishingSpots.fishingSpotItemIDFields.forEach(key => {
+      items = [
+        ...items,
+        ...allItems.filter(item => item.id === fishingSpot[key])
+      ]
+    });
+
+    return [
+      ...arr,
+      ...items.map(item => ({
+        fishingSpot,
+        item
+      }))
+    ];
+  }, []).forEach(entry => {
+    const {
+      fishingSpot,
+      item
+    } = entry;
+
+    const {
+      contentType
+    } = item;
+    
+    if (!parsed[contentType]) {
+      parsed[contentType] = [];
+    }
+
+    parsed[contentType].push({
+      contentId: item.contentId,
+      icon: fishingGatheringType.IconMainID,
+      iconPath: fishingGatheringType.IconMain,
+      job: {
+        level: fishingSpot.GatheringLevel,
+        /**
+         * All translations are in Japanese for the Name entry for the SpearfishingItem data set.
+         * Because of this we need to manually provide the translations and move away from Spear
+         * Fishing.
+         */
+        name: {
+          de: 'Angeln',
+          en: 'Fishing',
+          fr: 'Pêche',
+          ja: '釣り'
+        }
+      },
+      location: helper.getLocalisedNamesObject(fishingSpot.TerritoryType.PlaceName)
+    });
+  })
+
+  // Spear fishing...
+  spearFishingItems.reduce((arr, spearFishingItem) => {
+    const match = allItems.find(item => item.id === spearFishingItem.ItemTargetID);
+
+    if (!match) {
+      return arr;
+    }
+
+    return [
+      ...arr, {
+        item: match,
+        spearFishingItem
+      }
+    ];
+  }, []).forEach(entry => {
+    const {
+      spearFishingItem,
+      item
+    } = entry;
+
+    const {
+      contentType
+    } = item;
+
+    const {
+      GatheringItemLevel
+    } = spearFishingItem;
+    
+    if (!parsed[contentType]) {
+      parsed[contentType] = [];
+    }
+
+    parsed[contentType].push({
+      contentId: item.contentId,
+      icon: fishingGatheringType.IconMainID,
+      iconPath: fishingGatheringType.IconMain,
+      job: {
+        level: GatheringItemLevel.GatheringItemLevel,
+        /**
+         * All translations are in Japanese for the Name entry for the SpearfishingItem data set.
+         * Because of this we need to manually provide the translations.
+         */
+        name: {
+          de: 'Speerfischen',
+          en: 'Spear fishing',
+          fr: 'Pêche au harpon',
+          ja: '銛'
+        },
+        stars: GatheringItemLevel.Stars
+      },
+      location: helper.getLocalisedNamesObject(spearFishingItem.TerritoryType.PlaceName)
     });
   });
 

@@ -67,9 +67,18 @@ class API {
       const items = await this.crawl(config.items);
       await require('./parsers/items')(items);
 
-      const gatheringPoints = await this.crawl(config.gathering.points);
+      const fishingSpots = await this.crawl(config.gathering.fishingSpots);
       const gatheringItems = await this.crawl(config.gathering.items);
-      await require('./parsers/gathering')(gatheringPoints, gatheringItems);
+      const gatheringPoints = await this.crawl(config.gathering.points);
+      const gatheringTypes = await this.crawl(config.gathering.types);
+      const spearFishingItems = await this.crawl(config.gathering.spearFishingItems);
+      await require('./parsers/gathering')(
+        gatheringPoints,
+        gatheringItems,
+        gatheringTypes,
+        fishingSpots,
+        spearFishingItems
+      );
 
       console.info('Finished parsing of misc required data.');
       console.info('Starting parsing of obtain method data...');
