@@ -270,5 +270,27 @@ module.exports = {
     recipeIngredientMax,
     method: 'search',
     query: itemActionTypesQuery('ItemResult')
+  },
+  shops: {
+    gcScripShopItem: {
+      /**
+       * For GC scrip shop items we need to extract the following fields...
+       * `CostGCSeals` - How much the item costs to buy;
+       * `ID` - The resource's ID, used for error handling;
+       * `ItemTargetID` - The item's ID used to link the result to the items data set;
+       * `RequiredGrandCompanyRank` - The grand company rank's...
+       *   `Tier` - Level.
+       */
+      columns: [
+        'CostGCSeals',
+        'ID',
+        'ItemTargetID',
+        'RequiredGrandCompanyRank.Tier'
+      ],
+      isPaginated: true,
+      log: 'Grand Company Shop Items',
+      method: 'fetch',
+      name: 'gcScripShopItem'
+    }
   }
 }

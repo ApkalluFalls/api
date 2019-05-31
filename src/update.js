@@ -86,6 +86,12 @@ class API {
         spearFishingItems
       );
 
+      // Shops.
+      const gcScripShopItems = await this.crawl(config.shops.gcScripShopItem);
+      await require ('./parsers/shops')(
+        gcScripShopItems
+      );
+
       console.info('Finished parsing of misc required data.');
       console.info('Starting parsing of obtain method data...');
       

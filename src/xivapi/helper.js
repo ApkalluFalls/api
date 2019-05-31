@@ -43,6 +43,7 @@ module.exports = {
     let contentType;
 
     const {
+      Data0,
       Data1,
       Data2,
       Type
@@ -78,7 +79,7 @@ module.exports = {
     }
 
     return {
-      id: itemActions.ID,
+      id: Data0,
       type: contentType
     }
   }
