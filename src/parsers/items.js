@@ -4,7 +4,7 @@ const fs = require('fs');
 /**
  * Parse item data from XIVAPI.
  */
-module.exports = async (data) => {
+module.exports = (data) => {
   const config = require('../config/data').items;
   const parsed = {};
 

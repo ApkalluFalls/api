@@ -4,7 +4,7 @@ const fs = require('fs');
 /**
  * Parse recipe data from XIVAPI.
  */
-module.exports = async (data) => {
+module.exports = (data) => {
   const config = require('../config/data').recipes;
   const parsed = {};
 

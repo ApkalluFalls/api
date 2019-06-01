@@ -5,7 +5,7 @@ const items = require('../../data/items.json');
 /**
  * Parse gathering data from XIVAPI.
  */
-module.exports = async (
+module.exports = (
   gatheringPoints,
   gatheringItems,
   gatheringTypes,

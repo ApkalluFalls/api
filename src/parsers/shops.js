@@ -1,11 +1,12 @@
 const fs = require('fs');
 const currencies = require('../../data/currencies.json');
+const currencyParser = require('../parsers/currencies');
 const items = require('../../data/items.json');
 
 /**
  * Parse recipe data from XIVAPI.
  */
-module.exports = async (
+module.exports = (
   eNPCResidents,
   gcScripShopItems
 ) => {
@@ -229,8 +230,9 @@ function addNewCustomCurrencyItem(item) {
   // Ensure we have all the columns from the currencies config extracted from the item.
   columns.forEach(key => rawCurrency[key] = item[key]);
 
-  // Send the raw currency data through the parser.
-  const newCurrency = require('../parsers/currencies')([parsed], true)[0];
+  // Send the raw currency data through the parser and extract the parsed data from the output.
+  const newCurrency = (currencyParser([rawCurrency], true))[0];
+  console.info(`Extended Currencies object to include ${newCurrency.Name_en}.`);
 
   // Extend the currencies array.
   currencies.push(newCurrency);

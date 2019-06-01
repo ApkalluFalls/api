@@ -66,11 +66,11 @@ class API {
 
       // Items.
       const items = await this.crawl(config.items);
-      await require('./parsers/items')(items);
+      require('./parsers/items')(items);
 
       // Currencies.
       const currencies = await this.crawl(config.currencies);
-      await require('./parsers/currencies')(currencies);
+      require('./parsers/currencies')(currencies);
 
       // Gathering.
       const fishingSpots = await this.crawl(config.gathering.fishingSpots);
@@ -78,7 +78,7 @@ class API {
       const gatheringPoints = await this.crawl(config.gathering.points);
       const gatheringTypes = await this.crawl(config.gathering.types);
       const spearFishingItems = await this.crawl(config.gathering.spearFishingItems);
-      await require('./parsers/gathering')(
+      require('./parsers/gathering')(
         gatheringPoints,
         gatheringItems,
         gatheringTypes,
@@ -89,7 +89,7 @@ class API {
       // // Shops.
       const eNPCResidents = await this.crawl(config.shops.eNPCResident);
       const gcScripShopItems = await this.crawl(config.shops.gcScripShopItem);
-      await require ('./parsers/shops')(
+      require ('./parsers/shops')(
         eNPCResidents,
         gcScripShopItems
       );
@@ -98,10 +98,10 @@ class API {
       console.info('Starting parsing of obtain method data...');
       
       const quests = await this.crawl(config.quests);
-      await require('./parsers/quests')(quests);
+      require('./parsers/quests')(quests);
 
       const recipes = await this.crawl(config.recipes);
-      await require('./parsers/recipes')(recipes);
+      require('./parsers/recipes')(recipes);
 
       console.info('Finished parsing of obtain methods.');
       console.timeEnd('Data');

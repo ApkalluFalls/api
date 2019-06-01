@@ -6,7 +6,7 @@ const fs = require('fs');
  * @param {Array} data - Currency data from the API.
  * @param {Boolean} [isExternalParse] - Whether the parser should return the data instead of creating a file.
  */
-module.exports = async (data, isExternalParse) => {
+module.exports = (data, isExternalParse) => {
   const config = require('../config/data').currencies;
 
   const parsed = data.map(entry => ({

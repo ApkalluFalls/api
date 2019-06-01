@@ -5,7 +5,7 @@ const items = require('../../data/items.json');
 /**
  * Parse recipe data from XIVAPI.
  */
-module.exports = async (data) => {
+module.exports = (data) => {
   const config = require('../config/data').quests;
   const parsed = {};
 

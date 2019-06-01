@@ -68,16 +68,16 @@ module.exports = {
   currencies: {
     /**
      * For currencies we need to extract the following fields...
-     * `ID` - The currency's ID;
      * `Icon` - Icon path for the sprite sheet;
      * `IconID` - Icon ID to pull from the sprite sheet;
+     * `ID` - The currency's ID;
      * `Name_{lang}` - Localised name;
      * `Pural_{lang}` - Localised plural name.
      */
     columns: [
-      'ID',
       'Icon',
       'IconID',
+      'ID',
       ...helper.localisedColumnProperty(`Name`),
       ...helper.localisedColumnProperty(`Plural`)
     ],
