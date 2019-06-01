@@ -10,6 +10,7 @@ module.exports = async (
   gcScripShopItems
 ) => {
   const config = require('../config/data').shops;
+  const initialCurrenciesLength = currencies.length;
   const parsed = {};
 
   const allItems = Object.values(items).reduce((arr, itemGroup) => ([
@@ -20,7 +21,9 @@ module.exports = async (
   const gil = currencies.find(currency => currency.id === 1);
 
   // Gil shops...
-  eNPCResidents.reduce((arr, eNPCResident) => ([
+  eNPCResidents.filter(
+    eNPCResident => eNPCResident.GilShop.length
+  ).reduce((arr, eNPCResident) => ([
     ...arr,
     ...eNPCResident.GilShop.reduce((arr2, entry) => ([
       ...arr2,
@@ -61,7 +64,71 @@ module.exports = async (
     parsed[contentType].push({
       contentId,
       cost: item.cost,
-      currency: gil
+      currency: gil,
+      npc: _eNPCResident
+    })
+  });
+
+  const {
+    specialShopItemIndexes
+  } = config.eNPCResident;
+
+  // Special shops...
+  eNPCResidents.filter(
+    eNPCResident => eNPCResident.SpecialShop.length
+  ).reduce((arr, eNPCResident) => ([
+    ...arr,
+    ...eNPCResident.SpecialShop.reduce((arr2, specialShop) => ([
+      ...arr2,
+      ...specialShopItemIndexes.reduce((arr3, specialShopItemIndex) => {
+        const match = allItems.find(
+          item => item.id === specialShop[`ItemReceive${specialShopItemIndex}TargetID`]
+        );
+
+        if (!match) {
+          return arr3;
+        }
+
+        const specialShopItemCurrency = specialShop[`ItemCost${specialShopItemIndex}TargetID`];
+        let currency = currencies.find(currency => currency.id === specialShopItemCurrency);
+
+        // If the currency is missing it means the currency object needs extending.
+        if (!currency) {
+          currency = addNewCustomCurrencyItem(specialShop[`ItemCost${specialShopItemIndex}`]);
+        }
+
+        return [
+          ...arr3, {
+            _eNPCResident: eNPCResident.ID,
+            _specialShop: specialShop.ID,
+            cost: specialShop[`CountCost${specialShopItemIndex}`],
+            currency,
+            item: match
+          }
+        ]
+      }, [])
+    ]), [])
+  ]), []).forEach(entry => {
+    const {
+      _eNPCResident,
+      currency,
+      item
+    } = entry;
+
+    const {
+      contentId,
+      contentType
+    } = item;
+    
+    if (!parsed[contentType]) {
+      parsed[contentType] = [];
+    };
+
+    parsed[contentType].push({
+      contentId,
+      cost: item.cost,
+      currency,
+      npc: _eNPCResident
     })
   });
 
@@ -128,6 +195,17 @@ module.exports = async (
     })
   });
 
+  // If there are new currencies, overwrite the currencies JSON file.
+  const newCurrenciesCount = currencies.length - initialCurrenciesLength;
+  if (newCurrenciesCount > 0) {
+    fs.writeFileSync(
+      '../data/currencies.json',
+      JSON.stringify(currencies),
+      'utf8',
+      () => console.info(`Updated Currencies data to include ${newCurrenciesCount} new items.`)
+    );
+  }
+
   fs.writeFileSync(
     '../data/methods/shops.json',
     JSON.stringify(parsed),
@@ -135,3 +213,27 @@ module.exports = async (
     () => console.info(`Shop data parsed.`)
   );
 };
+
+/**
+ * Extend the currencies object with a new item and return that item after processing.
+ * @param {Object} item - The item object to add to the currencies object.
+ * @returns {Object} - The new currency item.
+ */
+function addNewCustomCurrencyItem(item) {
+  const {
+    columns
+  } = require('../config/data').currencies;
+
+  const rawCurrency = {};
+
+  // Ensure we have all the columns from the currencies config extracted from the item.
+  columns.forEach(key => rawCurrency[key] = item[key]);
+
+  // Send the raw currency data through the parser.
+  const newCurrency = require('../parsers/currencies')([parsed], true)[0];
+
+  // Extend the currencies array.
+  currencies.push(newCurrency);
+
+  return newCurrency;
+}

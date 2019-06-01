@@ -97,21 +97,22 @@ module.exports = class APICrawler {
 
     const {
       PageNext,
+      ResultsPerPage,
       ResultsTotal
     } = data.Pagination;
 
     let progressBar = progressBarIn;
-    const processedRecordsCount = data.Pagination.ResultsPerPage * pageIn;
+    const processedRecordsCount = (
+      ResultsPerPage * pageIn > ResultsTotal
+        ? ResultsTotal
+        : ResultsPerPage * pageIn
+    );
 
     if (pageIn === 1) {
       progressBar = new Progress.Bar({}, Progress.Presets.shades_grey);
       progressBar.start(ResultsTotal, processedRecordsCount);
     } else {
-      progressBar.update(
-        processedRecordsCount > ResultsTotal
-          ? ResultsTotal
-          : processedRecordsCount
-      );
+      progressBar.update(processedRecordsCount);
     }
 
     let entries = data.Results;

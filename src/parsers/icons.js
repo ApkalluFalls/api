@@ -119,6 +119,8 @@ async function fetchIconsFromPaths(paths = [], folderRef = '') {
   for (const [index, path] of paths.entries()) {
     await new Promise(resolve => {
       const apiPath = `https://xivapi.com${path}`;
+
+      console.info(path);
   
       const savePath = `../icons-raw/${folderRef}/${(
         path.replace(/^.*\/(\d+)\.png$/, (_, group) => {
