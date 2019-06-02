@@ -183,7 +183,9 @@ module.exports = class APICrawler {
 
     console.info(`Finished paginated fetch of ${log}; ${totalCount} ${(
       totalCount === 1 ? 'entry' : 'entries'
-    )} found after ${this.apiCallCount} API calls.`);
+    )} found after ${this.apiCallCount} API ${(
+      this.apiCallCount === 1 ? 'call' : 'calls'
+    )}.`);
     console.timeEnd(log);
 
     // If we're at the final page, return the result.

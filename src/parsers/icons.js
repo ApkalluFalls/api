@@ -1,4 +1,3 @@
-const fetch = require('node-fetch');
 const fs = require('fs');
 const imagemin = require('imagemin');
 const imageminPngquant = require('imagemin-pngquant');
@@ -10,6 +9,7 @@ const request = require('request');
 const Spritesmith = require('spritesmith');
 
 module.exports = async () => {
+  await parseContentIcons('minions');
   await parseCraftingItemIcons();
   await parseCurrencyIcons();
   await parseGatheringIcons();
@@ -117,7 +117,7 @@ async function fetchIconsFromPaths(paths = [], folderRef = '') {
   progressBar.start(paths.length, 0);
 
   for (const [index, path] of paths.entries()) {
-    await new Promise(resolve => {
+    const iconData = await new Promise(resolve => {
       const apiPath = `https://xivapi.com${path}`;
   
       const savePath = `../icons-raw/${folderRef}/${(
@@ -133,11 +133,42 @@ async function fetchIconsFromPaths(paths = [], folderRef = '') {
         resolve();
         return;
       }
-    
-      request.get(apiPath, () => {
-        savedImagePaths.push(savePath);
-        resolve();
-      }).pipe(fs.createWriteStream(savePath));
+
+      let errors = 0;
+
+      const getImage = (apiPath, savePath) => {
+        const req = request.get(apiPath).on('response', response => {
+          if (response.headers['content-type'] !== 'image/png') {
+            if (++errors === 5) {
+              console.warn(`\nFailed to locate icon ${apiPath} after 5 attempts. Skipping.`);
+              resolve();
+              return;
+            }
+
+            console.warn(
+              `\nFound ${(
+                data.headers['content-type']
+              )} instead of image/png for ${apiPath}. Trying again...`
+            );
+            getImage(apiPath, savePath);
+            return;
+          }
+
+          const file = fs.createWriteStream(savePath);
+          req.pipe(file);
+          file.on('finish', () => {
+            savedImagePaths.push(savePath);
+            file.close(resolve);
+          })
+        }).on('error', (error) => {
+          console.error(error);
+          console.warn(`\nUnable to fetch ${apiPath}. Skipping.`);
+          resolve(false);
+          return;
+        });
+      }
+
+      getImage(apiPath, savePath);
     });
 
     progressBar.update(index + 1);
@@ -181,6 +212,42 @@ async function minifySavedIcons(savedImagePaths = [], folderRef = '') {
 
   console.info(`Finished minifying ${folderRef} icons.`);
   console.time(`${folderRef}Minify`);
+}
+
+/**
+ * Parse and create sprite sheet for data/content/*.json entries.
+ * @param {String} contentRef - A reference to the content to be parsed (e.g. 'minions').
+ */
+async function parseContentIcons(contentRef) {
+  console.time(`${contentRef}Icons`);
+  const content = require(`../../data/content/${contentRef}.json`);
+
+  const paths = [];
+  const largePaths = [];
+
+  content.forEach(entry => {
+    const {
+      iconLargePath,
+      iconPath
+    } = entry;
+
+    if (iconPath && paths.indexOf(iconPath) === -1) {
+      paths.push(iconPath);
+    }
+
+    if (iconLargePath && largePaths.indexOf(iconLargePath) === -1) {
+      largePaths.push(iconLargePath);
+    }
+  });
+
+  await processIconGroup(paths, contentRef);
+
+  console.warn(largePaths.length);
+  if (largePaths.length) {
+    await processIconGroup(largePaths, `${contentRef}-large`);
+  }
+
+  console.timeEnd(`${contentRef}Icons`);
 }
 
 /**

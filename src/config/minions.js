@@ -1,6 +1,8 @@
 module.exports = {
   list: {
     columns: [
+      'Icon',
+      'IconID',
       'IconSmall',
       'ID',
       'Name_de',

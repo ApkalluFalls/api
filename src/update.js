@@ -115,7 +115,9 @@ class API {
       return;
     }
 
+    // All other data has a separate config file.
     const list = await this.crawl(config.list);
+    require('./parsers/lists')(list, config.list);
   }
 }
 
