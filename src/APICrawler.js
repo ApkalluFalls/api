@@ -18,6 +18,7 @@ module.exports = class APICrawler {
       throw new Error('API key passed to APICrawler as second argument must be a string.');
     }
 
+    this.apiCallCount = 0;
     this.apiKey = apiKey;
     this.config = config;
     this.cumulativeSuccessfulCalls = 0;
@@ -78,7 +79,7 @@ module.exports = class APICrawler {
 
     const apiUrl = `${apiPath}?${queryStringParts.join('&')}`;
 
-    const handleFetchError = (error) => {
+    const handleFetchError = async (error) => {
       this.cumulativeSuccessfulCalls = 0;
       if (progressBarIn) {
         progressBarIn.stop();
@@ -87,7 +88,7 @@ module.exports = class APICrawler {
       if (/^Error\: Maximum execution time/.test(error) && limit > 1) {
         const newLimit = limitValues[limitValueOffset + 1];
         console.warn(`API timed out. Temporarily reducing limit from ${limit} to ${newLimit}.`);
-        return this.fetch(resultIn, (this.recordsProcessed / newLimit) + 1, undefined, limitValueOffset + 1);
+        return await this.fetch(resultIn, (this.recordsProcessed / newLimit) + 1, undefined, limitValueOffset + 1);
       }
 
       console.warn(error);
@@ -98,18 +99,20 @@ module.exports = class APICrawler {
 
       ++this.errors;
       console.info(`API retry attempt ${this.errors}.`);
-      return this.fetch(resultIn, pageIn, undefined, limitValueOffset);
+      return await this.fetch(resultIn, pageIn, undefined, limitValueOffset);
     }
+
+    this.apiCallCount++;
 
     const data = await fetch(apiUrl, {
       method: 'GET',
       mode: 'cors'
     })
       .then(response => response.json())
-      .catch(e => handleFetchError);
+      .catch(async e => await handleFetchError());
 
     if (data.Error) {
-      return handleFetchError(data.Message);
+      return await handleFetchError(data.Message);
     } else {
       this.cumulativeSuccessfulCalls++;
       this.errors = 0;
@@ -167,11 +170,11 @@ module.exports = class APICrawler {
           console.warn(
             `Attempting to increase limit from ${limit} to ${previousLimitValue}...`
           );
-          return this.fetch(result, (this.recordsProcessed / previousLimitValue) + 1, undefined, limitValueOffset - 1);
+          return await this.fetch(result, (this.recordsProcessed / previousLimitValue) + 1, undefined, limitValueOffset - 1);
         }
       }
 
-      return this.fetch(result, PageNext, progressBar, limitValueOffset);
+      return await this.fetch(result, PageNext, progressBar, limitValueOffset);
     }
 
     const totalCount = result.length;
@@ -180,7 +183,7 @@ module.exports = class APICrawler {
 
     console.info(`Finished paginated fetch of ${log}; ${totalCount} ${(
       totalCount === 1 ? 'entry' : 'entries'
-    )} found.`);
+    )} found after ${this.apiCallCount} API calls.`);
     console.timeEnd(log);
 
     // If we're at the final page, return the result.
