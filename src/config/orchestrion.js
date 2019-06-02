@@ -3,16 +3,14 @@ const helper = require('../xivapi/helper');
 module.exports = {
   list: {
     columns: [
-      'EmoteCategoryTargetID',
+      ...helper.localisedColumnProperty(`Description`),
       'GamePatch.ID',
-      'Icon',
-      'IconID',
       'ID',
       ...helper.localisedColumnProperty(`Name`),
-      'UnlockLink'
+      'OrchestrionUiparam'
     ],
     isPaginated: true,
     method: 'fetch',
-    name: 'Emotes'
+    name: 'Orchestrion'
   }
 };

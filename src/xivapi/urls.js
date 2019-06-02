@@ -16,6 +16,7 @@ module.exports = {
   minions: () => `${xivapiBase}/companion`,
   mount: (id) => `${xivapiBase}/mount/${id}`,
   mounts: () => `${xivapiBase}/mount`,
+  orchestrion: () => `${xivapiBase}/orchestrion`,
   search: () => `${xivapiBase}/search`,
   spearfishingItems: () => `${xivapiBase}/spearfishingitem`,
   territoryTypes: () => `${xivapiBase}/territorytype`

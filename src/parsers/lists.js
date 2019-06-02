@@ -7,7 +7,23 @@ module.exports = (data, config) => {
     name
   } = config;
 
-  const parsed = data.map(content => {
+  const parsed = data.filter(content => {
+    // Content without an English name can be ignored.
+    if (!content.Name_en) {
+      return false;
+    }
+
+    switch (name) {
+      /**
+       * Some achievements have no category. Those ones aren't accessible in the game and never
+       * have been.
+       */
+      case 'Achievements':
+        return !!content.AchievementCategory;
+    }
+
+    return true;
+  }).map(content => {
     const response = {
       name: helper.getLocalisedNamesObject(content),
       patch: content.GamePatch.ID
@@ -20,13 +36,8 @@ module.exports = (data, config) => {
 
     switch (name) {
       case 'Achievements':
-        if (content.AchievementCategory) {
-          response.category = content.AchievementCategory.ID;
-          response.kind = content.AchievementCategory.AchievementKind.ID;
-        } else {
-          response.category = -1;
-          response.kind = -1;
-        }
+        response.category = content.AchievementCategory.ID;
+        response.kind = content.AchievementCategory.AchievementKind.ID;
         response.description = helper.getLocalisedNamesObject(content, 'Description');
         response.points = content.Points;
         break;
@@ -45,6 +56,13 @@ module.exports = (data, config) => {
 
       case 'Emotes':
         response.category = content.EmoteCategoryTargetID;
+        response.link = content.UnlockLink;
+        break;
+
+      case 'Orchestrion':
+        response.category = content.OrchestrionUiparam.OrchestrionCategoryTargetID;
+        response.description = helper.getLocalisedNamesObject(content, 'Description');
+        response.order = content.OrchestrionUiparam.Order;
         break;
     }
 

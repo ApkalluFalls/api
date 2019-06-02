@@ -17,6 +17,7 @@ class API {
       'emotes',
       'minions',
       'mounts',
+      'orchestrion',
 
       // Icon images and sprite sheets.
       'icons'
