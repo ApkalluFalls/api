@@ -36,8 +36,7 @@ module.exports = async () => {
         case 'ENPC':
           parsed.npcs.push({
             id: data.ENpcResidentID,
-            placeNameId: data.PlaceNameID,
-            territoryId: data.MapTerritoryID,
+            location: data.MapTerritoryID,
             type: data.Type,
             x: data.PosX,
             y: data.PosY

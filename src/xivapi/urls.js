@@ -10,5 +10,6 @@ module.exports = {
   minion: (id) => `${xivapiBase}/companion/${id}`,
   minions: () => `${xivapiBase}/companion`,
   search: () => `${xivapiBase}/search`,
-  spearfishingItems: () => `${xivapiBase}/spearfishingitem`
+  spearfishingItems: () => `${xivapiBase}/spearfishingitem`,
+  territoryTypes: () => `${xivapiBase}/territorytype`
 }

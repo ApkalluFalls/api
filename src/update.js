@@ -86,13 +86,20 @@ class API {
         spearFishingItems
       );
 
-      // // Shops.
+      // Shops.
       const eNPCResidents = await this.crawl(config.shops.eNPCResident);
       const gcScripShopItems = await this.crawl(config.shops.gcScripShopItem);
       require ('./parsers/shops')(
         eNPCResidents,
-        gcScripShopItems
+        []
       );
+
+      // Map data.
+      const maps = await this.crawl(config.maps);
+      await require('./parsers/maps')(maps);
+
+      // Mappy data (NPCs).
+      await require('./parsers/mappy')();
 
       console.info('Finished parsing of misc required data.');
       console.info('Starting parsing of obtain method data...');

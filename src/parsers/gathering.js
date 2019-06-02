@@ -75,7 +75,7 @@ module.exports = (
           level: GatheringPointBase.GatheringLevel,
           name: helper.getLocalisedNamesObject(GatheringType)
         },
-        location: helper.getLocalisedNamesObject(gatheringPoint.TerritoryType.PlaceName)
+        location: gatheringPoint.TerritoryType.ID
       })
     });
   });
@@ -132,7 +132,7 @@ module.exports = (
           ja: '釣り'
         }
       },
-      location: helper.getLocalisedNamesObject(fishingSpot.TerritoryType.PlaceName)
+      location: fishingSpot.TerritoryType.ID
     });
   })
 
@@ -186,7 +186,7 @@ module.exports = (
         },
         stars: GatheringItemLevel.Stars
       },
-      location: helper.getLocalisedNamesObject(spearFishingItem.TerritoryType.PlaceName)
+      location: spearFishingItem.TerritoryType.ID
     });
   });
 

@@ -102,12 +102,12 @@ module.exports = {
        * `GatheringLevel` - The fishing node's level;
        * `Item{0...n}TargetID` - Items attached to the fishing node;
        * `TerritoryType` - The world map's...
-       *   `PlaceName` - Region.
+       *   `ID` - Territory ID used to link through to map data.
        */
       columns: [
         'GatheringLevel',
         ...fishingSpotItemIDFields,
-        'TerritoryType.PlaceName'
+        'TerritoryType.ID'
       ],
       fishingSpotItemIDFields,
       isPaginated: true,
@@ -140,14 +140,14 @@ module.exports = {
        *   `GatheringType` - Node details;
        *   `Item{0...n}` - Gathering item reference (gathering item =/= item).
        * `TerritoryType` - The world map's...
-       *   `PlaceName` - Region.
+       *   `ID` - Territory ID used to link through to map data.
        */
       columns: [
         'GatheringPointBase.GatheringLevel',
         'GatheringPointBase.GatheringType',
         ...gatheringItemIDFields.map(field => `GatheringPointBase.${field}`),
-        'TerritoryType.PlaceName',
-        'ID'
+        'ID',
+        'TerritoryType.ID'
       ],
       gatheringItemIDFields,
       isPaginated: true,
@@ -162,13 +162,13 @@ module.exports = {
        * `IsVisible` - Whether the node is visible by default;
        * `ItemTargetID` - The item's ID used to link the result to the items data set;
        * `TerritoryType` - The world map's...
-       *   `PlaceName` - Region.
+       *   `ID` - Territory ID used to link through to map data.
        */
       columns: [
         'GatheringItemLevel',
         'IsVisible',
         'ItemTargetID',
-        'TerritoryType.PlaceName'
+        'TerritoryType.ID'
       ],
       isPaginated: true,
       log: 'Spear Fishing Items',
@@ -218,6 +218,25 @@ module.exports = {
     log: 'Items',
     method: 'search',
     query: itemActionTypesQuery()
+  },
+  maps: {
+    /**
+     * For maps we need to extract the following fields:
+     * `ID` - To link other content to a given map;
+     * `PlaceName` - The name of the exact map area's...
+     *   `Name_{lang}` - Localised name;
+     * `PlaceNameRegion` - The region the map area belongs to's...
+     *   `Name_{lang}` - Localised name.
+     */
+    columns: [
+      'ID',
+      ...helper.localisedColumnProperty('PlaceName.Name'),
+      ...helper.localisedColumnProperty('PlaceNameRegion.Name')
+    ],
+    isPaginated: true,
+    log: 'Map Areas',
+    method: 'fetch',
+    name: 'territoryTypes'
   },
   quests: {
     /**
