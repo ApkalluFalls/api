@@ -312,8 +312,6 @@ module.exports = {
         );
       },
       isPaginated: true,
-      // Needed as Special Shops have a lot of data.
-      limit: 8,
       log: 'ENPCResidents (for Shops)',
       method: 'fetch',
       name: 'eNPCResident',

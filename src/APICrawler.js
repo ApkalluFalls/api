@@ -1,6 +1,7 @@
 const fetch = require('node-fetch');
 const Progress = require('cli-progress');
 const urls = require('./xivapi/urls');
+const defaultLimit = 3000;
 
 module.exports = class APICrawler {
   constructor(config = {}, apiKey = '') {
@@ -20,7 +21,9 @@ module.exports = class APICrawler {
 
     this.apiKey = apiKey;
     this.config = config;
+    this.cumulativeSuccessfulCalls = 0;
     this.errors = 0;
+    this.recordsProcessed = 0;
   }
 
   /**
@@ -30,18 +33,31 @@ module.exports = class APICrawler {
    * @param {Number} [pageIn] - An optional page offset. 
    * @param {Progress} [progressBarIn] - A progress bar reference if the result set is paginated.
    */
-  async fetch(resultIn = [], pageIn = 1, progressBarIn = undefined) {
+  async fetch(resultIn = [], pageIn = 1, progressBarIn = undefined, limitValueOffset = 0) {
     const {
       columns,
       filter,
       isPaginated,
-      limit,
       name
     } = this.config;
 
-    const log = this.config.log || name;
+    // Used to handle API timeouts gracefully.
+    const limitValues = [
+      3000,
+      1500,
+      300,
+      150,
+      30,
+      15,
+      3,
+      1
+    ];
 
-    if (pageIn === 1) {
+    const log = this.config.log || name;
+    const limit = limitValues[limitValueOffset];
+    const page = (this.recordsProcessed / limit) + 1;
+
+    if (page === 1 && limitValueOffset === 0) {
       console.time(log);
       console.info(`Starting ${isPaginated ? '' : 'un'}paginated fetch of ${log}.`);
     }
@@ -50,7 +66,7 @@ module.exports = class APICrawler {
 
     const queryStringParts = [
       `apiKey=${this.apiKey}`,
-      `limit=${limit || 3000}`
+      `limit=${limit}`
     ];
 
     if (Array.isArray(columns) && columns.length) {
@@ -58,21 +74,33 @@ module.exports = class APICrawler {
     }
 
     if (isPaginated) {
-      queryStringParts.push(`page=${pageIn}`);
+      queryStringParts.push(`page=${page}`);
     }
 
     const apiUrl = `${apiPath}?${queryStringParts.join('&')}`;
 
     const handleFetchError = (error) => {
+      this.cumulativeSuccessfulCalls = 0;
+      if (progressBarIn) {
+        progressBarIn.stop();
+      }
+
+      if (/^Error\: Maximum execution time/.test(error) && limit > 1) {
+        console.warn(`API timed out. Temporarily reducing limit from ${limit} to ${(
+          limitValues[limitValueOffset + 1]
+        )}.`);
+        return this.fetch(resultIn, pageIn, undefined, limitValueOffset + 1);
+      }
+
       console.warn(error);
-    
+
       if (this.errors > 10) {
         throw new Error(`XIVDB API error: ${error}.`);
       }
 
       ++this.errors;
       console.info(`API retry attempt ${this.errors}.`);
-      return this.fetch(resultIn, pageIn, progressBarIn);
+      return this.fetch(resultIn, pageIn, undefined, limitValueOffset);
     }
 
     const data = await fetch(apiUrl, {
@@ -85,7 +113,9 @@ module.exports = class APICrawler {
     if (data.Error) {
       return handleFetchError(data.Message);
     } else {
+      this.cumulativeSuccessfulCalls++;
       this.errors = 0;
+      this.recordsProcessed += limit;
     }
 
     // If the resource is not paginated, return the data.
@@ -97,18 +127,18 @@ module.exports = class APICrawler {
 
     const {
       PageNext,
-      ResultsPerPage,
       ResultsTotal
     } = data.Pagination;
 
     let progressBar = progressBarIn;
+
     const processedRecordsCount = (
-      ResultsPerPage * pageIn > ResultsTotal
+      (page * limit) > ResultsTotal
         ? ResultsTotal
-        : ResultsPerPage * pageIn
+        : page * limit
     );
 
-    if (PageNext === 2) {
+    if (!progressBar) {
       progressBar = new Progress.Bar({}, Progress.Presets.shades_grey);
       progressBar.start(ResultsTotal, processedRecordsCount);
     } else {
@@ -130,7 +160,20 @@ module.exports = class APICrawler {
 
     // If we're not at the final page, continue fetching.
     if (PageNext && PageNext !== 1) {
-      return this.fetch(result, PageNext, progressBar);
+      if (limitValueOffset > 0 && this.cumulativeSuccessfulCalls > 5) {
+        const previousLimitValue = limitValues[limitValueOffset - 1];
+
+        if (this.recordsProcessed % previousLimitValue === 0) {
+          this.cumulativeSuccessfulCalls = 0;
+          progressBar.stop();
+          console.warn(
+            `Attempting to increase limit from ${limit} to ${previousLimitValue}...`
+          );
+          return this.fetch(result, (this.recordsProcessed / previousLimitValue) + 1, undefined, limitValueOffset - 1);
+        }
+      }
+
+      return this.fetch(result, PageNext, progressBar, limitValueOffset);
     }
 
     const totalCount = result.length;
