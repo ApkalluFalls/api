@@ -11,7 +11,7 @@ module.exports = (
   gcScripShopItems
 ) => {
   const config = require('../config/data').shops;
-  const initialCurrenciesLength = currencies.length;
+  let currenciesAddedCount = 0;
   const parsed = {};
 
   const allItems = Object.values(items).reduce((arr, itemGroup) => ([
@@ -96,6 +96,7 @@ module.exports = (
         // If the currency is missing it means the currency object needs extending.
         if (!currency) {
           currency = addNewCustomCurrencyItem(specialShop[`ItemCost${specialShopItemIndex}`]);
+          currenciesAddedCount++;
         }
 
         return [
@@ -197,22 +198,21 @@ module.exports = (
   });
 
   // If there are new currencies, overwrite the currencies JSON file.
-  const newCurrenciesCount = currencies.length - initialCurrenciesLength;
-  if (newCurrenciesCount > 0) {
+  if (currenciesAddedCount > 0) {
     fs.writeFileSync(
       '../data/currencies.json',
       JSON.stringify(currencies),
-      'utf8',
-      () => console.info(`Updated Currencies data to include ${newCurrenciesCount} new items.`)
+      'utf8'
     );
+    console.info(`Updated Currencies data to include ${currenciesAddedCount} new items.`)
   }
 
   fs.writeFileSync(
     '../data/methods/shops.json',
     JSON.stringify(parsed),
-    'utf8',
-    () => console.info(`Shop data parsed.`)
+    'utf8'
   );
+  console.info(`Shop data parsed.`)
 };
 
 /**
@@ -232,7 +232,7 @@ function addNewCustomCurrencyItem(item) {
 
   // Send the raw currency data through the parser and extract the parsed data from the output.
   const newCurrency = (currencyParser([rawCurrency], true))[0];
-  console.info(`Extended Currencies object to include ${newCurrency.Name_en}.`);
+  console.info(`Extended Currencies object to include '${newCurrency.name.en}'.`);
 
   // Extend the currencies array.
   currencies.push(newCurrency);

@@ -108,7 +108,7 @@ module.exports = class APICrawler {
         : ResultsPerPage * pageIn
     );
 
-    if (pageIn === 1) {
+    if (PageNext === 2) {
       progressBar = new Progress.Bar({}, Progress.Presets.shades_grey);
       progressBar.start(ResultsTotal, processedRecordsCount);
     } else {

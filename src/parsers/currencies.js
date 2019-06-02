@@ -24,7 +24,7 @@ module.exports = (data, isExternalParse) => {
   fs.writeFileSync(
     '../data/currencies.json',
     JSON.stringify(parsed),
-    'utf8',
-    () => console.info(`${config.log} data parsed.`)
+    'utf8'
   );
+  console.info(`${config.log} data parsed.`);
 };

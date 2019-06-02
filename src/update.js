@@ -91,7 +91,7 @@ class API {
       const gcScripShopItems = await this.crawl(config.shops.gcScripShopItem);
       require ('./parsers/shops')(
         eNPCResidents,
-        gcScripShopItems
+        []
       );
 
       console.info('Finished parsing of misc required data.');
@@ -108,7 +108,7 @@ class API {
       return;
     }
 
-    const list = await this.crawl(config.list);
+    // const list = await this.crawl(config.list);
   }
 }
 

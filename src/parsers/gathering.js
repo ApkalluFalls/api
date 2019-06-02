@@ -193,7 +193,7 @@ module.exports = (
   fs.writeFileSync(
     '../data/methods/gathering.json',
     JSON.stringify(parsed),
-    'utf8',
-    () => console.info(`Gathering data parsed.`)
+    'utf8'
   );
+  console.info(`Gathering data parsed.`);
 };

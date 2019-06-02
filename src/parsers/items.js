@@ -36,7 +36,7 @@ module.exports = (data) => {
   fs.writeFileSync(
     '../data/items.json',
     JSON.stringify(parsed),
-    'utf8',
-    () => console.info(`${config.log} data parsed.`)
+    'utf8'
   );
+  console.info(`${config.log} data parsed.`);
 };
