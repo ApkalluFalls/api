@@ -9,7 +9,9 @@ const request = require('request');
 const Spritesmith = require('spritesmith');
 
 module.exports = async () => {
+  await parseContentIcons('achievements');
   await parseContentIcons('minions');
+  await parseContentIcons('mounts');
   await parseCraftingItemIcons();
   await parseCurrencyIcons();
   await parseGatheringIcons();
@@ -242,7 +244,6 @@ async function parseContentIcons(contentRef) {
 
   await processIconGroup(paths, contentRef);
 
-  console.warn(largePaths.length);
   if (largePaths.length) {
     await processIconGroup(largePaths, `${contentRef}-large`);
   }

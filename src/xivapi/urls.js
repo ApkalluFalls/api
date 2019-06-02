@@ -1,6 +1,8 @@
 const xivapiBase = 'https://xivapi.com';
 
 module.exports = {
+  achievement: (id) => `${xivapiBase}/achievement/${id}`,
+  achievements: () => `${xivapiBase}/achievement`,
   eNPCResident: () => `${xivapiBase}/enpcresident`,
   fishingSpots: () => `${xivapiBase}/fishingspot`,
   gatheringItems: () => `${xivapiBase}/gatheringitem`,
@@ -9,6 +11,8 @@ module.exports = {
   gcScripShopItem: () => `${xivapiBase}/gcscripshopitem`,
   minion: (id) => `${xivapiBase}/companion/${id}`,
   minions: () => `${xivapiBase}/companion`,
+  mount: (id) => `${xivapiBase}/mount/${id}`,
+  mounts: () => `${xivapiBase}/mount`,
   search: () => `${xivapiBase}/search`,
   spearfishingItems: () => `${xivapiBase}/spearfishingitem`,
   territoryTypes: () => `${xivapiBase}/territorytype`

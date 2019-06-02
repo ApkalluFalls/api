@@ -8,8 +8,15 @@ class API {
 
   async init(optionsIn) {
     const validOptions = [
+      // Generic data.
       'data',
+
+      // Content lists.
+      'achievements',
       'minions',
+      'mounts',
+
+      // Icon images and sprite sheets.
       'icons'
     ];
   

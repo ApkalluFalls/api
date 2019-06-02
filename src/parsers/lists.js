@@ -15,6 +15,11 @@ module.exports = (data, config) => {
       patch: content.GamePatch.ID
     };
 
+    if (content === 'Achievements') {
+      response.description = helper.getLocalisedNamesObject(content, 'Description');
+      response.points = content.Points;
+    }
+
     if (content.IconSmall) {
       response.iconPath = content.IconSmall;
       response.iconLargePath = content.Icon;
