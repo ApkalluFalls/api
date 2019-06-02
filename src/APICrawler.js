@@ -1,7 +1,6 @@
 const fetch = require('node-fetch');
 const Progress = require('cli-progress');
 const urls = require('./xivapi/urls');
-const defaultLimit = 3000;
 
 module.exports = class APICrawler {
   constructor(config = {}, apiKey = '') {
@@ -86,10 +85,9 @@ module.exports = class APICrawler {
       }
 
       if (/^Error\: Maximum execution time/.test(error) && limit > 1) {
-        console.warn(`API timed out. Temporarily reducing limit from ${limit} to ${(
-          limitValues[limitValueOffset + 1]
-        )}.`);
-        return this.fetch(resultIn, pageIn, undefined, limitValueOffset + 1);
+        const newLimit = limitValues[limitValueOffset + 1];
+        console.warn(`API timed out. Temporarily reducing limit from ${limit} to ${newLimit}.`);
+        return this.fetch(resultIn, (this.recordsProcessed / newLimit) + 1, undefined, limitValueOffset + 1);
       }
 
       console.warn(error);
