@@ -9,9 +9,16 @@ const request = require('request');
 const Spritesmith = require('spritesmith');
 
 module.exports = async () => {
+  // Main list content.
   await parseContentIcons('achievements');
+  await parseContentIcons('emotes');
   await parseContentIcons('minions');
   await parseContentIcons('mounts');
+
+  // Chocobo barding has a slightly different structure.
+  await parseBardingIcons();
+
+  // Helper icons.
   await parseCraftingItemIcons();
   await parseCurrencyIcons();
   await parseGatheringIcons();
@@ -149,7 +156,7 @@ async function fetchIconsFromPaths(paths = [], folderRef = '') {
 
             console.warn(
               `\nFound ${(
-                data.headers['content-type']
+                response.headers['content-type']
               )} instead of image/png for ${apiPath}. Trying again...`
             );
             getImage(apiPath, savePath);
@@ -214,6 +221,42 @@ async function minifySavedIcons(savedImagePaths = [], folderRef = '') {
 
   console.info(`Finished minifying ${folderRef} icons.`);
   console.time(`${folderRef}Minify`);
+}
+
+/**
+ * Parse and create sprite sheet for data/content/barding.json entries.
+ */
+async function parseBardingIcons() {
+  console.time('BardingIcons');
+  const content = require('../../data/content/barding.json');
+
+  const bodyPaths = [];
+  const headAndLegsPaths = [];
+
+  content.forEach(entry => {
+    const {
+      iconBodyPath,
+      iconHeadPath,
+      iconLegsPath
+    } = entry;
+
+    if (iconBodyPath && bodyPaths.indexOf(iconBodyPath) === -1) {
+      bodyPaths.push(iconBodyPath);
+    }
+
+    if (iconHeadPath && headAndLegsPaths.indexOf(iconHeadPath) === -1) {
+      headAndLegsPaths.push(iconHeadPath);
+    }
+
+    if (iconLegsPath && headAndLegsPaths.indexOf(iconLegsPath) === -1) {
+      headAndLegsPaths.push(iconLegsPath);
+    }
+  });
+
+  await processIconGroup(bodyPaths, 'barding');
+  await processIconGroup(headAndLegsPaths, 'barding-extra');
+
+  console.timeEnd('BardingIcons');
 }
 
 /**

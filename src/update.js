@@ -13,6 +13,8 @@ class API {
 
       // Content lists.
       'achievements',
+      'barding',
+      'emotes',
       'minions',
       'mounts',
 
