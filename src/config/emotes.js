@@ -9,6 +9,7 @@ module.exports = {
       'IconID',
       'ID',
       ...helper.localisedColumnProperty(`Name`),
+      'TextCommandTargetID',
       'UnlockLink'
     ],
     isPaginated: true,

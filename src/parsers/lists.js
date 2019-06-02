@@ -20,6 +20,13 @@ module.exports = (data, config) => {
        */
       case 'Achievements':
         return !!content.AchievementCategory;
+
+      /**
+       * Emotes with no TextCommand are duplicates, thought to be different actions under certain
+       * circumstances (i.e. sleeping on a bed vs. sleeping elsewhere).
+       */
+      case 'Emotes':
+          return content.TextCommandTargetID !== 0;
     }
 
     return true;
