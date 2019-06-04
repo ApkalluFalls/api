@@ -1,6 +1,5 @@
 const fs = require('fs');
 const helper = require('../xivapi/helper');
-const items = require('../../data/items.json');
 
 module.exports = (data, config) => {
   const {
@@ -77,7 +76,7 @@ module.exports = (data, config) => {
       response.iconPath = content.IconSmall;
       response.iconLargePath = content.Icon;
       response.iconLarge = Number(
-        content.Icon.match(/\d+\.png/)[0].replace('.png', '')
+        content.Icon.match(/[A-Za-z0-9]+\.png/)[0].replace('.png', '')
       );
     } else {
       response.iconPath = content.Icon;

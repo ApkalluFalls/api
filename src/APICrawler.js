@@ -43,7 +43,6 @@ module.exports = class APICrawler {
 
     // Used to handle API timeouts gracefully.
     const limitValues = [
-      3000,
       1500,
       300,
       150,

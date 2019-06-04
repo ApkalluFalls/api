@@ -1,5 +1,6 @@
 const fs = require('fs');
 const APICrawler = require('./APICrawler');
+const listAPI = require('./parsers/listAPI');
 
 class API {
   async crawl(config) {
@@ -8,9 +9,6 @@ class API {
 
   async init(optionsIn) {
     const validOptions = [
-      // Generic data.
-      'data',
-
       // Content lists.
       'achievements',
       'barding',
@@ -18,6 +16,9 @@ class API {
       'minions',
       'mounts',
       'orchestrion',
+
+      // Generic data.
+      'data',
 
       // Icon images and sprite sheets.
       'icons'
@@ -74,51 +75,52 @@ class API {
       console.time('Data');
       console.info('Starting parsing of misc required data...');
 
-      // Items.
-      const items = await this.crawl(config.items);
-      require('./parsers/items')(items);
+      // // Items.
+      // const items = await this.crawl(config.items);
+      // require('./parsers/items')(items);
 
-      // Currencies.
-      const currencies = await this.crawl(config.currencies);
-      require('./parsers/currencies')(currencies);
+      // // Currencies.
+      // const currencies = await this.crawl(config.currencies);
+      // require('./parsers/currencies')(currencies);
 
-      // Gathering.
-      const fishingSpots = await this.crawl(config.gathering.fishingSpots);
-      const gatheringItems = await this.crawl(config.gathering.items);
-      const gatheringPoints = await this.crawl(config.gathering.points);
-      const gatheringTypes = await this.crawl(config.gathering.types);
-      const spearFishingItems = await this.crawl(config.gathering.spearFishingItems);
-      require('./parsers/gathering')(
-        gatheringPoints,
-        gatheringItems,
-        gatheringTypes,
-        fishingSpots,
-        spearFishingItems
-      );
+      // // Gathering.
+      // const fishingSpots = await this.crawl(config.gathering.fishingSpots);
+      // const gatheringItems = await this.crawl(config.gathering.items);
+      // const gatheringPoints = await this.crawl(config.gathering.points);
+      // const gatheringTypes = await this.crawl(config.gathering.types);
+      // const spearFishingItems = await this.crawl(config.gathering.spearFishingItems);
+      // require('./parsers/gathering')(
+      //   gatheringPoints,
+      //   gatheringItems,
+      //   gatheringTypes,
+      //   fishingSpots,
+      //   spearFishingItems
+      // );
 
-      // Shops.
-      const eNPCResidents = await this.crawl(config.shops.eNPCResident);
-      const gcScripShopItems = await this.crawl(config.shops.gcScripShopItem);
-      require ('./parsers/shops')(
-        eNPCResidents,
-        []
-      );
+      // // Shops.
+      // const eNPCResidents = await this.crawl(config.shops.eNPCResident);
+      // const gcScripShopItems = await this.crawl(config.shops.gcScripShopItem);
+      // require ('./parsers/shops')(
+      //   eNPCResidents,
+      //   gcScripShopItems
+      // );
 
-      // Map data.
-      const maps = await this.crawl(config.maps);
-      await require('./parsers/maps')(maps);
+      // // Map data.
+      // const maps = await this.crawl(config.maps);
+      // await require('./parsers/maps')(maps);
 
       // Mappy data (NPCs).
-      await require('./parsers/mappy')();
+      const npcs = await this.crawl(config.npcs);
+      await require('./parsers/mappy')(npcs);
 
       console.info('Finished parsing of misc required data.');
       console.info('Starting parsing of obtain method data...');
       
-      const quests = await this.crawl(config.quests);
-      require('./parsers/quests')(quests);
+      // const quests = await this.crawl(config.quests);
+      // require('./parsers/quests')(quests);
 
-      const recipes = await this.crawl(config.recipes);
-      require('./parsers/recipes')(recipes);
+      // const recipes = await this.crawl(config.recipes);
+      // require('./parsers/recipes')(recipes);
 
       console.info('Finished parsing of obtain methods.');
       console.timeEnd('Data');
@@ -128,6 +130,9 @@ class API {
     // All other data has a separate config file.
     const list = await this.crawl(config.list);
     require('./parsers/lists')(list, config.list);
+
+    // Parse lists in various languages.
+    await listAPI(name, 'en');
   }
 }
 

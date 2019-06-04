@@ -8,7 +8,7 @@ const items = require('../../data/items.json');
 module.exports = (data) => {
   const config = require('../config/data').maps;
   const parsed = data.map(territoryType => ({
-    id: territoryType.id,
+    id: territoryType.ID,
     name: helper.getLocalisedNamesObject(territoryType.PlaceName),
     region: helper.getLocalisedNamesObject(territoryType.PlaceNameRegion)
   })).filter(map => map.name.en)

@@ -19,6 +19,7 @@ module.exports = async () => {
   await parseBardingIcons();
 
   // Helper icons.
+  await parseCraftingIcons();
   await parseCraftingItemIcons();
   await parseCurrencyIcons();
   await parseGatheringIcons();
@@ -130,7 +131,11 @@ async function fetchIconsFromPaths(paths = [], folderRef = '') {
       const apiPath = `https://xivapi.com${path}`;
   
       const savePath = `../icons-raw/${folderRef}/${(
-        path.replace(/^.*\/(\d+)\.png$/, (_, group) => {
+        path.replace(/^.*\/([A-Za-z0-9]+)\.png$/, (_, group) => {
+          if (isNaN(Number(group))) {
+            return group;
+          }
+
           return Number(group);
         })
       )}.png`;
@@ -297,7 +302,7 @@ async function parseContentIcons(contentRef) {
 /**
  * Parse and create sprite sheet for data/method/crafting.json entries.
  */
-async function parseCraftingItemIcons() {
+async function parseCraftingIcons() {
   console.time('CraftingItemIcons');
   const recipes = require('../../data/methods/crafting.json');
 
@@ -305,10 +310,7 @@ async function parseCraftingItemIcons() {
 
   Object.values(recipes).reduce((arr, recipeGroup) => ([
     ...arr,
-    ...recipeGroup.reduce((arr2, recipe) => ([
-      ...arr2,
-      ...recipe.items
-    ]), [])
+    ...recipeGroup
   ]), []).forEach(item => {
     const {
       iconPath
@@ -323,6 +325,30 @@ async function parseCraftingItemIcons() {
 
   await processIconGroup(paths, 'craft-item');
   console.timeEnd('CraftingItemIcons');
+}
+
+/**
+ * Parse and create sprite sheet for data/method/crafting.json item entries.
+ */
+async function parseCraftingItemIcons() {
+  console.time('CraftingIcons');
+  const recipes = require('../../data/methods/crafting.json');
+
+  const paths = [];
+
+  Object.values(recipes).reduce((arr, recipeGroup) => ([
+    ...arr,
+    ...recipeGroup.map(recipe => recipe.iconPath)
+  ]), []).forEach(iconPath => {
+    if (paths.indexOf(iconPath) !== -1) {
+      return;
+    }
+
+    paths.push(iconPath);
+  });
+
+  await processIconGroup(paths, 'crafting');
+  console.timeEnd('CraftingIcons');
 }
 
 /**

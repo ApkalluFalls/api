@@ -51,19 +51,19 @@ module.exports = {
 
     switch (Type) {
       case 853:
-        contentType = 'minion';
+        contentType = 'minions';
         break;
 
       case 1013:
-        contentType = 'chocobo-barding';
+        contentType = 'barding';
         break;
 
       case 1322:
-        contentType = 'mount';
+        contentType = 'mounts';
         break;
 
       case 5845:
-        contentType = 'orchestrion-roll';
+        contentType = 'orchestrion';
         break;
 
       default:
@@ -72,7 +72,7 @@ module.exports = {
 
     if (!contentType) {
       if (Data1 >= 5100 && Data1 <= 5300 && Data2 > 0) {
-        contentType = 'emote';
+        contentType = 'emotes';
       } else {
         contentType = 'unknown';
       }

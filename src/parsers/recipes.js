@@ -19,8 +19,16 @@ module.exports = (data) => {
       parsed[type] = [];
     }
 
+    const {
+      ClassJob
+    } = entry;
+
     parsed[type].push({
-      id,
+      contentId: id,
+      icon: ClassJob.Icon.replace(/^.*\/([A-Za-z0-9]+)\.png$/, (_, group) => {
+        return group;
+      }),
+      iconPath: ClassJob.Icon,
       items: new Array(config.recipeIngredientMax).fill(1).reduce((arr, _, index) => {
         const amount = Number(entry[`AmountIngredient${index}`]);
         
@@ -42,7 +50,7 @@ module.exports = (data) => {
       }, []),
       job: {
         level: entry.RecipeLevelTable.ClassJobLevel,
-        name: helper.getLocalisedNamesObject(entry.ClassJob),
+        name: helper.getLocalisedNamesObject(ClassJob),
         stars: entry.RecipeLevelTable.Stars
       }
     })

@@ -238,6 +238,23 @@ module.exports = {
     method: 'fetch',
     name: 'territoryTypes'
   },
+  npcs: {
+    columns: [
+      'ID',
+      ...helper.localisedColumnProperty('Name')
+    ],
+    /**
+     * Filter out any data sets which:
+     * 1. Have no English name.
+     */
+    filter: (data) => {
+      return data.filter(eNPCResident => eNPCResident.Name_en);
+    },
+    isPaginated: true,
+    log: 'ENPCResidents (for NPCs)',
+    method: 'fetch',
+    name: 'eNPCResident',
+  },
   quests: {
     /**
      * For quests we need to extract the following fields:
@@ -269,7 +286,9 @@ module.exports = {
      * For recipes we need to extract the following fields:
      * `AmountIngredient0...9` - The required amount of each indexed ingredient;
      * `ClassJob` - The crafter's class's...
-     *   `Name_{lang}` - Localised name.
+     *   `Icon` - Icon;
+     *   `ID` - ID used to map to the icon;
+     *   `Name_{lang}` - Localised name;
      * `ItemIngredient0...9` - Each indexed ingredient's...
      *   `Icon` - Icon path for the sprite sheet;
      *   `IconID` - Icon ID to pull from the sprite sheet;
@@ -290,6 +309,8 @@ module.exports = {
         ...helper.localisedColumnProperty(`ItemIngredient${index}.Name`),
         ...helper.localisedColumnProperty(`ItemIngredient${index}.Plural`)
       ]), [])),
+      'ClassJob.ID',
+      'ClassJob.Icon',
       ...helper.localisedColumnProperty(`ClassJob.Name`),
       'ItemResult.ItemAction',
       'RecipeLevelTable.ClassJobLevel',

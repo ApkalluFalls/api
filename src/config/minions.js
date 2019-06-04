@@ -12,6 +12,7 @@ module.exports = {
     ],
     isPaginated: true,
     method: 'fetch',
-    name: 'Minions'
+    name: 'Minions',
+    structure: []
   }
 };
