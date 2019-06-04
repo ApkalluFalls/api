@@ -14,6 +14,7 @@ module.exports = {
     ],
     isPaginated: true,
     method: 'fetch',
-    name: 'Emotes'
+    name: 'Emotes',
+    structure: []
   }
 };

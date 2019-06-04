@@ -1,0 +1,1 @@
+This folder caches data from the API so that multiple calls do not result in DoS-like attacks. This folder can either be cleared out manually (by removing all the files but leaving the folder empty), or by running `node update.js cache`.

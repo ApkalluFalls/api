@@ -191,7 +191,7 @@ module.exports = (
   });
 
   fs.writeFileSync(
-    '../data/methods/gathering.json',
+    './data/methods/gathering.json',
     JSON.stringify(parsed),
     'utf8'
   );

@@ -34,7 +34,7 @@ module.exports = (data) => {
   });
 
   fs.writeFileSync(
-    '../data/items.json',
+    './data/items.json',
     JSON.stringify(parsed),
     'utf8'
   );

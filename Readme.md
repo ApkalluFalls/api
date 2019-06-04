@@ -1,6 +1,6 @@
 # API v3
 
-Work in progress. Nothing to see here... yet.
+Work in progress. Not much to see here yet!
 
 ## Installation
 
@@ -17,8 +17,10 @@ npm install
 Running this will update _everything_ and will likely take up to an hour if not longer to complete.
 
 ```
-node src/update.js
+npm run update
 ```
+
+This will automatically increase the memory to 4096. If this isn't required on your machine, simply remove `--max-old-space-size=4096` from the update script within package.json.
 
 ### Individual parts
 
@@ -29,7 +31,7 @@ To update parts individually, you can append a keyword to the end of the command
 This updates all data required to ulitimately form the obtain method information and sprite sheets.
 
 ```
-node src/update.js data
+npm run update data
 ```
 
 #### Icons
@@ -37,5 +39,13 @@ node src/update.js data
 This will create sprite sheets from the fetched data.
 
 ```
-node src/update.js icons
+npm run update icons
+```
+
+### Cached Data
+
+To avoid bombarding the API with repeated calls every time we want to fetch data, any API call which is paginated will be saved in `data/cached`. This can be cleared by running:
+
+```
+npm run update cache
 ```

@@ -12,6 +12,7 @@ module.exports = {
     ],
     isPaginated: true,
     method: 'fetch',
-    name: 'Mounts'
+    name: 'Mounts',
+    structure: []
   }
 };

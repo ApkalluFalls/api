@@ -63,7 +63,7 @@ module.exports = (data) => {
   });
 
   fs.writeFileSync(
-    '../data/methods/quests.json',
+    './data/methods/quests.json',
     JSON.stringify(parsed),
     'utf8'
   );

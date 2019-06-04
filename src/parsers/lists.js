@@ -86,7 +86,7 @@ module.exports = (data, config) => {
   });
 
   fs.writeFileSync(
-    `../data/content/${name.toLowerCase()}.json`,
+    `./data/content/${name.toLowerCase()}.json`,
     JSON.stringify(parsed),
     'utf8'
   );

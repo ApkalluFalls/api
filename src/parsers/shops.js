@@ -103,9 +103,11 @@ module.exports = (
           ...arr3, {
             _eNPCResident: eNPCResident.ID,
             _specialShop: specialShop.ID,
-            cost: specialShop[`CountCost${specialShopItemIndex}`],
             currency,
-            item: match
+            item: {
+              ...match,
+              cost: specialShop[`CountCost${specialShopItemIndex}`],
+            }
           }
         ]
       }, [])
@@ -200,7 +202,7 @@ module.exports = (
   // If there are new currencies, overwrite the currencies JSON file.
   if (currenciesAddedCount > 0) {
     fs.writeFileSync(
-      '../data/currencies.json',
+      './data/currencies.json',
       JSON.stringify(currencies),
       'utf8'
     );
@@ -208,7 +210,7 @@ module.exports = (
   }
 
   fs.writeFileSync(
-    '../data/methods/shops.json',
+    './data/methods/shops.json',
     JSON.stringify(parsed),
     'utf8'
   );

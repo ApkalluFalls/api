@@ -22,7 +22,7 @@ module.exports = (data, isExternalParse) => {
   }
 
   fs.writeFileSync(
-    '../data/currencies.json',
+    './data/currencies.json',
     JSON.stringify(parsed),
     'utf8'
   );

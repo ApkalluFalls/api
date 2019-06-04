@@ -90,7 +90,7 @@ module.exports = (contentType, language = 'en') => {
         const map = maps.find(entry => entry.id === npc.location);
 
         if (!map) {
-          console.warn(`${npc.id} - ${npc.name.en}`);
+          console.warn(`Missing map data for NPC ${npc.id} ${npc.name.en} at location ${npc.location}. Skipping.`);
           return;
         }
 
@@ -106,7 +106,7 @@ module.exports = (contentType, language = 'en') => {
   });
 
   fs.writeFileSync(
-    `../docs/${language}/${contentType}.json`,
+    `./docs/${language}/${contentType}.json`,
     JSON.stringify(parsed),
     'utf8'
   );

@@ -11,7 +11,7 @@ module.exports = {
   ]),
   quest: {
     eventQuestShort: (quest, language) => ([
-      'msqShort',
+      'eventQuestShort',
       quest.icon,
       [quest.level, quest.name[language], quest.journal.category[language]]
     ]),
@@ -21,7 +21,7 @@ module.exports = {
       [quest.level, quest.name[language], quest.journal.category[language]]
     ]),
     questShort: (quest, language) => ([
-      'msqShort',
+      'questShort',
       quest.icon,
       [quest.level, quest.name[language], quest.journal.category[language]]
     ])

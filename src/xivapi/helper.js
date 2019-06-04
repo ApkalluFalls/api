@@ -41,6 +41,7 @@ module.exports = {
    */
   getContentFromItemActions: (itemActions = {}) => {
     let contentType;
+    let id;
 
     const {
       Data0,
@@ -73,13 +74,14 @@ module.exports = {
     if (!contentType) {
       if (Data1 >= 5100 && Data1 <= 5300 && Data2 > 0) {
         contentType = 'emotes';
+        id = Data2;
       } else {
         contentType = 'unknown';
       }
     }
 
     return {
-      id: Data0,
+      id: id || Data0,
       type: contentType
     }
   }

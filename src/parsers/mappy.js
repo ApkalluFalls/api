@@ -39,8 +39,8 @@ module.exports = async (npcs) => {
             id: Number(data.ENpcResidentID),
             location: Number(data.MapTerritoryID),
             type: Number(data.Type),
-            x: Number(data.PosX),
-            y: Number(data.PosY)
+            x: Number(Number(data.PosX).toFixed(1)),
+            y: Number(Number(data.PosY).toFixed(1))
           });
           return;
         default:
@@ -62,7 +62,7 @@ module.exports = async (npcs) => {
   });
 
   fs.writeFileSync(
-    '../data/npcs.json',
+    './data/npcs.json',
     JSON.stringify(allNPCData),
     'utf8'
   );

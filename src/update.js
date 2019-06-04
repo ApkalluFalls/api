@@ -9,6 +9,9 @@ class API {
 
   async init(optionsIn) {
     const validOptions = [
+      // Generic data.
+      'data',
+
       // Content lists.
       'achievements',
       'barding',
@@ -16,9 +19,6 @@ class API {
       'minions',
       'mounts',
       'orchestrion',
-
-      // Generic data.
-      'data',
 
       // Icon images and sprite sheets.
       'icons'
@@ -29,6 +29,11 @@ class API {
         ? optionsIn
         : validOptions
     );
+
+    if (args.find(arg => arg === 'cache')) {
+      await this.removeCachedData();
+      return;
+    }
   
     const options = args.filter(value => validOptions.indexOf(value) !== -1);
   
@@ -38,8 +43,38 @@ class API {
       return;
     }
   
-    this.apiKey = await fs.readFileSync('../xivapi-key.txt', 'utf-8');
+    this.apiKey = await fs.readFileSync('./xivapi-key.txt', 'utf-8');
     this.options = options;
+  }
+
+  async removeCachedData() {
+    console.time('Clearing cache');
+    console.warn('Removing cached data...');
+
+    const path = './data/cached';
+    const files = fs.readdirSync(path).filter(
+      file => file.substr(file.length - 4, file.length) === 'json'
+    );
+
+    let deletionCount = 0;
+
+    for (const file of files) {
+      await new Promise((resolve, reject) => {
+        fs.unlink(`${path}/${file}`, error => {
+          if (error) {
+            console.error(`Failed to remove ${file} due to error: ${error}.`);
+            reject(error);
+            return;
+          }
+
+          deletionCount++;
+          resolve();
+        })
+      });
+    }
+
+    console.warn(`Successfully removed ${deletionCount} of ${files.length} cached data files.`);
+    console.timeEnd('Clearing cache');
   }
 
   /**
@@ -75,39 +110,39 @@ class API {
       console.time('Data');
       console.info('Starting parsing of misc required data...');
 
-      // // Items.
-      // const items = await this.crawl(config.items);
-      // require('./parsers/items')(items);
+      // Items.
+      const items = await this.crawl(config.items);
+      require('./parsers/items')(items);
 
-      // // Currencies.
-      // const currencies = await this.crawl(config.currencies);
-      // require('./parsers/currencies')(currencies);
+      // Currencies.
+      const currencies = await this.crawl(config.currencies);
+      require('./parsers/currencies')(currencies);
 
-      // // Gathering.
-      // const fishingSpots = await this.crawl(config.gathering.fishingSpots);
-      // const gatheringItems = await this.crawl(config.gathering.items);
-      // const gatheringPoints = await this.crawl(config.gathering.points);
-      // const gatheringTypes = await this.crawl(config.gathering.types);
-      // const spearFishingItems = await this.crawl(config.gathering.spearFishingItems);
-      // require('./parsers/gathering')(
-      //   gatheringPoints,
-      //   gatheringItems,
-      //   gatheringTypes,
-      //   fishingSpots,
-      //   spearFishingItems
-      // );
+      // Gathering.
+      const fishingSpots = await this.crawl(config.gathering.fishingSpots);
+      const gatheringItems = await this.crawl(config.gathering.items);
+      const gatheringPoints = await this.crawl(config.gathering.points);
+      const gatheringTypes = await this.crawl(config.gathering.types);
+      const spearFishingItems = await this.crawl(config.gathering.spearFishingItems);
+      require('./parsers/gathering')(
+        gatheringPoints,
+        gatheringItems,
+        gatheringTypes,
+        fishingSpots,
+        spearFishingItems
+      );
 
       // // Shops.
-      // const eNPCResidents = await this.crawl(config.shops.eNPCResident);
-      // const gcScripShopItems = await this.crawl(config.shops.gcScripShopItem);
-      // require ('./parsers/shops')(
-      //   eNPCResidents,
-      //   gcScripShopItems
-      // );
+      const eNPCResidents = await this.crawl(config.shops.eNPCResident);
+      const gcScripShopItems = await this.crawl(config.shops.gcScripShopItem);
+      require ('./parsers/shops')(
+        eNPCResidents,
+        gcScripShopItems
+      );
 
       // // Map data.
-      // const maps = await this.crawl(config.maps);
-      // await require('./parsers/maps')(maps);
+      const maps = await this.crawl(config.maps);
+      await require('./parsers/maps')(maps);
 
       // Mappy data (NPCs).
       const npcs = await this.crawl(config.npcs);
@@ -116,11 +151,11 @@ class API {
       console.info('Finished parsing of misc required data.');
       console.info('Starting parsing of obtain method data...');
       
-      // const quests = await this.crawl(config.quests);
-      // require('./parsers/quests')(quests);
+      const quests = await this.crawl(config.quests);
+      require('./parsers/quests')(quests);
 
-      // const recipes = await this.crawl(config.recipes);
-      // require('./parsers/recipes')(recipes);
+      const recipes = await this.crawl(config.recipes);
+      require('./parsers/recipes')(recipes);
 
       console.info('Finished parsing of obtain methods.');
       console.timeEnd('Data');
@@ -132,7 +167,7 @@ class API {
     require('./parsers/lists')(list, config.list);
 
     // Parse lists in various languages.
-    await listAPI(name, 'en');
+    // await listAPI(name, 'en');
   }
 }
 

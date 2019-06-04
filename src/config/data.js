@@ -193,6 +193,7 @@ module.exports = {
     }
   },
   items: {
+    cache: 'items',
     /**
      * For items we need to extract the following fields:
      * `Description_{lang}` - Localised description;
@@ -239,6 +240,7 @@ module.exports = {
     name: 'territoryTypes'
   },
   npcs: {
+    cacheAs: 'npc-names',
     columns: [
       'ID',
       ...helper.localisedColumnProperty('Name')
@@ -324,6 +326,7 @@ module.exports = {
   },
   shops: {
     eNPCResident: {
+      cacheAs: 'npc-shops',
       /**
        * For ENPCResidents we need to extract the following fields:
        * `GilShop.*` - An array of gil shops attached to the NPC's...

@@ -14,7 +14,7 @@ module.exports = (data) => {
   })).filter(map => map.name.en)
 
   fs.writeFileSync(
-    '../data/maps.json',
+    './data/maps.json',
     JSON.stringify(parsed),
     'utf8'
   );

@@ -35,7 +35,7 @@ async function createSpriteSheet(folderRef = '') {
   console.time(`${folderRef}Spritesheet`);
   console.info(`Creating ${folderRef} sprite sheet...`);
 
-  const sourcePath = `../icons-raw/${folderRef}/`;
+  const sourcePath = `./icons-raw/${folderRef}/`;
   const files = fs.readdirSync(sourcePath);
   
   if (!files.length) {
@@ -43,7 +43,7 @@ async function createSpriteSheet(folderRef = '') {
     return;
   }
 
-  const saveFolder = `../docs/icons/`;
+  const saveFolder = `./docs/icons/`;
 
   const isSpriteSheetReady = await new Promise((resolve, reject) => {
     Spritesmith.run({
@@ -130,7 +130,7 @@ async function fetchIconsFromPaths(paths = [], folderRef = '') {
     const iconData = await new Promise(resolve => {
       const apiPath = `https://xivapi.com${path}`;
   
-      const savePath = `../icons-raw/${folderRef}/${(
+      const savePath = `./icons-raw/${folderRef}/${(
         path.replace(/^.*\/([A-Za-z0-9]+)\.png$/, (_, group) => {
           if (isNaN(Number(group))) {
             return group;
@@ -213,7 +213,7 @@ async function minifySavedIcons(savedImagePaths = [], folderRef = '') {
   console.time(`${folderRef}Minify`);
   console.info(`Minifying ${folderRef} icons...`);
 
-  await imagemin(savedImagePaths, `../icons-raw/${folderRef}/`, {
+  await imagemin(savedImagePaths, `./icons-raw/${folderRef}/`, {
     plugins: [
       imageminPngquant({ quality: '5-10' }),
       imageminPngcrush({ reduce: true }),

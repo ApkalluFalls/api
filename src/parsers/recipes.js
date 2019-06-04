@@ -57,7 +57,7 @@ module.exports = (data) => {
   });
 
   fs.writeFileSync(
-    '../data/methods/crafting.json',
+    './data/methods/crafting.json',
     JSON.stringify(parsed),
     'utf8'
   );
