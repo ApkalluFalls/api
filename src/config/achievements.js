@@ -14,6 +14,11 @@ module.exports = {
     ],
     isPaginated: true,
     method: 'fetch',
-    name: 'Achievements'
+    name: 'Achievements',
+    structure: [
+      'Category',
+      'Points',
+      'Kind'
+    ]
   }
 };

@@ -11,6 +11,10 @@ module.exports = {
     ],
     isPaginated: true,
     method: 'fetch',
-    name: 'Orchestrion'
+    name: 'Orchestrion',
+    structure: [
+      'Category',
+      'Order'
+    ]
   }
 };

@@ -234,7 +234,6 @@ function addNewCustomCurrencyItem(item) {
 
   // Send the raw currency data through the parser and extract the parsed data from the output.
   const newCurrency = (currencyParser([rawCurrency], true))[0];
-  console.info(`Extended Currencies object to include '${newCurrency.name.en}'.`);
 
   // Extend the currencies array.
   currencies.push(newCurrency);

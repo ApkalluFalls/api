@@ -34,6 +34,14 @@ This updates all data required to ulitimately form the obtain method information
 npm run update data
 ```
 
+#### Content
+
+This updates the content which the main website uses to function (like the achievements list, individual minions, and other fancy stuff).
+
+```
+npm run update content
+```
+
 #### Icons
 
 This will create sprite sheets from the fetched data.

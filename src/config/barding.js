@@ -18,6 +18,11 @@ module.exports = {
     ],
     isPaginated: true,
     method: 'fetch',
-    name: 'Barding'
+    name: 'Barding',
+    structure: [
+      'iconBody',
+      'iconHead',
+      'iconLegs'
+    ]
   }
 };

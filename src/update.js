@@ -8,23 +8,27 @@ class API {
   }
 
   async init(optionsIn) {
-    const validOptions = [
-      // Generic data.
-      'data',
-
-      // Content lists.
+    const content = [
       'achievements',
       'barding',
       'emotes',
       'minions',
       'mounts',
-      'orchestrion',
+      'orchestrion'
+    ];
+
+    const validOptions = [
+      // Generic data.
+      'data',
+
+      // Content.
+      ...content,
 
       // Icon images and sprite sheets.
       'icons'
     ];
   
-    const args = (
+    let args = (
       optionsIn.length
         ? optionsIn
         : validOptions
@@ -33,6 +37,10 @@ class API {
     if (args.find(arg => arg === 'cache')) {
       await this.removeCachedData();
       return;
+    }
+
+    if (args.find(arg => arg === 'content')) {
+      args = content;
     }
   
     const options = args.filter(value => validOptions.indexOf(value) !== -1);
@@ -167,7 +175,10 @@ class API {
     require('./parsers/lists')(list, config.list);
 
     // Parse lists in various languages.
-    // await listAPI(name, 'en');
+    await listAPI(name, 'de');
+    await listAPI(name, 'en');
+    await listAPI(name, 'fr');
+    await listAPI(name, 'ja');
   }
 }
 
