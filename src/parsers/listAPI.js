@@ -147,4 +147,6 @@ function parseMethodDataFiles(id, contentType, language) {
       }, language));
     });
   }
+
+  return methods;
 }
