@@ -96,6 +96,12 @@ class API {
     for (const value of this.options) {
       await this.process(value);
     }
+
+    await new Promise(resolve => {
+      const version = require('../docs/version.json');
+      console.info(`Updating version to ${version + 1}.`);
+      fs.writeFile('./docs/version.json', JSON.stringify(Number(version) + 1), resolve);
+    })
   }
 
   /**
