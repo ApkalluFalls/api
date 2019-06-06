@@ -19,12 +19,12 @@ module.exports = async () => {
   await parseBardingIcons();
 
   // Helper icons.
-  await parseCraftingIcons();
   await parseCraftingItemIcons();
   await parseCurrencyIcons();
-  await parseGatheringIcons();
   await parseItemIcons();
-  await parseQuestJournalIcons();
+
+  // Method icons.
+  await parseMethodIcons();
 };
 
 /**
@@ -205,6 +205,72 @@ async function fetchIconsFromPaths(paths = [], folderRef = '') {
 }
 
 /**
+ * Get paths for data/method/crafting.json entries.
+ */
+function getCraftingIconPaths() {
+  const recipes = require('../../data/methods/crafting.json');
+
+  const paths = [];
+
+  Object.values(recipes).reduce((arr, recipeGroup) => ([
+    ...arr,
+    ...recipeGroup.map(recipe => recipe.iconPath)
+  ]), []).forEach(iconPath => {
+    if (paths.indexOf(iconPath) !== -1) {
+      return;
+    }
+
+    paths.push(iconPath);
+  });
+
+  return paths;
+}
+
+/**
+ * Get paths for data/methods/quest.json journal entries.
+ */
+function getGatheringIconPaths() {
+  const nodes = require('../../data/methods/gathering.json');
+
+  const paths = [];
+
+  Object.values(nodes).reduce((arr, nodeGroup) => ([
+    ...arr,
+    ...nodeGroup.map(node => node.iconPath)
+  ]), []).forEach(iconPath => {
+    if (paths.indexOf(iconPath) !== -1) {
+      return;
+    }
+
+    paths.push(iconPath);
+  });
+
+  return paths;
+}
+
+/**
+ * Get paths for data/methods/quest.json journal entries.
+ */
+function getQuestJournalIconPaths() {
+  const quests = require('../../data/methods/quests.json');
+
+  const paths = [];
+
+  Object.values(quests).reduce((arr, questGroup) => ([
+    ...arr,
+    ...questGroup.map(quest => quest.iconPath)
+  ]), []).forEach(iconPath => {
+    if (paths.indexOf(iconPath) !== -1) {
+      return;
+    }
+
+    paths.push(iconPath);
+  });
+
+  return paths;
+}
+
+/**
  * Minify a folder of icon images.
  * @param {Array} savedImagePaths - An array of saved image paths.
  * @param {String} folderRef - A reference to a folder within the top-level icons-raw folder.
@@ -300,9 +366,9 @@ async function parseContentIcons(contentRef) {
 }
 
 /**
- * Parse and create sprite sheet for data/method/crafting.json entries.
+ * Parse and create sprite sheet for data/method/crafting.json item entries.
  */
-async function parseCraftingIcons() {
+async function parseCraftingItemIcons() {
   console.time('CraftingItemIcons');
   const recipes = require('../../data/methods/crafting.json');
 
@@ -328,30 +394,6 @@ async function parseCraftingIcons() {
 }
 
 /**
- * Parse and create sprite sheet for data/method/crafting.json item entries.
- */
-async function parseCraftingItemIcons() {
-  console.time('CraftingIcons');
-  const recipes = require('../../data/methods/crafting.json');
-
-  const paths = [];
-
-  Object.values(recipes).reduce((arr, recipeGroup) => ([
-    ...arr,
-    ...recipeGroup.map(recipe => recipe.iconPath)
-  ]), []).forEach(iconPath => {
-    if (paths.indexOf(iconPath) !== -1) {
-      return;
-    }
-
-    paths.push(iconPath);
-  });
-
-  await processIconGroup(paths, 'crafting');
-  console.timeEnd('CraftingIcons');
-}
-
-/**
  * Parse and create sprite sheet for data/currency.json entries.
  */
 async function parseCurrencyIcons() {
@@ -374,30 +416,6 @@ async function parseCurrencyIcons() {
 
   await processIconGroup(paths, 'currency');
   console.timeEnd('CurrencyIcons');
-}
-
-/**
- * Parse and create sprite sheet for data/methods/quest.json journal entries.
- */
-async function parseGatheringIcons() {
-  console.time('GatheringIcons');
-  const nodes = require('../../data/methods/gathering.json');
-
-  const paths = [];
-
-  Object.values(nodes).reduce((arr, nodeGroup) => ([
-    ...arr,
-    ...nodeGroup.map(node => node.iconPath)
-  ]), []).forEach(iconPath => {
-    if (paths.indexOf(iconPath) !== -1) {
-      return;
-    }
-
-    paths.push(iconPath);
-  });
-
-  await processIconGroup(paths, 'gathering');
-  console.timeEnd('GatheringIcons');
 }
 
 /**
@@ -429,27 +447,19 @@ async function parseItemIcons() {
 }
 
 /**
- * Parse and create sprite sheet for data/methods/quest.json journal entries.
+ * Parse obtain method helper icons.
  */
-async function parseQuestJournalIcons() {
-  console.time('QuestIcons');
-  const quests = require('../../data/methods/quests.json');
+async function parseMethodIcons() {
+  console.time('ObtainMethodIcons');
 
-  const paths = [];
+  const paths = [
+    ...getCraftingIconPaths(),
+    ...getGatheringIconPaths(),
+    ...getQuestJournalIconPaths()
+  ];
 
-  Object.values(quests).reduce((arr, questGroup) => ([
-    ...arr,
-    ...questGroup.map(quest => quest.iconPath)
-  ]), []).forEach(iconPath => {
-    if (paths.indexOf(iconPath) !== -1) {
-      return;
-    }
-
-    paths.push(iconPath);
-  });
-
-  await processIconGroup(paths, 'quest');
-  console.timeEnd('QuestIcons');
+  await processIconGroup(paths, 'methods');
+  console.timeEnd('ObtainMethodIcons');
 }
 
 /**
