@@ -17,6 +17,8 @@ class API {
       'orchestrion'
     ];
 
+    const contentForWebsite = content.map(c => `${c}-website`);
+
     const validOptions = [
       // Generic data.
       'data',
@@ -25,7 +27,10 @@ class API {
       ...content,
 
       // Icon images and sprite sheets.
-      'icons'
+      'icons',
+
+      // Website
+      ...contentForWebsite
     ];
   
     let args = (
@@ -41,6 +46,10 @@ class API {
 
     if (args.find(arg => arg === 'content')) {
       args = content;
+    }
+
+    if (args.find(arg => arg === 'website')) {
+      args = contentForWebsite;
     }
   
     const options = args.filter(value => validOptions.indexOf(value) !== -1);
@@ -118,6 +127,23 @@ class API {
       return;
     }
 
+    if (/-website$/.test(name)) {
+      const contentName = name.replace('-website', '');
+
+      console.time(`Website ${contentName} data`);
+      console.info(`Starting creation of ${contentName} website-fetchable data.`);
+
+      // Parse lists in various languages.
+      await listAPI(contentName, 'de');
+      await listAPI(contentName, 'en');
+      await listAPI(contentName, 'fr');
+      await listAPI(contentName, 'ja');
+
+      console.info(`Finished creating ${contentName} website-fetchable data.`);
+      console.timeEnd(`Website ${contentName} data`);
+      return;
+    }
+
     const config = require(`./config/${name}`);
 
     if (name === 'data') {
@@ -179,12 +205,6 @@ class API {
     // All other data has a separate config file.
     const list = await this.crawl(config.list);
     require('./parsers/lists')(list, config.list);
-
-    // Parse lists in various languages.
-    await listAPI(name, 'de');
-    await listAPI(name, 'en');
-    await listAPI(name, 'fr');
-    await listAPI(name, 'ja');
   }
 }
 

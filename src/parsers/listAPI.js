@@ -71,10 +71,22 @@ function parseMethodDataFiles(id, contentType, language) {
 
   const maps = require('../../data/maps.json');
   const npcs = require('../../data/npcs.json');
+  const achievements = require('../../data/content/achievements.json');
+  const achievementMapping = require('../../data/methods/achievements.json');
   const crafting = require('../../data/methods/crafting.json');
   const gathering = require('../../data/methods/gathering.json');
   const quests = require('../../data/methods/quests.json');
   const shops = require('../../data/methods/shops.json');
+
+  if (achievementMapping[contentType]) {
+    achievementMapping[contentType].filter(achievement => achievement.contentId === id).forEach(match => {
+      const achievement = achievements.find(achievement => achievement.id === match.achievement);
+      methods.push(_localisationHelper.achievementShort({
+        contentId: match.contentId,
+        ...achievement
+      }, language));
+    });
+  }
 
   if (crafting[contentType]) {
     crafting[contentType].filter(craftingEntry => craftingEntry.contentId === id).forEach(match => {

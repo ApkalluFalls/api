@@ -1,4 +1,8 @@
 module.exports = {
+  achievementShort: (entry, language) => ([
+    'achievementShort',
+    [entry.name[language]]
+  ]),
   craftShort: (entry, language) => ([
     'craftShort',
     entry.icon,

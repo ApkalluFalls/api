@@ -9,6 +9,8 @@ module.exports = {
       'Icon',
       'IconID',
       'ID',
+      'Item',
+      'ItemTargetID',
       ...helper.localisedColumnProperty(`Name`),
       'Points'
     ],

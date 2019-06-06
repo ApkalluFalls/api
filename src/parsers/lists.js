@@ -6,7 +6,7 @@ module.exports = (data, config) => {
     name
   } = config;
 
-  const parsed = data.filter(content => {
+  const filteredData = data.filter(content => {
     // Content without an English name can be ignored.
     if (!content.Name_en) {
       return false;
@@ -25,11 +25,66 @@ module.exports = (data, config) => {
        * circumstances (i.e. sleeping on a bed vs. sleeping elsewhere).
        */
       case 'Emotes':
-          return content.TextCommandTargetID !== 0;
+        return content.TextCommandTargetID !== 0;
     }
 
     return true;
-  }).map(content => {
+  });
+
+  // We want to extract all rewards from the achievements data.
+  if (name === 'Achievements') {
+    const items = require('../../data/items.json');
+    const rewards = {};
+
+    const allItems = Object.values(items).reduce((arr, itemGroup) => ([
+      ...arr,
+      ...itemGroup
+    ]), []);
+
+    filteredData.filter(achievement => achievement.ItemTargetID).reduce((arr, achievement) => {
+      const match = allItems.find(item => item.id === achievement.ItemTargetID);
+
+      if (!match) {
+        return arr;
+      }
+
+      return [
+        ...arr, {
+          achievementId: achievement.ID,
+          achievementItem: achievement.Item,
+          item: match
+        }
+      ]
+    }, []).forEach(entry => {
+      const {
+        achievementId,
+        achievementItem,
+        item
+      } = entry;
+  
+      const {
+        contentType
+      } = item;
+    
+      if (!rewards[contentType]) {
+        rewards[contentType] = [];
+      }
+
+      rewards[contentType].push({
+        achievement: achievementId,
+        contentId: item.contentId
+      })
+    });
+
+    fs.writeFileSync(
+      `./data/methods/achievements.json`,
+      JSON.stringify(rewards),
+      'utf8'
+    );
+    console.info(`${name} rewards parsed.`);
+  }
+
+  const parsed = filteredData.map(content => {
     const response = {
       name: helper.getLocalisedNamesObject(content),
       patch: content.GamePatch.ID
@@ -46,6 +101,7 @@ module.exports = (data, config) => {
         response.kind = content.AchievementCategory.AchievementKind.ID;
         response.description = helper.getLocalisedNamesObject(content, 'Description');
         response.points = content.Points;
+
         break;
 
       case 'Barding':
