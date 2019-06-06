@@ -79,7 +79,7 @@ async function createSpriteSheet(folderRef = '') {
       }
 
       coordinates[k.replace(
-        new RegExp(`^\\.\\.\\/icons-raw\\/${folderRef}\\/|\\.png$`, 'g'),
+        new RegExp(`^\\.\\/icons-raw\\/${folderRef}\\/|\\.png$`, 'g'),
         ''
       )] = response;
     });
