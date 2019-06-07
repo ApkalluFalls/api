@@ -134,13 +134,13 @@ function parseMethodDataFiles(id, contentType, language) {
       let icon;
 
       switch (match.icon) {
-        case '60438': // Miner
+        case 60438: // Miner
           icon = 'g1';
           break;
-        case '60432': // Botanist
+        case 60432: // Botanist
           icon = 'g2';
           break;
-        case '60929': // Fisher
+        case 60929: // Fisher
           icon = 'g3';
           break;
         default:
