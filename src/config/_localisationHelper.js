@@ -1,7 +1,7 @@
 module.exports = {
   achievementShort: (entry, language) => ([
     'achievementShort',
-    92013,
+    'achievement',
     [entry.name[language]]
   ]),
   craftShort: (entry, language) => ([
@@ -17,7 +17,7 @@ module.exports = {
   quest: {
     eventQuestShort: (quest, language) => ([
       'eventQuestShort',
-      quest.icon,
+      'event',
       [quest.level, quest.name[language], quest.journal.category[language]]
     ]),
     msqShort: (quest, language) => ([
@@ -34,7 +34,7 @@ module.exports = {
   shop: {
     gilShort: (entry, language) => ([
       'gilShopShort',
-      61575,
+      'shop',
       [
         entry.cost,
         entry.currency.name[language],
@@ -46,7 +46,7 @@ module.exports = {
     ]),
     specialShort: (entry, language) => ([
       'specialShopShort',
-      61575,
+      'shop',
       [
         entry.cost,
         entry.currency.name[language],

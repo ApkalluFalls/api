@@ -131,17 +131,24 @@ async function fetchIconsFromPaths(paths = [], folderRef = '') {
 
   for (const [index, path] of paths.entries()) {
     const iconData = await new Promise(resolve => {
-      const apiPath = `https://xivapi.com${path}`;
-  
-      const savePath = `./icons-raw/${folderRef}/${(
-        path.replace(/^.*\/([A-Za-z0-9]+)\.png$/, (_, group) => {
-          if (isNaN(Number(group))) {
-            return group;
-          }
+      let apiPath;
+      let savePath;
 
-          return Number(group);
-        })
-      )}.png`;
+      if (typeof path === 'object') {
+        apiPath = `https://xivapi.com${path.path}`,
+        savePath = `./icons-raw/${folderRef}/${path.as}.png`;
+      } else {
+        apiPath = `https://xivapi.com${path}`;
+        savePath = `./icons-raw/${folderRef}/${(
+          path.replace(/^.*\/([A-Za-z0-9]+)\.png$/, (_, group) => {
+            if (isNaN(Number(group))) {
+              return group;
+            }
+  
+            return Number(group);
+          })
+        )}.png`;
+      }
 
       // Do not fetch the image if it already exists.
       if (fs.existsSync(savePath)) {
@@ -219,11 +226,13 @@ function getCraftingIconPaths() {
     ...arr,
     ...recipeGroup.map(recipe => recipe.iconPath)
   ]), []).forEach(iconPath => {
-    if (paths.indexOf(iconPath) !== -1) {
+    const mappedPath = mapIconPath(iconPath);
+
+    if (paths.find(path => path.as === mappedPath.as)) {
       return;
     }
 
-    paths.push(iconPath);
+    paths.push(mappedPath);
   });
 
   return paths;
@@ -241,11 +250,13 @@ function getGatheringIconPaths() {
     ...arr,
     ...nodeGroup.map(node => node.iconPath)
   ]), []).forEach(iconPath => {
-    if (paths.indexOf(iconPath) !== -1) {
+    const mappedPath = mapIconPath(iconPath);
+
+    if (paths.find(path => path.as === mappedPath.as)) {
       return;
     }
 
-    paths.push(iconPath);
+    paths.push(mappedPath);
   });
 
   return paths;
@@ -259,18 +270,90 @@ function getQuestJournalIconPaths() {
 
   const paths = [];
 
-  Object.values(quests).reduce((arr, questGroup) => ([
+  Object.values(quests).reduce((arr, nodeGroup) => ([
     ...arr,
-    ...questGroup.map(quest => quest.iconPath)
+    ...nodeGroup.map(quest => quest.iconPath)
   ]), []).forEach(iconPath => {
-    if (paths.indexOf(iconPath) !== -1) {
+    const mappedPath = mapIconPath(iconPath);
+
+    if (paths.find(path => path.as === mappedPath.as)) {
       return;
     }
 
-    paths.push(iconPath);
+    paths.push(mappedPath);
   });
 
   return paths;
+}
+
+function mapIconPath(iconPath) {
+  const pathAfterReplace = iconPath.replace(/^.*\/([A-Za-z0-9]+)\.png$/, (_, group) => {
+    if (isNaN(Number(group))) {
+      return group;
+    }
+
+    return Number(group);
+  });
+
+  switch (pathAfterReplace) {
+    // Crafting classes
+    case 'alchemist':
+      return { path: '/i/092000/092037.png', as: pathAfterReplace };
+    case 'armorer':
+      return { path: '/i/092000/092033.png', as: pathAfterReplace };
+    case 'blacksmith':
+      return { path: '/i/092000/092032.png', as: pathAfterReplace };
+    case 'carpenter':
+      return { path: '/i/092000/092031.png', as: pathAfterReplace };
+    case 'culinarian':
+      return { path: '/i/092000/092038.png', as: pathAfterReplace };
+    case 'goldsmith':
+      return { path: '/i/092000/092034.png', as: pathAfterReplace };
+    case 'leatherworker':
+      return { path: '/i/092000/092035.png', as: pathAfterReplace };
+    case 'weaver':
+      return { path: '/i/092000/092036.png', as: pathAfterReplace };
+
+    // Gathering classes
+    case '60438': // Miner
+      return { path: '/i/092000/092039.png', as: pathAfterReplace };
+    case '60432': // Botanist
+      return { path: '/i/092000/092040.png', as: pathAfterReplace };
+    case '60929': // Fisher
+      return { path: '/i/092000/092041.png', as: pathAfterReplace };
+
+    // Quests
+    case '71201': // Regular quests
+    case '71221': // Main Scenario quests
+      return { path: iconPath, as: pathAfterReplace };
+    case '80101': // Event quest: Halloween 1
+    case '80102': // Event quest: FFXIII collaboration
+    case '80103': // Event quest: Halloween 2
+    case '80104': // Event quest: Slime
+    case '80105': // Event quest: Little Ladies Day
+    case '80106': // Event quest: Christmas
+    case '80107': // Event quest: Pegasus
+    case '80108': // Event quest: Valentine's Day
+    case '80109': // Event quest: Flowers
+    case '80110': // Event quest: Easter
+    case '80111': // Event quest: Chinese New Year
+    case '80112': // Event quest: Chinese New Year: Sheep
+    case '80113': // Event quest: Generic event
+    case '80115': // Event quest: Chinese New Year: Monkey
+    case '80116': // Event quest: Gold Saucer
+    case '80117': // Event quest: Yokai Watch collaboration
+    case '80118': // Event quest: Chinese New Year: Rooster
+    case '80119': // Event quest: Chinese New Year: Dog
+    case '80120': // Event quest: Chinese New Year: Boar
+    case '80121': // Event quest: Monster Hunter collaboration
+    case '80123': // Event quest: FFXV collaboration
+      return { path: '/i/092000/092012.png', as: 'event' };
+
+
+    default:
+      console.warn(`No mapped icon path for ${pathAfterReplace} (${iconPath})`);
+      return { path: iconPath, as: pathAfterReplace };
+  }
 }
 
 /**
@@ -282,7 +365,7 @@ function getQuestJournalIconPaths() {
 async function minifySavedIcons(savedImagePaths = [], folderRef = '', config) {
   console.time(`${folderRef}Minify`);
   console.info(`Minifying ${folderRef} icons...`);
-
+  
   const use =  [
     imageminAdvpng()
   ];
@@ -476,11 +559,11 @@ async function parseMethodIcons() {
     ...getCraftingIconPaths(),
     ...getGatheringIconPaths(),
     ...getQuestJournalIconPaths(),
-    '/img-misc/061575.png',
-    '/i/092000/092013.png'
+    { path: '/i/092000/092019.png', as: 'shop' },
+    { path: '/i/092000/092013.png', as: 'achievement' }
   ];
 
-  await processIconGroup(paths, 'methods', { resize: 24 });
+  await processIconGroup(paths, 'methods', { resize: 40 });
   console.timeEnd('ObtainMethodIcons');
 }
 
