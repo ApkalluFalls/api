@@ -26,8 +26,10 @@ module.exports = async (npcs) => {
   console.info('Map data fetched; parsing...');
 
   const data = await new Promise(resolve => {
+    const customNPCData = require('../../extensions/npcs.js');
+
     const parsed = {
-      npcs: []
+      npcs: [...customNPCData]
     };
 
     fastCSV.fromString(csv, {
@@ -38,7 +40,7 @@ module.exports = async (npcs) => {
           parsed.npcs.push({
             id: Number(data.ENpcResidentID),
             location: Number(data.MapTerritoryID),
-            type: Number(data.Type),
+            type: data.Type,
             x: Number(Number(data.PosX).toFixed(1)),
             y: Number(Number(data.PosY).toFixed(1))
           });
@@ -49,7 +51,7 @@ module.exports = async (npcs) => {
     }).on("end", () => {
       resolve(parsed);
     });
-  })
+  });
 
   const allNPCData = npcs.map(npc => {
     const mappyMatch = data.npcs.find(mappyNPC => mappyNPC.id === npc.ID) || {};
