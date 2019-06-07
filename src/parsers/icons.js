@@ -563,7 +563,7 @@ async function parseMethodIcons() {
     { path: '/i/092000/092013.png', as: 'achievement' }
   ];
 
-  await processIconGroup(paths, 'methods', { resize: 40 });
+  await processIconGroup(paths, 'methods', { resize: 24 });
   console.timeEnd('ObtainMethodIcons');
 }
 
