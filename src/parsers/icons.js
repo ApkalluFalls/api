@@ -286,6 +286,10 @@ function getQuestJournalIconPaths() {
   return paths;
 }
 
+/**
+ * Map an icon reference to a different icon.
+ * @param {String} iconPath - The path to the icon on XIVAPI.
+ */
 function mapIconPath(iconPath) {
   const pathAfterReplace = iconPath.replace(/^.*\/([A-Za-z0-9]+)\.png$/, (_, group) => {
     if (isNaN(Number(group))) {
@@ -298,34 +302,35 @@ function mapIconPath(iconPath) {
   switch (pathAfterReplace) {
     // Crafting classes
     case 'alchemist':
-      return { path: '/i/092000/092037.png', as: pathAfterReplace };
+      return { path: '/i/092000/092037.png', as: 'c1' };
     case 'armorer':
-      return { path: '/i/092000/092033.png', as: pathAfterReplace };
+      return { path: '/i/092000/092033.png', as: 'c2' };
     case 'blacksmith':
-      return { path: '/i/092000/092032.png', as: pathAfterReplace };
+      return { path: '/i/092000/092032.png', as: 'c3' };
     case 'carpenter':
-      return { path: '/i/092000/092031.png', as: pathAfterReplace };
+      return { path: '/i/092000/092031.png', as: 'c4' };
     case 'culinarian':
-      return { path: '/i/092000/092038.png', as: pathAfterReplace };
+      return { path: '/i/092000/092038.png', as: 'c5' };
     case 'goldsmith':
-      return { path: '/i/092000/092034.png', as: pathAfterReplace };
+      return { path: '/i/092000/092034.png', as: 'c6' };
     case 'leatherworker':
-      return { path: '/i/092000/092035.png', as: pathAfterReplace };
+      return { path: '/i/092000/092035.png', as: 'c7' };
     case 'weaver':
-      return { path: '/i/092000/092036.png', as: pathAfterReplace };
+      return { path: '/i/092000/092036.png', as: 'c8' };
 
     // Gathering classes
     case '60438': // Miner
-      return { path: '/i/092000/092039.png', as: pathAfterReplace };
+      return { path: '/i/092000/092039.png', as: 'g1' };
     case '60432': // Botanist
-      return { path: '/i/092000/092040.png', as: pathAfterReplace };
+      return { path: '/i/092000/092040.png', as: 'g2' };
     case '60929': // Fisher
-      return { path: '/i/092000/092041.png', as: pathAfterReplace };
+      return { path: '/i/092000/092041.png', as: 'g3' };
 
     // Quests
     case '71201': // Regular quests
+      return { path: iconPath, as: 'q1' };
     case '71221': // Main Scenario quests
-      return { path: iconPath, as: pathAfterReplace };
+      return { path: iconPath, as: 'q2' };
     case '80101': // Event quest: Halloween 1
     case '80102': // Event quest: FFXIII collaboration
     case '80103': // Event quest: Halloween 2
@@ -347,7 +352,7 @@ function mapIconPath(iconPath) {
     case '80120': // Event quest: Chinese New Year: Boar
     case '80121': // Event quest: Monster Hunter collaboration
     case '80123': // Event quest: FFXV collaboration
-      return { path: '/i/092000/092012.png', as: 'event' };
+      return { path: '/i/092000/092012.png', as: 'q3' };
 
 
     default:
@@ -559,8 +564,8 @@ async function parseMethodIcons() {
     ...getCraftingIconPaths(),
     ...getGatheringIconPaths(),
     ...getQuestJournalIconPaths(),
-    { path: '/i/092000/092019.png', as: 'shop' },
-    { path: '/i/092000/092013.png', as: 'achievement' }
+    { path: '/i/092000/092019.png', as: 1 },
+    { path: '/i/092000/092013.png', as: 2 }
   ];
 
   await processIconGroup(paths, 'methods', { resize: 24 });

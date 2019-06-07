@@ -90,13 +90,68 @@ function parseMethodDataFiles(id, contentType, language) {
 
   if (crafting[contentType]) {
     crafting[contentType].filter(craftingEntry => craftingEntry.contentId === id).forEach(match => {
-      methods.push(_localisationHelper.craftShort(match, language));
+      let icon;
+
+      switch (match.icon) {
+        case 'alchemist':
+          icon = 'c1';
+          break;
+        case 'armorer':
+          icon = 'c2';
+          break;
+        case 'blacksmith':
+          icon = 'c3';
+          break;
+        case 'carpenter':
+          icon = 'c4';
+          break;
+        case 'culinarian':
+          icon = 'c5';
+          break;
+        case 'goldsmith':
+          icon = 'c6';
+          break;
+        case 'leatherworker':
+          icon = 'c7';
+          break;
+        case 'weaver':
+          icon = 'c8';
+          break;
+        default:
+          console.warn(`Unrecognised crafting class icon ref '${match.icon}'. Skipping.`)
+          return;
+      }
+
+      methods.push(_localisationHelper.craftShort({
+        ...match,
+        icon
+      }, language));
     });
   }
 
   if (gathering[contentType]) {
     gathering[contentType].filter(gatheringEntry => gatheringEntry.contentId === id).forEach(match => {
-      methods.push(_localisationHelper.gatherShort(match, language));
+      let icon;
+
+      switch (match.icon) {
+        case '60438': // Miner
+          icon = 'g1';
+          break;
+        case '60432': // Botanist
+          icon = 'g2';
+          break;
+        case '60929': // Fisher
+          icon = 'g3';
+          break;
+        default:
+          console.warn(`Unrecognised gathering class icon ref '${match.icon}'. Skipping.`)
+          return;
+      }
+
+      methods.push(_localisationHelper.gatherShort({
+        ...match,
+        icon
+      }, language));
     });
   }
 
