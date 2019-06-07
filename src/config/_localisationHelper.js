@@ -23,13 +23,11 @@ module.exports = {
     msqShort: (quest, language) => ([
       'msqShort',
       'q2',
-      quest.icon,
       [quest.level, quest.name[language], quest.journal.category[language]]
     ]),
     questShort: (quest, language) => ([
       'questShort',
       'q1',
-      quest.icon,
       [quest.level, quest.name[language], quest.journal.category[language]]
     ])
   },
