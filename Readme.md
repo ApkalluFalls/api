@@ -50,6 +50,8 @@ This will create sprite sheets from the fetched data.
 npm run update icons
 ```
 
+*Important:* In order to update icons, GraphicsMagick must be installed on your machine. You'll then need to manually modify `src/parsers/icons.js` to link to the correct binary.
+
 ### Cached Data
 
 To avoid bombarding the API with repeated calls every time we want to fetch data, any API call which is paginated will be saved in `data/cached`. This can be cleared by running:

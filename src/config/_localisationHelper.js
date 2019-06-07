@@ -1,7 +1,7 @@
 module.exports = {
   achievementShort: (entry, language) => ([
     'achievementShort',
-    'star',
+    92013,
     [entry.name[language]]
   ]),
   craftShort: (entry, language) => ([
@@ -34,7 +34,7 @@ module.exports = {
   shop: {
     gilShort: (entry, language) => ([
       'gilShopShort',
-      'npc',
+      61575,
       [
         entry.cost,
         entry.currency.name[language],
@@ -46,7 +46,7 @@ module.exports = {
     ]),
     specialShort: (entry, language) => ([
       'specialShopShort',
-      'npc',
+      61575,
       [
         entry.cost,
         entry.currency.name[language],

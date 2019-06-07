@@ -1,12 +1,15 @@
 const fs = require('fs');
 const imagemin = require('imagemin');
+const imageminAdvpng = require('imagemin-advpng');
+const ImageminGm = require('imagemin-gm')
+const imageminOptipng = require('imagemin-optipng');
 const imageminPngquant = require('imagemin-pngquant');
 const imageminPngcrush = require('imagemin-pngcrush');
-const imageminOptipng = require('imagemin-optipng');
-const imageminAdvpng = require('imagemin-advpng');
 const Progress = require('cli-progress');
 const request = require('request');
 const Spritesmith = require('spritesmith');
+
+const imageminGm = new ImageminGm('/usr/local/Cellar/graphicsmagick/1.3.31/bin');
 
 module.exports = async () => {
   // Main list content.
@@ -47,7 +50,7 @@ async function createSpriteSheet(folderRef = '') {
 
   const isSpriteSheetReady = await new Promise((resolve, reject) => {
     Spritesmith.run({
-      src: files.map(file => `${sourcePath}${file}`)
+      src: files.map(file => `${sourcePath}${file}`).filter(file => /\.png$/.test(file))
     }, (error, result) => {
       if (error) {
         reject(error);
@@ -274,10 +277,29 @@ function getQuestJournalIconPaths() {
  * Minify a folder of icon images.
  * @param {Array} savedImagePaths - An array of saved image paths.
  * @param {String} folderRef - A reference to a folder within the top-level icons-raw folder.
+ * @param {Object} [config] - Additional options.
  */
-async function minifySavedIcons(savedImagePaths = [], folderRef = '') {
+async function minifySavedIcons(savedImagePaths = [], folderRef = '', config) {
   console.time(`${folderRef}Minify`);
   console.info(`Minifying ${folderRef} icons...`);
+
+  const use =  [
+    imageminAdvpng()
+  ];
+
+  if (config) {
+    const {
+      resize
+    } = config;
+
+    if (resize) {
+      use.push(imageminGm.resize({
+        gravity: 'Center',
+        height: resize,
+        width: resize
+      }));
+    }
+  }
 
   await imagemin(savedImagePaths, `./icons-raw/${folderRef}/`, {
     plugins: [
@@ -285,9 +307,7 @@ async function minifySavedIcons(savedImagePaths = [], folderRef = '') {
       imageminPngcrush({ reduce: true }),
       imageminOptipng()
     ],
-    use: [
-      imageminAdvpng()
-    ]
+    use
   });
 
   console.info(`Finished minifying ${folderRef} icons.`);
@@ -455,10 +475,12 @@ async function parseMethodIcons() {
   const paths = [
     ...getCraftingIconPaths(),
     ...getGatheringIconPaths(),
-    ...getQuestJournalIconPaths()
+    ...getQuestJournalIconPaths(),
+    '/img-misc/061575.png',
+    '/i/092000/092013.png'
   ];
 
-  await processIconGroup(paths, 'methods');
+  await processIconGroup(paths, 'methods', { resize: 24 });
   console.timeEnd('ObtainMethodIcons');
 }
 
@@ -466,8 +488,9 @@ async function parseMethodIcons() {
  * 
  * @param {Array} paths - An array of image paths to process.
  * @param {String} folderRef - A reference to a folder within the top-level icons-raw folder.
+ * @param {Object} [config] - Additional options to pass through to the generator.
  */
-async function processIconGroup(paths = [], folderRef = '') {
+async function processIconGroup(paths = [], folderRef = '', config) {
   const savedIcons = await fetchIconsFromPaths(paths, folderRef);
 
   if (!savedIcons) {
@@ -475,6 +498,6 @@ async function processIconGroup(paths = [], folderRef = '') {
     return;
   }
 
-  await minifySavedIcons(savedIcons, folderRef);
+  await minifySavedIcons(savedIcons, folderRef, config);
   await createSpriteSheet(folderRef);
 }
