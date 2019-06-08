@@ -1,4 +1,3 @@
 node_modules
 .DS_Store
-xivapi-key.txt
 data/cached/*.json

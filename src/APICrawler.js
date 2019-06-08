@@ -4,7 +4,7 @@ const Progress = require('cli-progress');
 const urls = require('./xivapi/urls');
 
 module.exports = class APICrawler {
-  constructor(config = {}, apiKey = '') {
+  constructor(config = {}) {
     if (!config || typeof config !== 'object') {
       throw new Error('Config passed to APICrawler as first argument must be an object.');
     }
@@ -15,12 +15,7 @@ module.exports = class APICrawler {
       );
     }
 
-    if (!apiKey || typeof apiKey !== 'string') {
-      throw new Error('API key passed to APICrawler as second argument must be a string.');
-    }
-
     this.apiCallCount = 0;
-    this.apiKey = apiKey;
     this.config = config;
     this.cumulativeSuccessfulCalls = 0;
     this.errors = 0;
@@ -79,7 +74,6 @@ module.exports = class APICrawler {
     const apiPath = urls[`${name.charAt(0).toLowerCase()}${name.substr(1)}`]();
 
     const queryStringParts = [
-      `apiKey=${this.apiKey}`,
       `limit=${limit}`
     ];
 
@@ -247,7 +241,6 @@ module.exports = class APICrawler {
     const apiPath = urls.search();
 
     const queryStringParts = [
-      `apiKey=${this.apiKey}`,
       `page=${page === -1 ? 1 : page}`
     ];
 

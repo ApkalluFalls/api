@@ -4,7 +4,7 @@ const listAPI = require('./parsers/listAPI');
 
 class API {
   async crawl(config) {
-    return await new APICrawler(config, this.apiKey)[config.method]();
+    return await new APICrawler(config)[config.method]();
   }
 
   async init(optionsIn) {
@@ -59,8 +59,7 @@ class API {
       console.info(`Valid options include: '${validOptions.join('\', \'')}'`);
       return;
     }
-  
-    this.apiKey = await fs.readFileSync('./xivapi-key.txt', 'utf-8');
+
     this.options = options;
   }
 
