@@ -26,6 +26,12 @@ module.exports = (data, config) => {
         return !!content.AchievementCategory;
 
       /**
+       * Chocobo barding without a body icon can be ignored. 
+       */
+      case 'Barding':
+        return !!content.IconBody;
+
+      /**
        * Emotes with no TextCommand are duplicates, thought to be different actions under certain
        * circumstances (i.e. sleeping on a bed vs. sleeping elsewhere).
        */
