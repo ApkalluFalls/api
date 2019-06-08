@@ -34,7 +34,7 @@ module.exports = {
   shop: {
     gilShort: (entry, language) => ([
       'gilShopShort',
-      'shop',
+      1,
       [
         entry.cost,
         entry.currency.name[language],
@@ -46,7 +46,7 @@ module.exports = {
     ]),
     specialShort: (entry, language) => ([
       'specialShopShort',
-      2,
+      1,
       [
         entry.cost,
         entry.currency.name[language],

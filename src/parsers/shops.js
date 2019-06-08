@@ -166,6 +166,7 @@ module.exports = (
     }
 
     let currency;
+    let npcId;
 
     const {
       ID
@@ -178,12 +179,15 @@ module.exports = (
     if (ID < 10) {
       // Immortal Flames -> Flame Seals
       currency = currencies.find(currency => currency.id === 20);
+      npcId = 1002390; // Flame Quartermaster
     } else if (ID < 20) {
       // Maelstrom -> Storm Seals
       currency = currencies.find(currency => currency.id === 21);
+      npcId = 1002387; // Storm Quartermaster
     } else if (ID < 30) {
       // Order of the Twin Adder -> Serpent Seals
       currency = currencies.find(currency => currency.id === 22);
+      npcId = 1002393; // Serpent Quatermaster
     } else {
       // Unknown.
       console.warn(
@@ -195,7 +199,8 @@ module.exports = (
     parsed[contentType].push({
       contentId,
       cost: gcScripShopItem.CostGCSeals,
-      currency
+      currency,
+      npc: npcId
     })
   });
 

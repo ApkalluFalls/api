@@ -4,7 +4,7 @@
  * manually entered here instead. NPCs are missing when they're from expired events, or simply from
  * times when Mappy hasn't captured new NPC positions.
  * 
- * Data IDs must be added to the first array, then mapped to a location afterwards. Failure to do
+ * NPC IDs must be added to the first array, then mapped to a location afterwards. Failure to do
  * so will result in an error.
  * 
  * Remember that `npm run update data` will need running to apply any changes.
