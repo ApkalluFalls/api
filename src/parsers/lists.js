@@ -12,6 +12,11 @@ module.exports = (data, config) => {
       return false;
     }
 
+    // Ignore entries with no icon (doesn't apply to chocobo barding or orchestrion rolls).
+    if (name !== 'Barding' && name !== 'Orchestrion' && !content.Icon) {
+      return false;
+    }
+
     switch (name) {
       /**
        * Some achievements have no category. Those ones aren't accessible in the game and never
@@ -146,5 +151,8 @@ module.exports = (data, config) => {
     JSON.stringify(parsed),
     'utf8'
   );
-  console.info(`${name} data parsed.`);
+
+  const ignored = data.length - filteredData.length;
+
+  console.info(`${name} data parsed.${ignored ? ` ${ignored} entries ignored.` : ''}`);
 }
