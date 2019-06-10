@@ -17,7 +17,7 @@ module.exports = [
   1028400, 1016093, 1023940, 1023794, 1018128, 1018129, 1018130, 1017844, 1017230, 1012135,
   1016902, 1016903, 1016904, 1005159, 1025313, 1017172, 1016264, 1019804, 1010753, 1010757,
   1010761, 1010780, 1010781, 1010782, 1010790, 1010791, 1010792, 1010793, 1010794, 1010795,
-  1005970, 1009290
+  1005970, 1009290, 1005790, 1005792, 1005794, 1010175
 ].map(id => {
   let location;
   let x;
@@ -33,6 +33,7 @@ module.exports = [
     case 1024166: // Starlight Celebrant
     case 1025313: // House Valentione Maid
     case 1026635: // Starlight Celebrant
+    case 1005790: // Starlight supplier
       location = 133; // Old Gridania
       x = 11;
       y = 9;
@@ -45,6 +46,7 @@ module.exports = [
     case 1024167: // Starlight Celebrant
     case 1026636: // Starlight Celebrant
     case 1028400: // Ironworks Hand
+    case 1005792: // Starlight supplier
       location = 128; // Limsa Lominsa Upper Decks
       x = 11;
       y = 14;
@@ -59,6 +61,8 @@ module.exports = [
     case 1024168: // Starlight Celebrant
     case 1025470: // Royal Servant
     case 1026637: // Starlight Celebrant
+    case 1010175: // Shady Smock
+    case 1005794: // Starlight supplier
       location = 182; // Ul'dah - Steps of Nald
       x = 11;
       y = 9;
