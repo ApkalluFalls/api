@@ -2,7 +2,7 @@ const helper = require('../xivapi/helper');
 const fs = require('fs');
 
 /**
- * Parse item data from XIVAPI.
+ * Parse currency data from XIVAPI.
  * @param {Array} data - Currency data from the API.
  * @param {Boolean} [isExternalParse] - Whether the parser should return the data instead of creating a file.
  */

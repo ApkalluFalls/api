@@ -12,6 +12,7 @@ module.exports = {
   gatheringPoints: () => `${xivapiBase}/gatheringpoint`,
   gatheringTypes: () => `${xivapiBase}/gatheringtype`,
   gcScripShopItem: () => `${xivapiBase}/gcscripshopitem`,
+  instanceContent: () => `${xivapiBase}/instancecontent`,
   minion: (id) => `${xivapiBase}/companion/${id}`,
   minions: () => `${xivapiBase}/companion`,
   mount: (id) => `${xivapiBase}/mount/${id}`,

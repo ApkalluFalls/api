@@ -566,7 +566,8 @@ async function parseMethodIcons() {
     ...getQuestJournalIconPaths(),
     { path: '/i/092000/092019.png', as: 1 }, // Shop.
     { path: '/i/092000/092013.png', as: 2 }, // Achievement.
-    { path: '/i/092000/092016.png', as: 3 } // Collectors Edition.
+    { path: '/i/092000/092016.png', as: 3 }, // Collectors Edition.
+    { path: '/i/092000/092106.png', as: 3 } // Instanced Content.
   ];
 
   await processIconGroup(paths, 'methods', { resize: 24 });

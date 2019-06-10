@@ -192,6 +192,25 @@ module.exports = {
       name: 'gatheringTypes'
     }
   },
+  instances: {
+    /**
+     * For instances we need to extract the following fields:
+     * `ContentFinderCondition` - Object containing the instance's level;
+     * `ContentType` - Object containing the instance's type;
+     * `ID` - The ID used to reference the extracted data in future;
+     * `Name_{lang}` - Localised name;
+     */
+    columns: [
+      'ContentFinderCondition',
+      'ContentType',
+      'ID',
+      ...helper.localisedColumnProperty('Name')
+    ],
+    isPaginated: true,
+    log: 'Instances',
+    method: 'fetch',
+    name: 'instanceContent'
+  },
   items: {
     cache: 'items',
     /**

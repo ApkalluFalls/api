@@ -196,6 +196,9 @@ class API {
       const recipes = await this.crawl(config.recipes);
       require('./parsers/recipes')(recipes);
 
+      const instances = await this.crawl(config.instances);
+      require('./parsers/instances')(instances);
+
       console.info('Finished parsing of obtain methods.');
       console.timeEnd('Data');
       return;

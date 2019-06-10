@@ -19,6 +19,11 @@ module.exports = {
     entry.icon,
     [entry.job.level, entry.job.name[language], new Array(entry.job.stars).fill('★').join('')]
   ]),
+  instanceShort: (entry, language) => ([
+    'instanceShort',
+    4,
+    [entry.level, entry.name[language], entry.type[language]]
+  ]),
   quest: {
     eventQuestShort: (quest, language) => ([
       'eventQuestShort',
