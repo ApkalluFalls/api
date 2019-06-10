@@ -59,13 +59,25 @@ module.exports = {
       // The Aquapolis
       { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] }
     ],
+    92: [
+      // Syrcus Tower
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 30011)] }
+    ],
     97: [
       // The Aquapolis
       { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] }
     ],
+    101: [
+      // The World of Darkness
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 30020)] }
+    ],
     102: [
       // Hullbreaker Isle
       { fn: instancedContent, args: [instances.find(instance => instance.id === 23)] }
+    ],
+    104: [
+      // The Dragon's Neck
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 20026)] }
     ],
     112: [
       // The Sunken Temple of Qarn (Hard)
@@ -120,9 +132,17 @@ module.exports = {
       // The Aquapolis
       { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] }
     ],
+    160: [
+      // The Void Ark
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 30029)] }
+    ],
     166: [
       // Saint Mocianne's Arboretum
       { fn: instancedContent, args: [instances.find(instance => instance.id === 41)] }
+    ],
+    176: [
+      // Alexander - The Burden of the Son (Savage)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 30037)] }
     ],
     178: [
       // The Antitower
@@ -140,9 +160,19 @@ module.exports = {
       // Hullbreaker Isle (Hard)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 45)] }
     ],
+    195: [
+      // The Weeping City of Mhach
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 30038)] }
+    ],
     197: [
       // The Aquapolis
       { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] }
+    ],
+    215: [
+      // Alexander - The Soul of the Creator
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 30042)] },
+      // Alexander - The Soul of the Creator (Savage)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 30046)] }
     ],
     216: [
       // Xelphatol
@@ -151,6 +181,10 @@ module.exports = {
     226: [
       // Baelsar's Wall
       { fn: instancedContent, args: [instances.find(instance => instance.id === 48)] }
+    ],
+    232: [
+      // Dun Scaith
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 30047)] }
     ],
     238: [
       { fn: collectorsEdition, args: [_localisationHelper.misc['Stormblood']] }
@@ -187,9 +221,19 @@ module.exports = {
       // The Sirensong Sea
       { fn: instancedContent, args: [instances.find(instance => instance.id === 52)] }
     ],
+    259: [
+      // Deltascape V4.0
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 30052)] },
+      // Deltascape V4.0 (Savage)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 30056)] }
+    ],
     269: [
       // The Hidden Canals of Uznair
       { fn: instancedContent, args: [instances.find(instance => instance.id === 55003)] }
+    ],
+    270: [
+      // The Orbonne Monastery
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 30077)] }
     ],
     272: [
       // The Drowned City of Skalla
@@ -199,6 +243,12 @@ module.exports = {
       // Hell's Lid
       { fn: instancedContent, args: [instances.find(instance => instance.id === 59)] }
     ],
+    281: [
+      // Sigmascape V4.0
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 30062)] },
+      // Sigmascape V4.0 (Savage)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 30066)] }
+    ],
     289: [
       // The Hidden Canals of Uznair
       { fn: instancedContent, args: [instances.find(instance => instance.id === 55003)] }
@@ -207,9 +257,27 @@ module.exports = {
       // The Swallow's Compass
       { fn: instancedContent, args: [instances.find(instance => instance.id === 61)] }
     ],
+    299: [
+      // The Ridorana Lighthouse
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 30068)] }
+    ],
+    301: [
+      // The Great Hunt (Extreme)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 20054)] }
+    ],
+    305: [
+      // Alphascape V4.0
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 30072)] },
+      // Alphascape V4.0 (Savage)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 30076)] }
+    ],
     312: [
       // Saint Mociannes Arboretum (Hard)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 62)] }
+    ],
+    321: [
+      // The Ghimlyt Dark
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 64)] }
     ]
   },
   mounts: {
@@ -217,19 +285,131 @@ module.exports = {
       { fn: collectorsEdition, args: [_localisationHelper.misc['Legacy (1.0)']] },
       { fn: collectorsEdition, args: [_localisationHelper.misc['A Realm Reborn']] }
     ],
+    22: [
+      // The Bowl of Embers (Extreme)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 20008)] },
+      // The Howling Eye (Extreme)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 20010)] },
+      // The Navel (Extreme)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 20009)] }
+    ],
     25: [
       { fn: collectorsEdition, args: [_localisationHelper.misc['Legacy (1.0)']] },
       { fn: collectorsEdition, args: [_localisationHelper.misc['A Realm Reborn']] }
     ],
+    28: [
+      // The Bowl of Embers (Extreme)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 20008)] }
+    ],
+    29: [
+      // The Howling Eye (Extreme)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 20010)] }
+    ],
+    30: [
+      // The Navel (Extreme)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 20009)] }
+    ],
+    31: [
+      // The Whorleater (Extreme)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 20018)] }
+    ],
+    40: [
+      // The Striking Tree (Extreme)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 20023)] }
+    ],
+    43: [
+      // Akh Afah Amphitheatre (Extreme)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 20025)] }
+    ],
     54: [
       { fn: collectorsEdition, args: [_localisationHelper.misc['Heavensward']] }
+    ],
+    58: [
+      // Alexander - The Burden of the Father (Savage)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 30028)] }
+    ],
+    75: [
+      // The Limitless Blue (Extreme)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 20034)] }
+    ],
+    76: [
+      // Thok Ast Thok (Extreme)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 20032)] }
+    ],
+    77: [
+      // The Minstrel's Ballad: Thordan's Reign
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 20036)] }
+    ],
+    78: [
+      // Containment Bay S1T7 (Extreme)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 20038)] }
+    ],
+    90: [
+      // The Minstrel's Ballad: Nidhogg's Rage
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 20040)] }
+    ],
+    98: [
+      // Containment Bay P1T6 (Extreme)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 20042)] }
+    ],
+    101: [
+      // Alexander - The Soul of the Creator (Savage)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 30046)] }
+    ],
+    104: [
+      // Containment Bay Z1T9 (Extreme)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 20044)] }
     ],
     111: [
       { fn: collectorsEdition, args: [_localisationHelper.misc['Stormblood']] }
     ],
+    115: [
+      // Emanation (Extreme)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 20049)] }
+    ],
+    116: [
+      // The Pool of Tribute (Extreme)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 20047)] }
+    ],
     121: [
       // Ala Mhigo
       { fn: instancedContent, args: [instances.find(instance => instance.id === 56)] }
+    ],
+    126: [
+      // Deltascape V4.0 (Savage)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 30056)] }
+    ],
+    133: [
+      // The Minstrel's Ballad: Shinryu's Domain
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 20050)] }
+    ],
+    144: [
+      // The Jade Stoa (Extreme)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 20052)] }
+    ],
+    156: [
+      // Sigmascape V4.0 (Savage)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 30066)] }
+    ],
+    158: [
+      // The Minstrel's Ballad: Tsukuyomi's Pain
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 20056)] }
+    ],
+    161: [
+      // The Great Hunt (Extreme)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 20054)] }
+    ],
+    172: [
+      // Hell's Kier (Extreme)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 20058)] }
+    ],
+    173: [
+      // Alphascape V4.0 (Savage)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 30076)] }
+    ],
+    182: [
+      // The Wreath of Snakes (Extreme)
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 20061)] }
     ]
   }
 };
