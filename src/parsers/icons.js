@@ -564,8 +564,9 @@ async function parseMethodIcons() {
     ...getCraftingIconPaths(),
     ...getGatheringIconPaths(),
     ...getQuestJournalIconPaths(),
-    { path: '/i/092000/092019.png', as: 1 },
-    { path: '/i/092000/092013.png', as: 2 }
+    { path: '/i/092000/092019.png', as: 1 }, // Shop.
+    { path: '/i/092000/092013.png', as: 2 }, // Achievement.
+    { path: '/i/092000/092016.png', as: 3 } // Collectors Edition.
   ];
 
   await processIconGroup(paths, 'methods', { resize: 24 });

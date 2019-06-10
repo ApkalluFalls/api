@@ -77,6 +77,7 @@ function parseMethodDataFiles(id, contentType, language) {
   const gathering = require('../../data/methods/gathering.json');
   const quests = require('../../data/methods/quests.json');
   const shops = require('../../data/methods/shops.json');
+  const extensions = (require(`../../extensions/obtain-methods`))[contentType] || {};
 
   if (achievementMapping[contentType]) {
     achievementMapping[contentType].filter(achievement => achievement.contentId === id).forEach(match => {
@@ -213,6 +214,31 @@ function parseMethodDataFiles(id, contentType, language) {
         npc
       }, language));
     });
+
+    // If the content has any extensions, add them to the methods array.
+    const extension = extensions[id];
+    if (extension) {
+      if (!Array.isArray(extension)) {
+        throw new Error(`Expected extension for ${contentType} ${id} to be an array.`);
+      }
+
+      extension.forEach(method => {
+        const {
+          fn,
+          args
+        } = method;
+  
+        if (typeof fn !== 'function') {
+          throw new Error(`An obtain method extension for ${contentType} ${id} is missing a 'fn' function.`);
+        }
+  
+        if (!Array.isArray(args)) {
+          throw new Error(`An obtain method extension for ${contentType} ${id} is missing an 'args' array.`);
+        }
+
+        methods.push(fn(id, ...args, language));
+      })
+    }
   }
 
   return methods;

@@ -97,13 +97,13 @@ module.exports = (data, config) => {
 
   const parsed = filteredData.map(content => {
     const response = {
+      id: content.ID,
       name: helper.getLocalisedNamesObject(content),
       patch: content.GamePatch.ID
     };
 
     if (name !== 'Barding') {
       response.icon = content.IconID;
-      response.id = content.ID;
     }
 
     switch (name) {
@@ -146,7 +146,9 @@ module.exports = (data, config) => {
         content.Icon.match(/[A-Za-z0-9]+\.png/)[0].replace('.png', '')
       );
     } else {
-      response.iconPath = content.Icon;
+      if (name !== 'Barding') {
+        response.iconPath = content.Icon;
+      }
     }
 
     return response;

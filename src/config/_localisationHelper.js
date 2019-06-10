@@ -4,6 +4,11 @@ module.exports = {
     2,
     [entry.name[language]]
   ]),
+  collectorsEditionShort: (entry, language) => ([
+    'collectorsEditionShort',
+    3,
+    [entry.expansion[language]]
+  ]),
   craftShort: (entry, language) => ([
     'craftShort',
     entry.icon,
@@ -56,5 +61,31 @@ module.exports = {
         entry.npc.y
       ]
     ])
+  },
+  misc: {
+    'Legacy (1.0)': {
+      de: 'Legacy (1.0)',
+      en: 'Legacy (1.0)',
+      fr: 'Legacy (1.0)',
+      jp: 'LEGACY'
+    },
+    'A Realm Reborn': {
+      de: 'A Realm Reborn',
+      en: 'A Realm Reborn',
+      fr: 'A Realm Reborn',
+      ja: '新生エオルゼア'
+    },
+    'Heavensward': {
+      de: 'Heavensward',
+      en: 'Heavensward',
+      fr: 'Heavensward',
+      ja: '蒼天のイシュガルド'
+    },
+    'Stormblood': {
+      de: 'Stormblood',
+      en: 'Stormblood',
+      fr: 'Stormblood',
+      jp: '紅蓮のリベレーター'
+    }
   }
 }
