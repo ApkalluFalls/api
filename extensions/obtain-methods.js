@@ -1,8 +1,21 @@
 const _localisationHelper = require('../src/config/_localisationHelper');
+const achievements = require('../data/content/achievements.json');
 const instances = require('../data/instances.json');
 
 module.exports = {
   barding: {
+    1: [
+      // Officially enlist in the Maelstrom.
+      { fn: achievementAuto, args: [achievements.find(achievement => achievement.id === 527)] }
+    ],
+    5: [
+      // Officially enlist in the Order of the Twin Adder.
+      { fn: achievementAuto, args: [achievements.find(achievement => achievement.id === 528)] }
+    ],
+    9: [
+      // Officially enlist in the Immortal Flames.
+      { fn: achievementAuto, args: [achievements.find(achievement => achievement.id === 529)] }
+    ],
     17: [
       { fn: collectorsEdition, args: [_localisationHelper.misc['A Realm Reborn']] }
     ]
@@ -415,6 +428,19 @@ module.exports = {
 };
 
 /**
+ * Content awarded automatically following unlocking an achievement.
+ * @param {Number} contentId - The ID of the content
+ * @param {Object} achievement - The achievement object (from `data/content/achievements.json`)
+ * @param {String} language - The localisation code (e.g. `"en"`)
+ */
+function achievementAuto(contentId, achievement, language) {
+  return _localisationHelper.achievementShort({
+    contentId,
+    ...achievement
+  }, language);
+}
+
+/**
  * Collectors edition bonuses.
  * @param {Number} contentId - The ID of the content
  * @param {String} expansion - The expansion the content belongs to. (e.g. `"heavensward"`)
@@ -424,7 +450,7 @@ function collectorsEdition(contentId, expansion, language) {
   return _localisationHelper.collectorsEditionShort({
     contentId,
     expansion
-  }, language)
+  }, language);
 }
 
 /**

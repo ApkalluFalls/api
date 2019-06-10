@@ -241,5 +241,9 @@ function parseMethodDataFiles(id, contentType, language) {
     }
   }
 
+  if (language === 'en' && !methods.length) {
+    console.warn(`No known obtain methods for ${contentType} ${id}.`);
+  }
+
   return methods;
 }
