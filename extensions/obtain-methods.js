@@ -297,7 +297,10 @@ module.exports = {
   },
   mounts: {
     4: [
-      { fn: legacyLevelGoal, args: [30, npcs.find(npc => npc.id === 1000533), maps.find(map => map.id === 137), 36, 25] }
+      { fn: legacyLevelGoal, args: [30, _localisationHelper.misc['Legacy (1.0)']] }
+    ],
+    5: [
+      { fn: legacyStatus, args: [90, 9, _localisationHelper.misc['Legacy (1.0)']]}
     ],
     8: [
       { fn: collectorsEdition, args: [_localisationHelper.misc['Legacy (1.0)']] },
@@ -474,15 +477,30 @@ function instancedContent(contentId, instance, language) {
 /**
  * Legacy level goal.
  * @param {Number} contentId - The ID of the content
+ * @param {Number} level - Character level
+ * @param {String} expansion - Game expansion
  * @param {String} language - The localisation code (e.g. `"en"`)
  */
-function legacyLevelGoal(contentId, level, npc, map, x, y, language) {
+function legacyLevelGoal(contentId, level, expansion) {
   return _localisationHelper.legacyLevelGoalShort({
     contentId,
-    level,
-    map,
-    npc,
-    x,
-    y
-  }, language)
+    expansion,
+    level
+  })
+}
+
+/**
+ * Legacy status.
+ * @param {Number} contentId - The ID of the content
+ * @param {Number} days - Number of days
+ * @param {Number} months - Number of months
+ * @param {String} expansion - Game expansion
+ */
+function legacyStatus(contentId, days, months, expansion) {
+  return _localisationHelper.legacyStatusShort({
+    contentId,
+    days,
+    expansion,
+    months
+  })
 }
