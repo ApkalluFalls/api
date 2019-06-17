@@ -336,6 +336,18 @@ module.exports = {
       // Xelphatol
       { fn: instancedContent, args: [instances.find(instance => instance.id === 46)] }
     ],
+    220: [
+      { fn: fanFestival, args: [2016, { de: 'Frankfurt', en: 'Frankfurt', fr: 'Francfort', ja: 'フランクフルト' }] },
+      { fn: fanFestivalStream, args: [2016, { de: 'Frankfurt', en: 'Frankfurt', fr: 'Francfort', ja: 'フランクフルト' }] }
+    ],
+    221: [
+      { fn: fanFestival, args: [2016, { de: 'Las Vegas', en: 'Las Vegas', fr: 'Las Vegas', ja: 'ラスベガス' }] },
+      { fn: fanFestivalStream, args: [2016, { de: 'Las Vegas', en: 'Las Vegas', fr: 'Las Vegas', ja: 'ラスベガス' }] }
+    ],
+    222: [
+      { fn: fanFestival, args: [2016, { de: 'Tokyo', en: 'Tokyo', fr: 'Tokyo', ja: '東京' }] },
+      { fn: fanFestivalStream, args: [2016, { de: 'Tokyo', en: 'Tokyo', fr: 'Tokyo', ja: '東京' }] }
+    ],
     225: [
       { fn: mogStation, args: [] }
     ],
@@ -435,6 +447,9 @@ module.exports = {
       // Alphascape V4.0 (Savage)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 30076)] }
     ],
+    311: [
+      { fn: fanFestival, args: [2018, { de: 'Las Vegas', en: 'Las Vegas', fr: 'Las Vegas', ja: 'ラスベガス' }]}
+    ],
     312: [
       // Saint Mociannes Arboretum (Hard)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 62)] }
@@ -512,6 +527,11 @@ module.exports = {
     ],
     69: [
       { fn: mogStation, args: [] }
+    ],
+    71: [
+      { fn: fanFestival, args: [2018, { de: 'Las Vegas', en: 'Las Vegas', fr: 'Las Vegas', ja: 'ラスベガス' }]},
+      { fn: fanFestival, args: [2018, { de: 'Paris', en: 'Paris', fr: 'Paris', ja: 'パリ' }]},
+      { fn: fanFestival, args: [2018, { de: 'Tokyo', en: 'Tokyo', fr: 'Tokyo', ja: '東京' }]}
     ],
     74: [
       { fn: mogStation, args: [] }
@@ -647,6 +667,36 @@ function collectorsEdition(contentId, expansion, language) {
     contentId,
     expansion
   }, language);
+}
+
+/**
+ * Fan Festival attendance.
+ * @param {Number} contentId - The ID of the content
+ * @param {Number} year - The year the festival was held
+ * @param {Object} location - A location name
+ * @param {String} language - The localisation code (e.g. `"en"`)
+ */
+function fanFestival(contentId, year, location, language) {
+  return _localisationHelper.fanFestivalShort({
+    contentId,
+    year,
+    location
+  }, language)
+}
+
+/**
+ * Fan Festival attendance.
+ * @param {Number} contentId - The ID of the content
+ * @param {Number} year - The year the festival was held
+ * @param {Object} location - A location name
+ * @param {String} language - The localisation code (e.g. `"en"`)
+ */
+function fanFestivalStream(contentId, year, location, language) {
+  return _localisationHelper.fanFestivalStreamShort({
+    contentId,
+    year,
+    location
+  }, language)
 }
 
 /**

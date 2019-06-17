@@ -14,6 +14,16 @@ module.exports = {
     entry.icon,
     [entry.job.level, entry.job.name[language], new Array(entry.job.stars).fill('★').join('')]
   ]),
+  fanFestivalShort: (entry, language) => ([
+    'fanFestShort',
+    8,
+    [entry.year, entry.location[language]]
+  ]),
+  fanFestivalStreamShort: (entry, language) => ([
+    'fanFestStreamShort',
+    8,
+    [entry.year, entry.location[language]]
+  ]),
   gatherShort: (entry, language) => ([
     'gatherShort',
     entry.icon,

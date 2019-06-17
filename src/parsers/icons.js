@@ -571,6 +571,7 @@ async function parseMethodIcons() {
     { path: '/i/092000/092003.png', as: 5 }, // Legacy-related.
     { path: '/i/092000/092044.png', as: 6 }, // Recruit a Friend campaign.
     { path: '/i/092000/092065.png', as: 7 }, // Mog Station.
+    { path: '/i/092000/092047.png', as: 8 }, // Fan Festival.
   ];
 
   await processIconGroup(paths, 'methods', { resize: 24 });
