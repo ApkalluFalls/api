@@ -22,6 +22,11 @@ module.exports = {
       { fn: collectorsEdition, args: [_localisationHelper.misc['A Realm Reborn']] }
     ]
   },
+  emotes: {
+    115: [
+      { fn: recruitAFriend, args: [30] }
+    ]
+  },
   minions: {
     5: [
       { fn: collectorsEdition, args: [_localisationHelper.misc['Legacy (1.0)']] },
@@ -334,6 +339,9 @@ module.exports = {
       // The Whorleater (Extreme)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 20018)] }
     ],
+    34: [
+      { fn: recruitAFriend, args: [90] }
+    ],
     40: [
       // The Striking Tree (Extreme)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 20023)] }
@@ -503,5 +511,18 @@ function legacyStatus(contentId, days, months, expansion, language) {
     days,
     expansion,
     months
+  }, language)
+}
+
+/**
+ * Recruit A Friend campaign.
+ * @param {Number} contentId - The ID of the content
+ * @param {Number} days - Number of days
+ * @param {String} language - The localisation code (e.g. `"en"`)
+ */
+function recruitAFriend(contentId, days, language) {
+  return _localisationHelper.recruitAFriendShort({
+    contentId,
+    days
   }, language)
 }

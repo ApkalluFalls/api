@@ -58,6 +58,9 @@ module.exports = {
       [quest.level, quest.name[language], quest.journal.category[language]]
     ])
   },
+  recruitAFriendShort: (entry) => ([
+    'recruitAFriend', 6, [entry.days]
+  ]),
   shop: {
     gilShort: (entry, language) => ([
       'gilShopShort',
