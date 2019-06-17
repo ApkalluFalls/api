@@ -24,6 +24,17 @@ module.exports = {
     4,
     [entry.level, entry.name[language], entry.type[language]]
   ]),
+  legacyLevelGoalShort: (entry, language) => ([
+    'legacyLevelGoalShort',
+    5,
+    [
+      entry.level,
+      entry.npc.name[language],
+      entry.map.name[language],
+      entry.x,
+      entry.y
+    ]
+  ]),
   quest: {
     eventQuestShort: (quest, language) => ([
       'eventQuestShort',

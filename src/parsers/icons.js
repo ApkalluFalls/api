@@ -567,7 +567,8 @@ async function parseMethodIcons() {
     { path: '/i/092000/092019.png', as: 1 }, // Shop.
     { path: '/i/092000/092013.png', as: 2 }, // Achievement.
     { path: '/i/092000/092016.png', as: 3 }, // Collectors Edition.
-    { path: '/i/092000/092106.png', as: 4 } // Instanced Content.
+    { path: '/i/092000/092106.png', as: 4 }, // Instanced Content.
+    { path: '/i/092000/092003.png', as: 5 }, // Legacy-related.
   ];
 
   await processIconGroup(paths, 'methods', { resize: 24 });

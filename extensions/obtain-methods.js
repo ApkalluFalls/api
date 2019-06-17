@@ -1,6 +1,8 @@
 const _localisationHelper = require('../src/config/_localisationHelper');
 const achievements = require('../data/content/achievements.json');
 const instances = require('../data/instances.json');
+const maps = require('../data/maps.json');
+const npcs = require('../data/npcs.json');
 
 module.exports = {
   barding: {
@@ -294,6 +296,9 @@ module.exports = {
     ]
   },
   mounts: {
+    4: [
+      { fn: legacyLevelGoal, args: [30, npcs.find(npc => npc.id === 1000533), maps.find(map => map.id === 137), 36, 25] }
+    ],
     8: [
       { fn: collectorsEdition, args: [_localisationHelper.misc['Legacy (1.0)']] },
       { fn: collectorsEdition, args: [_localisationHelper.misc['A Realm Reborn']] }
@@ -463,5 +468,21 @@ function instancedContent(contentId, instance, language) {
   return _localisationHelper.instanceShort({
     contentId,
     ...instance
+  }, language)
+}
+
+/**
+ * Legacy level goal.
+ * @param {Number} contentId - The ID of the content
+ * @param {String} language - The localisation code (e.g. `"en"`)
+ */
+function legacyLevelGoal(contentId, level, npc, map, x, y, language) {
+  return _localisationHelper.legacyLevelGoalShort({
+    contentId,
+    level,
+    map,
+    npc,
+    x,
+    y
   }, language)
 }
