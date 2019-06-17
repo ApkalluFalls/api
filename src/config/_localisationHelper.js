@@ -36,7 +36,6 @@ module.exports = {
     'legacyStatusShort',
     5,
     [
-      entry.level,
       entry.days,
       entry.months,
       entry.expansion
