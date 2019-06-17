@@ -14,6 +14,11 @@ module.exports = {
     entry.icon,
     [entry.job.level, entry.job.name[language], new Array(entry.job.stars).fill('★').join('')]
   ]),
+  externalPromotionShort: (entry, language) => ([
+    'promoShort',
+    8,
+    [typeof entry.name === 'object' ? entry.name[language] : entry.name]
+  ]),
   fanFestivalShort: (entry, language) => ([
     'fanFestShort',
     8,

@@ -552,6 +552,18 @@ module.exports = {
       // Containment Bay S1T7 (Extreme)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 20038)] }
     ],
+    81: [
+      { fn: externalPromotion, args: ['いろはす討滅戦2017'] },
+      { fn: externalPromotion, args: ['FFXIV and Amazon.com® Free DLC Giveaway'] },
+      { fn: externalPromotion, args: ['Dr Pepper-Kampagne!'] },
+      { fn: externalPromotion, args: ['Final Fantasy XIV Events with O2'] }
+    ],
+    82: [
+      { fn: externalPromotion, args: ['FF14×セブンイレブンコラボ'] },
+      { fn: externalPromotion, args: ['FFXIV and Amazon.com® Summer DLC Campaign'] },
+      { fn: externalPromotion, args: ['In-Game Item Campaign with GamesMaster Magazine'] },
+      { fn: externalPromotion, args: ['ShopTo In-Game Item Campaign'] }
+    ],
     84: [
       { fn: mogStation, args: [] }
     ],
@@ -579,6 +591,9 @@ module.exports = {
     ],
     111: [
       { fn: collectorsEdition, args: [_localisationHelper.misc['Stormblood']] }
+    ],
+    112: [
+      { fn: externalPromotion, args: [{ de: 'Reittier-Kampagne: "Der Falke"', en: 'Fly the Falcon Mount Campaign', fr: 'Campagne monture mini aéronef Faucon', ja: 'マウント「ファルコン号」GET!キャンペーン' }] },
     ],
     115: [
       // Emanation (Extreme)
@@ -666,6 +681,19 @@ function collectorsEdition(contentId, expansion, language) {
   return _localisationHelper.collectorsEditionShort({
     contentId,
     expansion
+  }, language);
+}
+
+/**
+ * External Promotional events.
+ * @param {Number} contentId - The ID of the content
+ * @param {String} name - The promotion's name (e.g. `"'Dr Pepper-Kampagne!"`)
+ * @param {String} language - The localisation code (e.g. `"en"`)
+ */
+function externalPromotion(contentId, name, language) {
+  return _localisationHelper.externalPromotionShort({
+    contentId,
+    name
   }, language);
 }
 
