@@ -481,7 +481,7 @@ function instancedContent(contentId, instance, language) {
  * @param {String} expansion - Game expansion
  * @param {String} language - The localisation code (e.g. `"en"`)
  */
-function legacyLevelGoal(contentId, level, expansion) {
+function legacyLevelGoal(contentId, level, expansion, language) {
   return _localisationHelper.legacyLevelGoalShort({
     contentId,
     expansion,
@@ -495,8 +495,9 @@ function legacyLevelGoal(contentId, level, expansion) {
  * @param {Number} days - Number of days
  * @param {Number} months - Number of months
  * @param {String} expansion - Game expansion
+ * @param {String} language - The localisation code (e.g. `"en"`)
  */
-function legacyStatus(contentId, days, months, expansion) {
+function legacyStatus(contentId, days, months, expansion, language) {
   return _localisationHelper.legacyStatusShort({
     contentId,
     days,
