@@ -61,6 +61,9 @@ module.exports = {
   recruitAFriendShort: (entry) => ([
     'recruitAFriendShort', 6, [entry.days]
   ]),
+  mogStationShort: () => ([
+    'mogStationShort', 7
+  ]),
   shop: {
     gilShort: (entry, language) => ([
       'gilShopShort',

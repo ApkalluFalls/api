@@ -569,6 +569,8 @@ async function parseMethodIcons() {
     { path: '/i/092000/092016.png', as: 3 }, // Collectors Edition.
     { path: '/i/092000/092106.png', as: 4 }, // Instanced Content.
     { path: '/i/092000/092003.png', as: 5 }, // Legacy-related.
+    { path: '/i/092000/092044.png', as: 6 }, // Recruit a Friend campaign.
+    { path: '/i/092000/092065.png', as: 7 }, // Mog Station.
   ];
 
   await processIconGroup(paths, 'methods', { resize: 24 });

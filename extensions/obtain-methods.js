@@ -20,11 +20,92 @@ module.exports = {
     ],
     17: [
       { fn: collectorsEdition, args: [_localisationHelper.misc['A Realm Reborn']] }
+    ],
+    27: [
+      { fn: mogStation, args: [] }
+    ],
+    42: [
+      { fn: mogStation, args: [] }
+    ],
+    43: [
+      { fn: mogStation, args: [] }
+    ],
+    46: [
+      { fn: mogStation, args: [] }
+    ],
+    50: [
+      { fn: mogStation, args: [] }
+    ],
+    51: [
+      { fn: mogStation, args: [] }
+    ],
+    58: [
+      { fn: mogStation, args: [] }
     ]
   },
   emotes: {
+    62: [
+      { fn: mogStation, args: [] }
+    ],
+    63: [
+      { fn: mogStation, args: [] }
+    ],
+    109: [
+      { fn: mogStation, args: [] }
+    ],
+    110: [
+      { fn: mogStation, args: [] }
+    ],
     115: [
       { fn: recruitAFriend, args: [30] }
+    ],
+    123: [
+      { fn: mogStation, args: [] }
+    ],
+    124: [
+      { fn: mogStation, args: [] }
+    ],
+    128: [
+      { fn: mogStation, args: [] }
+    ],
+    129: [
+      { fn: mogStation, args: [] }
+    ],
+    130: [
+      { fn: mogStation, args: [] }
+    ],
+    131: [
+      { fn: mogStation, args: [] }
+    ],
+    132: [
+      { fn: mogStation, args: [] }
+    ],
+    133: [
+      { fn: mogStation, args: [] }
+    ],
+    134: [
+      { fn: mogStation, args: [] }
+    ],
+    135: [
+      { fn: mogStation, args: [] }
+    ],
+    136: [
+      { fn: mogStation, args: [] }
+    ],
+    142: [
+      { fn: mogStation, args: [] }
+    ],
+    143: [
+      { fn: mogStation, args: [] }
+    ],
+    146: [
+      { fn: mogStation, args: [] }
+    ],
+    149: [
+      { fn: mogStation, args: [] }
+    ],
+    153: [
+      { fn: mogStation, args: [] }
     ]
   },
   minions: {
@@ -56,6 +137,9 @@ module.exports = {
       // Amdapor Keep
       { fn: instancedContent, args: [instances.find(instance => instance.id === 14)] }
     ],
+    46: [
+      { fn: mogStation, args: [] }
+    ],
     47: [
       // Copperbell Mines (Hard)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 18)] }
@@ -70,6 +154,12 @@ module.exports = {
       // The Aquapolis
       { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] }
     ],
+    63: [
+      { fn: mogStation, args: [] }
+    ],
+    64: [
+      { fn: mogStation, args: [] }
+    ],
     79: [
       { fn: collectorsEdition, args: [_localisationHelper.misc['A Realm Reborn']] }
     ],
@@ -79,6 +169,9 @@ module.exports = {
       // The Aquapolis
       { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] }
     ],
+    91: [
+      { fn: mogStation, args: [] }
+    ],
     92: [
       // Syrcus Tower
       { fn: instancedContent, args: [instances.find(instance => instance.id === 30011)] }
@@ -86,6 +179,12 @@ module.exports = {
     97: [
       // The Aquapolis
       { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] }
+    ],
+    98: [
+      { fn: mogStation, args: [] }
+    ],
+    99: [
+      { fn: mogStation, args: [] }
     ],
     101: [
       // The World of Darkness
@@ -95,9 +194,24 @@ module.exports = {
       // Hullbreaker Isle
       { fn: instancedContent, args: [instances.find(instance => instance.id === 23)] }
     ],
+    103: [
+      { fn: mogStation, args: [] }
+    ],
     104: [
       // The Dragon's Neck
       { fn: instancedContent, args: [instances.find(instance => instance.id === 20026)] }
+    ],
+    105: [
+      { fn: mogStation, args: [] }
+    ],
+    107: [
+      { fn: mogStation, args: [] }
+    ],
+    108: [
+      { fn: mogStation, args: [] }
+    ],
+    109: [
+      { fn: mogStation, args: [] }
     ],
     112: [
       // The Sunken Temple of Qarn (Hard)
@@ -105,12 +219,21 @@ module.exports = {
       // The Aquapolis
       { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] }
     ],
+    121: [
+      { fn: mogStation, args: [] }
+    ],
     122: [
       // Battle In The Big Keep
       { fn: instancedContent, args: [instances.find(instance => instance.id === 20030)] }
     ],
     129: [
       { fn: collectorsEdition, args: [_localisationHelper.misc['Heavensward']] }
+    ],
+    131: [
+      { fn: mogStation, args: [] }
+    ],
+    132: [
+      { fn: mogStation, args: [] }
     ],
     134: [
       // The Vault
@@ -148,9 +271,18 @@ module.exports = {
       // The Aquapolis
       { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] }
     ],
+    145: [
+      { fn: mogStation, args: [] }
+    ],
+    150: [
+      { fn: mogStation, args: [] }
+    ],
     157: [
       // The Aquapolis
       { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] }
+    ],
+    159: [
+      { fn: mogStation, args: [] }
     ],
     160: [
       // The Void Ark
@@ -163,6 +295,9 @@ module.exports = {
     176: [
       // Alexander - The Burden of the Son (Savage)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 30037)] }
+    ],
+    177: [
+      { fn: mogStation, args: [] }
     ],
     178: [
       // The Antitower
@@ -179,6 +314,9 @@ module.exports = {
     189: [
       // Hullbreaker Isle (Hard)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 45)] }
+    ],
+    192: [
+      { fn: mogStation, args: [] }
     ],
     195: [
       // The Weeping City of Mhach
@@ -198,9 +336,15 @@ module.exports = {
       // Xelphatol
       { fn: instancedContent, args: [instances.find(instance => instance.id === 46)] }
     ],
+    225: [
+      { fn: mogStation, args: [] }
+    ],
     226: [
       // Baelsar's Wall
       { fn: instancedContent, args: [instances.find(instance => instance.id === 48)] }
+    ],
+    227: [
+      { fn: mogStation, args: [] }
     ],
     232: [
       // Dun Scaith
@@ -346,6 +490,9 @@ module.exports = {
       // The Striking Tree (Extreme)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 20023)] }
     ],
+    42: [
+      { fn: mogStation, args: [] }
+    ],
     43: [
       // Akh Afah Amphitheatre (Extreme)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 20025)] }
@@ -356,6 +503,18 @@ module.exports = {
     58: [
       // Alexander - The Burden of the Father (Savage)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 30028)] }
+    ],
+    62: [
+      { fn: mogStation, args: [] }
+    ],
+    68: [
+      { fn: mogStation, args: [] }
+    ],
+    69: [
+      { fn: mogStation, args: [] }
+    ],
+    74: [
+      { fn: mogStation, args: [] }
     ],
     75: [
       // The Limitless Blue (Extreme)
@@ -373,9 +532,15 @@ module.exports = {
       // Containment Bay S1T7 (Extreme)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 20038)] }
     ],
+    84: [
+      { fn: mogStation, args: [] }
+    ],
     90: [
       // The Minstrel's Ballad: Nidhogg's Rage
       { fn: instancedContent, args: [instances.find(instance => instance.id === 20040)] }
+    ],
+    97: [
+      { fn: mogStation, args: [] }
     ],
     98: [
       // Containment Bay P1T6 (Extreme)
@@ -388,6 +553,9 @@ module.exports = {
     104: [
       // Containment Bay Z1T9 (Extreme)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 20044)] }
+    ],
+    106: [
+      { fn: mogStation, args: [] }
     ],
     111: [
       { fn: collectorsEdition, args: [_localisationHelper.misc['Stormblood']] }
@@ -411,6 +579,18 @@ module.exports = {
     133: [
       // The Minstrel's Ballad: Shinryu's Domain
       { fn: instancedContent, args: [instances.find(instance => instance.id === 20050)] }
+    ],
+    135: [
+      { fn: mogStation, args: [] }
+    ],
+    138: [
+      { fn: mogStation, args: [] }
+    ],
+    139: [
+      { fn: mogStation, args: [] }
+    ],
+    143: [
+      { fn: mogStation, args: [] }
     ],
     144: [
       // The Jade Stoa (Extreme)
@@ -511,6 +691,17 @@ function legacyStatus(contentId, days, months, expansion, language) {
     days,
     expansion,
     months
+  }, language)
+}
+
+/**
+ * Mog Station purchases.
+ * @param {Number} contentId - The ID of the content
+ * @param {String} language - The localisation code (e.g. `"en"`)
+ */
+function mogStation(contentId, language) {
+  return _localisationHelper.mogStationShort({
+    contentId
   }, language)
 }
 
