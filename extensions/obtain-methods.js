@@ -486,7 +486,7 @@ function legacyLevelGoal(contentId, level, expansion, language) {
     contentId,
     expansion,
     level
-  })
+  }, language)
 }
 
 /**
@@ -503,5 +503,5 @@ function legacyStatus(contentId, days, months, expansion, language) {
     days,
     expansion,
     months
-  })
+  }, language)
 }
