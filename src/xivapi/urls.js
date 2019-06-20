@@ -4,6 +4,8 @@ module.exports = {
   achievement: (id) => `${xivapiBase}/achievement/${id}`,
   achievements: () => `${xivapiBase}/achievement`,
   barding: () => `${xivapiBase}/buddyequip`,
+  customTalk: () => `${xivapiBase}/customtalk`,
+  gilShop: (id) => `${xivapiBase}/gilshop/${id}`,
   emote: (id) => `${xivapiBase}/emote/${id}`,
   emotes: () => `${xivapiBase}/emote`,
   eNPCResident: () => `${xivapiBase}/enpcresident`,
@@ -20,5 +22,6 @@ module.exports = {
   orchestrion: () => `${xivapiBase}/orchestrion`,
   search: () => `${xivapiBase}/search`,
   spearfishingItems: () => `${xivapiBase}/spearfishingitem`,
+  specialShop: (id) => `${xivapiBase}/specialshop/${id}`,
   territoryTypes: () => `${xivapiBase}/territorytype`
 }

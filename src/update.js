@@ -171,10 +171,14 @@ class API {
         spearFishingItems
       );
 
+      // Custom Talk entries.
+      const customTalk = await this.crawl(config.customTalk);
+      await require('./parsers/customTalk')(customTalk);
+
       // // Shops.
       const eNPCResidents = await this.crawl(config.shops.eNPCResident);
       const gcScripShopItems = await this.crawl(config.shops.gcScripShopItem);
-      require ('./parsers/shops')(
+      require('./parsers/shops')(
         eNPCResidents,
         gcScripShopItems
       );

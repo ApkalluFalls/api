@@ -31,6 +31,7 @@ module.exports = class APICrawler {
    */
   async fetch(resultIn = [], pageIn = 1, progressBarIn = undefined, limitValueOffset = 0) {
     const {
+      args,
       isPaginated,
       name
     } = this.config;
@@ -71,7 +72,7 @@ module.exports = class APICrawler {
       console.info(`Starting ${isPaginated ? '' : 'un'}paginated fetch of ${log}.`);
     }
 
-    const apiPath = urls[`${name.charAt(0).toLowerCase()}${name.substr(1)}`]();
+    const apiPath = urls[`${name.charAt(0).toLowerCase()}${name.substr(1)}`](...(args || []));
 
     const queryStringParts = [
       `limit=${limit}`

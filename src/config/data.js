@@ -18,6 +18,8 @@ const itemActionTypesQuery = (prefix) => [
   }
 ];
 
+const customTalkScriptArgs = 30;
+
 const fishingSpotItemIDFields = [
   'Item0TargetID',
   'Item1TargetID',
@@ -94,6 +96,22 @@ module.exports = {
       }
     }],
     queryType: 'must'
+  },
+  customTalk: {
+    /**
+     * For custom talk entries we need to extract the following fields...
+     * `ID` - The custom talk entry's ID;
+     * `ScriptArg{0...n}` - Script arguments which contain references to other content.
+     */
+    columns: [
+      'ID',
+      ...new Array(customTalkScriptArgs).fill(1).map((_, index) => `ScriptArg${index}`)
+    ],
+    customTalkScriptArgs,
+    isPaginated: true,
+    log: 'Custom Talk entries',
+    method: 'fetch',
+    name: 'customTalk'
   },
   gathering: {
     fishingSpots: {
