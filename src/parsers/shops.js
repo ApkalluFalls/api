@@ -1,5 +1,6 @@
 const fs = require('fs');
 const currencies = require('../../data/currencies.json');
+const customTalk = require('../../data/customTalk.json');
 const currencyParser = require('../parsers/currencies');
 const items = require('../../data/items.json');
 
@@ -11,6 +12,12 @@ module.exports = (
   gcScripShopItems
 ) => {
   const config = require('../config/data').shops;
+
+  const {
+    eNPCBaseDataRefs,
+    specialShopItemIndexes
+  } = config.eNPCResident;
+
   let currenciesAddedCount = 0;
   const parsed = {};
 
@@ -21,9 +28,48 @@ module.exports = (
 
   const gil = currencies.find(currency => currency.id === 1);
 
+  // Extend data set to include Custom Talk Gil Shops and Special Shops.
+  eNPCResidents.filter(eNPCResident => {
+    const {
+      Base
+    } = eNPCResident;
+
+    if (!Base) {
+      return;
+    }
+
+    for (let i = 0; i < eNPCBaseDataRefs; i++) {
+      const v = Base[`ENpcData${i}`];
+
+      if (v >= 720000 && v < 730000) {
+        return true;
+      }
+    }
+  }).forEach(eNPCResident => {
+    for (let i = 0; i < eNPCBaseDataRefs; i++) {
+      const v = eNPCResident.Base[`ENpcData${i}`];
+
+      if (v >= 720000 && v < 730000) {
+        // Gil shops.
+        const customTalkGilShopMatches = customTalk.gilShops.filter(entry => entry.customTalk === v);
+
+        for (const customTalkGilShop of customTalkGilShopMatches) {
+          eNPCResident.GilShop.push(customTalkGilShop.data);
+        }
+
+        // Special shops.
+        const customTalkSpecialShopMatches = customTalk.specialShops.filter(entry => entry.customTalk === v);
+
+        for (const customTalkSpecialShop of customTalkSpecialShopMatches) {
+          eNPCResident.SpecialShop.push(customTalkSpecialShop.data);
+        }
+      }
+    }
+  });
+
   // Gil shops...
   eNPCResidents.filter(
-    eNPCResident => eNPCResident.GilShop.length
+    eNPCResident => Array.isArray(eNPCResident.GilShop) && eNPCResident.GilShop.length
   ).reduce((arr, eNPCResident) => ([
     ...arr,
     ...eNPCResident.GilShop.reduce((arr2, entry) => ([
@@ -70,13 +116,9 @@ module.exports = (
     })
   });
 
-  const {
-    specialShopItemIndexes
-  } = config.eNPCResident;
-
   // Special shops...
   eNPCResidents.filter(
-    eNPCResident => eNPCResident.SpecialShop.length
+    eNPCResident => Array.isArray(eNPCResident.SpecialShop) && eNPCResident.SpecialShop.length
   ).reduce((arr, eNPCResident) => ([
     ...arr,
     ...eNPCResident.SpecialShop.reduce((arr2, specialShop) => ([

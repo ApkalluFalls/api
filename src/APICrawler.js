@@ -50,7 +50,8 @@ module.exports = class APICrawler {
 
     const {
       columns,
-      filter
+      filter,
+      silent
     } = this.config;
 
     // Used to handle API timeouts gracefully.
@@ -67,7 +68,7 @@ module.exports = class APICrawler {
     const limit = pageIn === -1 ? 1 : limitValues[limitValueOffset];
     const page = pageIn === -1 ? 1 : (this.recordsProcessed / limit) + 1;
 
-    if (pageIn !== -1 && page === 1 && limitValueOffset === 0) {
+    if (pageIn !== -1 && page === 1 && limitValueOffset === 0 && !silent) {
       console.time(log);
       console.info(`Starting ${isPaginated ? '' : 'un'}paginated fetch of ${log}.`);
     }
@@ -130,8 +131,11 @@ module.exports = class APICrawler {
 
     // If the resource is not paginated, return the data.
     if (!isPaginated || !data.Pagination) {
-      console.info(`Finished unpaginated fetch of ${log}.`);
-      console.timeEnd(log);
+      if (!silent) {
+        console.info(`Finished unpaginated fetch of ${log}.`);
+        console.timeEnd(log);
+      }
+
       return data;
     }
 

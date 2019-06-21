@@ -172,8 +172,8 @@ class API {
       );
 
       // Custom Talk entries.
-      const customTalk = await this.crawl(config.customTalk);
-      await require('./parsers/customTalk')(customTalk);
+      // const customTalk = await this.crawl(config.customTalk);
+      // await require('./parsers/customTalk')(customTalk);
 
       // // Shops.
       const eNPCResidents = await this.crawl(config.shops.eNPCResident);

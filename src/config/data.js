@@ -19,6 +19,7 @@ const itemActionTypesQuery = (prefix) => [
 ];
 
 const customTalkScriptArgs = 30;
+const eNPCBaseDataRefs = 32;
 
 const fishingSpotItemIDFields = [
   'Item0TargetID',
@@ -366,6 +367,8 @@ module.exports = {
       cacheAs: 'npc-shops',
       /**
        * For ENPCResidents we need to extract the following fields:
+       * `Base` - The ENPCBase data's...
+       *   `ENpcData{0...n}` - External references used for mapping to Custom Talk entries;
        * `GilShop.*` - An array of gil shops attached to the NPC's...
        *   `Name_{lang}` - Localised name;
        *   `ID` - Shop identifier;
@@ -375,6 +378,7 @@ module.exports = {
        * `SpecialShop` - An array of special shops attached to the NPC.
        */
       columns: [
+        ...new Array(eNPCBaseDataRefs).fill(1).map((_, index) => `Base.ENpcData${index}`),
         ...helper.localisedColumnProperty(`GilShop.*.Name`),
         'GilShop.*.ID',
         'GilShop.*.Items',
@@ -382,15 +386,7 @@ module.exports = {
         ...helper.localisedColumnProperty(`Name`),
         'SpecialShop'
       ],
-      /**
-       * Filter out any data sets which:
-       * 1. Have no GilShops.
-       */
-      filter: (data) => {
-        return data.filter(
-          eNPCResident => eNPCResident.GilShop.length || eNPCResident.SpecialShop.length
-        );
-      },
+      eNPCBaseDataRefs,
       isPaginated: true,
       log: 'ENPCResidents (for Shops)',
       method: 'fetch',
