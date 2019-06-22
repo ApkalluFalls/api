@@ -105,6 +105,10 @@ class API {
       await this.process(value);
     }
 
+    if (global.missingObtainMethods > 0) {
+      console.warn(`${global.missingObtainMethods} obtain methods not accounted for.`);
+    }
+
     await new Promise(resolve => {
       const version = require('../docs/version.json');
       console.info(`Updating version to ${version + 1}.`);
@@ -172,8 +176,8 @@ class API {
       );
 
       // Custom Talk entries.
-      // const customTalk = await this.crawl(config.customTalk);
-      // await require('./parsers/customTalk')(customTalk);
+      const customTalk = await this.crawl(config.customTalk);
+      await require('./parsers/customTalk')(customTalk);
 
       // Special shop data.
       const specialShops = await this.crawl(config.shops.specialShops);
@@ -240,6 +244,7 @@ function overrideConsole(icon, prefix, suffix) {
   console.error = overrideConsole('🚫', '\x1b[31m', '\x1b[0m');
   console.info = overrideConsole('ℹ️', '\x1b[36m', '\x1b[0m');
   console.warn = overrideConsole('⚠️', '\x1b[33m', '\x1b[0m');
+  global.missingObtainMethods = 0;
 
   const updater = new API();
   await updater.init(process.argv.slice(2));
