@@ -18,19 +18,24 @@ module.exports = (data) => {
       parsed[type] = [];
     }
 
-    parsed[type].push({
-      contentId: id,
-      contentType: type,
-      description: {
-        ...helper.getLocalisedNamesObject(entry, 'Description')
-      },
+    const response = {
       icon: entry.IconID,
       iconPath: entry.Icon,
       id: entry.ID,
       isUntradable: entry.IsUntradable,
       name: helper.getLocalisedNamesObject(entry),
       plural: helper.getLocalisedNamesObject(entry, 'Plural')
-    })
+    }
+
+    if (type !== 'misc') {
+      response.contentId = id;
+      response.contentType = type;
+      response.description = {
+        ...helper.getLocalisedNamesObject(entry, 'Description')
+      };
+    }
+
+    parsed[type].push(response);
   });
 
   fs.writeFileSync(

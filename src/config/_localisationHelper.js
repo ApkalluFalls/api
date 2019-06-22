@@ -39,6 +39,11 @@ module.exports = {
     4,
     [entry.level, entry.name[language], entry.type[language]]
   ]),
+  itemExchangeShort: (entry, language) => ([
+    'itemExchangeShort',
+    9,
+    [entry.name[language]]
+  ]),
   legacyLevelGoalShort: (entry, language) => ([
     'legacyLevelGoalShort',
     5,

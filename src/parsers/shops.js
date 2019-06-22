@@ -76,8 +76,6 @@ module.exports = (
       return;
     }
 
-    console.info(match);
-
     for (const specialShop of match) {
       eNPCResident.SpecialShop.push(specialShop);
     }

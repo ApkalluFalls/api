@@ -1,6 +1,7 @@
 const _localisationHelper = require('../src/config/_localisationHelper');
 const achievements = require('../data/content/achievements.json');
 const instances = require('../data/instances.json');
+const items = require('../data/items.json');
 const maps = require('../data/maps.json');
 const npcs = require('../data/npcs.json');
 
@@ -631,6 +632,10 @@ module.exports = {
       // The Jade Stoa (Extreme)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 20052)] }
     ],
+    150: [
+      // Anemos Lockbox
+      { fn: itemExchange, args: [16173] }
+    ],
     156: [
       // Sigmascape V4.0 (Savage)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 30066)] }
@@ -738,6 +743,25 @@ function instancedContent(contentId, instance, language) {
     contentId,
     ...instance
   }, language)
+}
+
+/**
+ * Item exchange rewards.
+ * @param {Number} contentId - The ID of the content
+ * @param {Number} itemId - The item's ID
+ * @param {String} language - The localisation code (e.g. `"en"`)
+ */
+function itemExchange(contentId, itemId, language) {
+  const item = items.misc.find(item => item.id === itemId);
+
+  if (!item) {
+    console.warn(`Unable to find an exchange item with ID ${itemId}. Skipping.`);
+  }
+
+  return _localisationHelper.itemExchangeShort({
+    contentId,
+    name: item.name,
+  }, language);
 }
 
 /**

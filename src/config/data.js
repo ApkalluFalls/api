@@ -1,4 +1,5 @@
 const helper = require('../xivapi/helper');
+const itemsForExchange = require('../../extensions/items-for-exchange');
 
 const itemActionTypesQuery = (prefix) => [
   { match: { [`${prefix ? `${prefix}.` : ''}ItemAction.Type`]: 853 } }, // Minions
@@ -15,7 +16,9 @@ const itemActionTypesQuery = (prefix) => [
         range: { [`${prefix ? `${prefix}.` : ''}ItemAction.Data2`]: { gt: 0 } }
       }]
     }
-  }
+  },
+  // Misc items.
+  ...itemsForExchange.map(itemForExchange => ({ match: { 'ID': itemForExchange }}))
 ];
 
 const customTalkScriptArgs = 30;

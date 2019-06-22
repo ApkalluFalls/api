@@ -39,7 +39,13 @@ module.exports = {
    * ID is.
    * @param {Object} itemActions - An ItemActions object.
    */
-  getContentFromItemActions: (itemActions = {}) => {
+  getContentFromItemActions: (itemActions) => {
+    if (!itemActions) {
+      return {
+        type: 'misc'
+      };
+    }
+
     let contentType;
     let id;
 
