@@ -175,6 +175,10 @@ class API {
       // const customTalk = await this.crawl(config.customTalk);
       // await require('./parsers/customTalk')(customTalk);
 
+      // Special shop data.
+      const specialShops = await this.crawl(config.shops.specialShops);
+      await require('./parsers/specialShops')(specialShops);
+
       // // Shops.
       const eNPCResidents = await this.crawl(config.shops.eNPCResident);
       const gcScripShopItems = await this.crawl(config.shops.gcScripShopItem);

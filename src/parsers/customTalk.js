@@ -4,6 +4,7 @@ const Progress = require('cli-progress');
 
 /**
  * Parse custom talk data from XIVAPI.
+ * @param {Array} data - Custom talk data from the API.
  */
 module.exports = async (data) => {
   const config = require('../config/data').customTalk;

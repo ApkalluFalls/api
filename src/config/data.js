@@ -412,6 +412,33 @@ module.exports = {
       log: 'Grand Company Shop Items',
       method: 'fetch',
       name: 'gcScripShopItem'
+    },
+    specialShops: {
+      /**
+       * For Special Shops we need to extract the following fields...
+       * `CountCost${0...n}` - The cost of each item in the shop;
+       * `ID` - The shop's ID;
+       * `ItemCost{0...n}TargetID` - The item target;
+       * `ItemCost${0...n}` - The item object;
+       * `Name_{lang}` - Localised name.
+       */
+      columns: [
+        'ID',
+        ...specialShopItemIndexes.reduce((arr, specialShopItemIndex) => {
+          return [
+            ...arr,
+            `CountCost${specialShopItemIndex}`,
+            `ItemCost${specialShopItemIndex}TargetID`,
+            `ItemCost${specialShopItemIndex}`
+          ];
+        }, []),
+        ...helper.localisedColumnProperty(`Name`),
+      ],
+      isPaginated: true,
+      log: 'Special Shops',
+      method: 'fetch',
+      name: 'specialShops',
+      specialShopItemIndexes
     }
   }
 }

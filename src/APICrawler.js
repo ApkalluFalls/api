@@ -56,7 +56,6 @@ module.exports = class APICrawler {
 
     // Used to handle API timeouts gracefully.
     const limitValues = [
-      1500,
       300,
       150,
       30,
@@ -108,6 +107,11 @@ module.exports = class APICrawler {
       }
 
       ++this.errors;
+
+      if (pageIn === 1) {
+        console.timeEnd(log);
+      }
+
       console.info(`API retry attempt ${this.errors}.`);
       return await this.fetch(resultIn, pageIn, undefined, limitValueOffset);
     }
