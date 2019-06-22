@@ -3,6 +3,7 @@ const currencies = require('../../data/currencies.json');
 const customTalk = require('../../data/customTalk.json');
 const currencyParser = require('../parsers/currencies');
 const items = require('../../data/items.json');
+const extendedSpecialShops = require('../../extensions/special-shops');
 
 /**
  * Parse recipe data from XIVAPI.
@@ -66,6 +67,21 @@ module.exports = (
       }
     }
   });
+
+  // Extend data to include Special Shop extensions.
+  eNPCResidents.forEach(eNPCResident => {
+    const match = extendedSpecialShops[eNPCResident.ID];
+
+    if (!match) {
+      return;
+    }
+
+    console.info(match);
+
+    for (const specialShop of match) {
+      eNPCResident.SpecialShop.push(specialShop);
+    }
+  })
 
   // Gil shops...
   eNPCResidents.filter(

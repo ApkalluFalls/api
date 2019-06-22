@@ -418,8 +418,9 @@ module.exports = {
        * For Special Shops we need to extract the following fields...
        * `CountCost${0...n}` - The cost of each item in the shop;
        * `ID` - The shop's ID;
-       * `ItemCost{0...n}TargetID` - The item target;
-       * `ItemCost${0...n}` - The item object;
+       * `ItemCost{0...n}TargetID` - The currency item target;
+       * `ItemCost${0...n}` - The currency item object;
+       * `ItemReceive${0...n}TargetID` - The item being purchased;
        * `Name_{lang}` - Localised name.
        */
       columns: [
@@ -429,7 +430,8 @@ module.exports = {
             ...arr,
             `CountCost${specialShopItemIndex}`,
             `ItemCost${specialShopItemIndex}TargetID`,
-            `ItemCost${specialShopItemIndex}`
+            `ItemCost${specialShopItemIndex}`,
+            `ItemReceive${specialShopItemIndex}TargetID`
           ];
         }, []),
         ...helper.localisedColumnProperty(`Name`),

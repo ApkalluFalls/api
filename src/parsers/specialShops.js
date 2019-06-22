@@ -14,8 +14,11 @@ module.exports = (data,) => {
 
   const parsed = data.map(entry => {
     const response = {
-      id: entry.ID,
-      name: helper.getLocalisedNamesObject(entry)
+      ID: entry.ID,
+      Name_de: entry.Name_de,
+      Name_en: entry.Name_en,
+      Name_fr: entry.Name_fr,
+      Name_ja: entry.Name_ja
     };
 
     for (const specialShopItemIndex of config.specialShopItemIndexes) {
@@ -28,6 +31,9 @@ module.exports = (data,) => {
 
       response[`CountCost${specialShopItemIndex}`] = entry[`CountCost${specialShopItemIndex}`];
       response[`ItemCost${specialShopItemIndex}TargetID`] = targetItem;
+      response[`ItemReceive${specialShopItemIndex}TargetID`] = (
+        entry[`ItemReceive${specialShopItemIndex}TargetID`]
+      );
 
       // Ensure we have all the columns from the currencies config extracted for the item.
       const rawItem = {};
