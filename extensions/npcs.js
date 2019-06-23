@@ -17,7 +17,7 @@ module.exports = [
   1028400, 1016093, 1023940, 1023794, 1018128, 1018129, 1018130, 1017844, 1017230, 1012135,
   1016902, 1016903, 1016904, 1005159, 1025313, 1017172, 1016264, 1019804, 1010753, 1010757,
   1010761, 1010780, 1010781, 1010782, 1010790, 1010791, 1010792, 1010793, 1010794, 1010795,
-  1005970, 1009290, 1005790, 1005792, 1005794, 1010175
+  1005970, 1009290, 1005790, 1005792, 1005794, 1010175, 1025048, 1025950, 1026502, 1027127
 ].map(id => {
   let location;
   let x;
@@ -126,6 +126,26 @@ module.exports = [
       x = 12;
       y = 12;
       break;
+    case 1025048: // Expedition Lockpick (Eureka Anemos)
+      location = 732;
+      x = 18;
+      y = 31;
+      break;
+    case 1025950: // Expedition Lockpick (Eureka Pagos)
+      location = 763;
+      x = 3;
+      y = 25;
+      break;
+    case 1026502: // Expedition Lockpick (Eureka Pyros)
+      location = 795;
+      x = 16;
+      y = 23;
+    break;
+    case 1027127: // Expedition Lockpick (Eureka Hydatos)
+    location = 827;
+    x = 20;
+    y = 14;
+  break;
     default:
       throw new Error(`NPC extension ${id} added to array but not handled in mapping.`);
   }

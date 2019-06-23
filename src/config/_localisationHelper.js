@@ -42,7 +42,13 @@ module.exports = {
   itemExchangeShort: (entry, language) => ([
     'itemExchangeShort',
     9,
-    [entry.name[language]]
+    [
+      entry.item.name[language],
+      entry.npc.name[language],
+      entry.map.name[language],
+      entry.npc.x,
+      entry.npc.y
+    ]
   ]),
   legacyLevelGoalShort: (entry, language) => ([
     'legacyLevelGoalShort',

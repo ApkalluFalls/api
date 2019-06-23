@@ -42,6 +42,14 @@ module.exports = {
     ],
     58: [
       { fn: mogStation, args: [] }
+    ],
+    61: [
+      // Anemos Lockbox
+      { fn: itemExchange, args: [22508, 1025048] }
+    ],
+    66: [
+      // Heat-warped Lockbox
+      { fn: itemExchange, args: [24142, 1026502] }
     ]
   },
   emotes: {
@@ -107,6 +115,20 @@ module.exports = {
     ],
     153: [
       { fn: mogStation, args: [] }
+    ],
+    181: [
+      // Pagos Lockbox
+      { fn: itemExchange, args: [23142, 1025950] },
+      // Cold-warped Lockbox
+      { fn: itemExchange, args: [23379, 1025950] }
+    ],
+    189: [
+      // Heat-warped Lockbox
+      { fn: itemExchange, args: [24142, 1026502] }
+    ],
+    195: [
+      // Moisture-warped Lockbox
+      { fn: itemExchange, args: [24849, 1027127] }
     ]
   },
   minions: {
@@ -426,6 +448,18 @@ module.exports = {
       // Sigmascape V4.0 (Savage)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 30066)] }
     ],
+    285: [
+      // Anemos Lockbox
+      { fn: itemExchange, args: [22508, 1025048] }
+    ],
+    286: [
+      // Anemos Lockbox
+      { fn: itemExchange, args: [22508, 1025048] }
+    ],
+    287: [
+      // Anemos Lockbox
+      { fn: itemExchange, args: [22508, 1025048] }
+    ],
     289: [
       // The Hidden Canals of Uznair
       { fn: instancedContent, args: [instances.find(instance => instance.id === 55003)] }
@@ -433,6 +467,14 @@ module.exports = {
     290: [
       // The Swallow's Compass
       { fn: instancedContent, args: [instances.find(instance => instance.id === 61)] }
+    ],
+    295: [
+      // Pagos Lockbox
+      { fn: itemExchange, args: [23142, 1025950] }
+    ],
+    296: [
+      // Pagos Lockbox
+      { fn: itemExchange, args: [23142, 1025950] }
     ],
     299: [
       // The Ridorana Lighthouse
@@ -454,6 +496,16 @@ module.exports = {
     312: [
       // Saint Mociannes Arboretum (Hard)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 62)] }
+    ],
+    315: [
+      // Pyros Lockbox
+      { fn: itemExchange, args: [24141, 1026502] },
+      // Heat-warped Lockbox
+      { fn: itemExchange, args: [24142, 1026502] }
+    ],
+    319: [
+      // Moisture-warped Lockbox
+      { fn: itemExchange, args: [24849, 1027127] }
     ],
     321: [
       // The Ghimlyt Dark
@@ -634,7 +686,7 @@ module.exports = {
     ],
     150: [
       // Anemos Lockbox
-      { fn: itemExchange, args: [16173] }
+      { fn: itemExchange, args: [22508, 1025048] }
     ],
     156: [
       // Sigmascape V4.0 (Savage)
@@ -659,6 +711,16 @@ module.exports = {
     182: [
       // The Wreath of Snakes (Extreme)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 20061)] }
+    ]
+  },
+  orchestrion: {
+    288: [
+      // Hydatos Lockbox
+      { fn: itemExchange, args: [24848, 1027127] }
+    ],
+    289: [
+      // Moisture-warped Lockbox
+      { fn: itemExchange, args: [24849, 1027127] }
     ]
   }
 };
@@ -749,18 +811,36 @@ function instancedContent(contentId, instance, language) {
  * Item exchange rewards.
  * @param {Number} contentId - The ID of the content
  * @param {Number} itemId - The item's ID
+ * @param {Number} npcId - The id of the NPC which accepts the item
  * @param {String} language - The localisation code (e.g. `"en"`)
  */
-function itemExchange(contentId, itemId, language) {
+function itemExchange(contentId, itemId, npcId, language) {
   const item = items.misc.find(item => item.id === itemId);
 
   if (!item) {
     console.warn(`Unable to find an exchange item with ID ${itemId}. Skipping.`);
+    return;
   }
+
+  const npc = npcs.find(npc => npc.id === npcId);
+
+  if (!npc) {
+    console.warn(`Unable to find NPC with ID ${npcId} for exchange item ID ${itemId}. Skipping.`);
+    return;
+  }
+
+  if (!npc.location) {
+    console.warn(`Missing location data for item exchange NPC ${npcId}. Skipping.`);
+    return;
+  }
+
+  const map = maps.find(map => map.id === npc.location);
 
   return _localisationHelper.itemExchangeShort({
     contentId,
-    name: item.name,
+    item,
+    map,
+    npc
   }, language);
 }
 

@@ -103,6 +103,7 @@ module.exports = class APICrawler {
       console.warn(error);
 
       if (this.errors > 10) {
+        console.warn(`The below error was thrown using:\n\n ${apiUrl} \n\n`)
         throw new Error(`XIVDB API error: ${error}.`);
       }
 
@@ -354,6 +355,7 @@ module.exports = class APICrawler {
       const totalResultsFromAPI = await this[this.config.method](undefined, -1);
 
       if (totalResultsFromAPI !== cachedData.totalResults) {
+        console.info(`➕  Found ${totalResultsFromAPI - cachedData.totalResults} new entries...`);
         return false;
       }
 
