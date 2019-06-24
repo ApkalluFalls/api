@@ -365,6 +365,46 @@ module.exports = {
     method: 'search',
     query: itemActionTypesQuery('ItemResult')
   },
+  retainerVentures: {
+    log: 'Retainer Ventures',
+    data: {
+      /**
+      * For retainer venture data entries we need to extract the following fields:
+      * `ID` - The content's identifier;
+      * `IsRandom` - Used to filter the data to only include random entries;
+      * `RetainerLevel` - The required retainer level;
+      * `Task` - The task reference used to map to the below tasks dataset.
+      */
+      columns: [
+        'ID',
+        'IsRandom',
+        'RetainerLevel',
+        'Task'
+      ],
+      filter: (data) => {
+        return data.filter(entry => entry.IsRandom);
+      },
+      isPaginated: true,
+      log: 'Retainer Venture data',
+      method: 'fetch',
+      name: 'retainerVentures'
+    },
+    tasks: {
+      /**
+      * For retainer venture task entries we need to extract the following fields:
+      * `ID` - Used to link the content to the data;
+      * `Name_{lang}` - Localised name.
+      */
+      columns: [
+        'ID',
+        ...helper.localisedColumnProperty(`Name`)
+      ],
+      isPaginated: true,
+      log: 'Retainer Venture tasks',
+      method: 'fetch',
+      name: 'retainerVenturesRandom'
+    }
+  },
   shops: {
     eNPCResident: {
       cacheAs: 'npc-shops',

@@ -4,6 +4,7 @@ const instances = require('../data/instances.json');
 const items = require('../data/items.json');
 const maps = require('../data/maps.json');
 const npcs = require('../data/npcs.json');
+const retainerVentures = require('../data/retainerVentures.json');
 
 module.exports = {
   barding: {
@@ -22,6 +23,10 @@ module.exports = {
     17: [
       { fn: collectorsEdition, args: [_localisationHelper.misc['A Realm Reborn']] }
     ],
+    22: [
+      // Silver-haloed Sack
+      { fn: itemExchange, args: [23223, 1025847] }
+    ],
     27: [
       { fn: mogStation, args: [] }
     ],
@@ -33,6 +38,12 @@ module.exports = {
     ],
     46: [
       { fn: mogStation, args: [] }
+    ],
+    22: [
+      // Silver-trimmed Sack
+      { fn: itemExchange, args: [16172, 1017659] },
+      // Gold-trimmed Sack
+      { fn: itemExchange, args: [16173, 1017659] }
     ],
     50: [
       { fn: mogStation, args: [] }
@@ -142,15 +153,21 @@ module.exports = {
     ],
     16: [
       // The Aquapolis
-      { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] }
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] },
+      // Bronze-trimmed Sack
+      { fn: itemExchange, args: [16170, 1017659] }
     ],
     23: [
       // The Aquapolis
-      { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] }
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] },
+      // Bronze-trimmed Sack
+      { fn: itemExchange, args: [16170, 1017659] }
     ],
     27: [
       // The Aquapolis
-      { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] }
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] },
+      // Bronze-trimmed Sack
+      { fn: itemExchange, args: [16170, 1017659] }
     ],
     42: [
       // The Wanderer's Palace
@@ -168,8 +185,14 @@ module.exports = {
       { fn: instancedContent, args: [instances.find(instance => instance.id === 18)] }
     ],
     56: [
+      // Field Exploration XIII
+      { fn: retainerVenture, args: [30013] },
+      // Highland Exploration XIII
+      { fn: retainerVenture, args: [30026] },
       // The Aquapolis
-      { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] }
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] },
+      // Bronze-trimmed Sack
+      { fn: itemExchange, args: [16170, 1017659] }
     ],
     57: [
       // Sastasha (Hard)
@@ -190,7 +213,9 @@ module.exports = {
       // Brayflox's Longstop (Hard)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 20)] },
       // The Aquapolis
-      { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] }
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] },
+      // Bronze-trimmed Sack
+      { fn: itemExchange, args: [16170, 1017659] }
     ],
     91: [
       { fn: mogStation, args: [] }
@@ -199,9 +224,25 @@ module.exports = {
       // Syrcus Tower
       { fn: instancedContent, args: [instances.find(instance => instance.id === 30011)] }
     ],
+    94: [
+      // Field Exploration XIV
+      { fn: retainerVenture, args: [30054] },
+      // Field Exploration XV
+      { fn: retainerVenture, args: [30058] },
+      // Field Exploration XVI
+      { fn: retainerVenture, args: [30062] }
+    ],
+    96: [
+      // Field Exploration XIV
+      { fn: retainerVenture, args: [30054] },
+      // Silver-haloed Sack
+      { fn: itemExchange, args: [23223, 1025847] }
+    ],
     97: [
       // The Aquapolis
-      { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] }
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] },
+      // Bronze-trimmed Sack
+      { fn: itemExchange, args: [16170, 1017659] }
     ],
     98: [
       { fn: mogStation, args: [] }
@@ -236,11 +277,37 @@ module.exports = {
     109: [
       { fn: mogStation, args: [] }
     ],
+    110: [
+      // Waterside Exploration XIV
+      { fn: retainerVenture, args: [30057] },
+      // Waterside Exploration XV
+      { fn: retainerVenture, args: [30061] },
+      // Waterside Exploration XVI
+      { fn: retainerVenture, args: [30065] },
+      // Waterside Exploration XVII
+      { fn: retainerVenture, args: [30069] },
+      // Waterside Exploration XVIII
+      { fn: retainerVenture, args: [30073] }
+    ],
+    111: [
+      // Woodland Exploration XIV
+      { fn: retainerVenture, args: [30056] },
+      // Woodland Exploration XV
+      { fn: retainerVenture, args: [30060] },
+      // Woodland Exploration XVI
+      { fn: retainerVenture, args: [30064] },
+      // Woodland Exploration XVII
+      { fn: retainerVenture, args: [30068] },
+      // Woodland Exploration XVIII
+      { fn: retainerVenture, args: [30072] }
+    ],
     112: [
       // The Sunken Temple of Qarn (Hard)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 26)] },
       // The Aquapolis
-      { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] }
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] },
+      // Bronze-trimmed Sack
+      { fn: itemExchange, args: [16170, 1017659] }
     ],
     121: [
       { fn: mogStation, args: [] }
@@ -297,12 +364,22 @@ module.exports = {
     145: [
       { fn: mogStation, args: [] }
     ],
+    146: [
+      // Waterside Exploration XVIII
+      { fn: retainerVenture, args: [30073] },
+      // Waterside Exploration XIX
+      { fn: retainerVenture, args: [30077] },
+      // Silver-haloed Sack
+      { fn: itemExchange, args: [23223, 1025847] }
+    ],
     150: [
       { fn: mogStation, args: [] }
     ],
     157: [
       // The Aquapolis
-      { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] }
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] },
+      // Bronze-trimmed Sack
+      { fn: itemExchange, args: [16170, 1017659] }
     ],
     159: [
       { fn: mogStation, args: [] }
@@ -311,9 +388,25 @@ module.exports = {
       // The Void Ark
       { fn: instancedContent, args: [instances.find(instance => instance.id === 30029)] }
     ],
+    162: [
+      // Silver-haloed Sack
+      { fn: itemExchange, args: [23223, 1025847] },
+      // Gold-haloed Sack
+      { fn: itemExchange, args: [23224, 1025847] }
+    ],
     166: [
       // Saint Mocianne's Arboretum
-      { fn: instancedContent, args: [instances.find(instance => instance.id === 41)] }
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 41)] },
+      // Silver-haloed Sack
+      { fn: itemExchange, args: [23223, 1025847] },
+      // Gold-haloed Sack
+      { fn: itemExchange, args: [23224, 1025847] }
+    ],
+    169: [
+      // Silver-haloed Sack
+      { fn: itemExchange, args: [23223, 1025847] },
+      // Gold-haloed Sack
+      { fn: itemExchange, args: [23224, 1025847] }
     ],
     176: [
       // Alexander - The Burden of the Son (Savage)
@@ -332,11 +425,31 @@ module.exports = {
     ],
     180: [
       // The Lost City Of Amdapor (Hard)
-      { fn: instancedContent, args: [instances.find(instance => instance.id === 42)] }
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 42)] },
+      // Silver-haloed Sack
+      { fn: itemExchange, args: [23223, 1025847] },
+      // Gold-haloed Sack
+      { fn: itemExchange, args: [23224, 1025847] }
+    ],
+    185: [
+      // Silver-haloed Sack
+      { fn: itemExchange, args: [23223, 1025847] },
+      // Gold-haloed Sack
+      { fn: itemExchange, args: [23224, 1025847] }
+    ],
+    186: [
+      // Silver-haloed Sack
+      { fn: itemExchange, args: [23223, 1025847] },
+      // Gold-haloed Sack
+      { fn: itemExchange, args: [23224, 1025847] }
     ],
     189: [
       // Hullbreaker Isle (Hard)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 45)] }
+    ],
+    190: [
+      // Silver-haloed Sack
+      { fn: itemExchange, args: [23223, 1025847] }
     ],
     192: [
       { fn: mogStation, args: [] }
@@ -347,7 +460,9 @@ module.exports = {
     ],
     197: [
       // The Aquapolis
-      { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] }
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] },
+      // Silver-haloed Sack
+      { fn: itemExchange, args: [23223, 1025847] }
     ],
     215: [
       // Alexander - The Soul of the Creator
@@ -357,7 +472,13 @@ module.exports = {
     ],
     216: [
       // Xelphatol
-      { fn: instancedContent, args: [instances.find(instance => instance.id === 46)] }
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 46)] },
+      // Silver-haloed Sack
+      { fn: itemExchange, args: [23223, 1025847] }
+    ],
+    219: [
+      // Iron-trimmed Sack
+      { fn: itemExchange, args: [16171, 1017659] }
     ],
     220: [
       { fn: fanFestival, args: [2016, { de: 'Frankfurt', en: 'Frankfurt', fr: 'Francfort', ja: 'フランクフルト' }] },
@@ -385,16 +506,66 @@ module.exports = {
       // Dun Scaith
       { fn: instancedContent, args: [instances.find(instance => instance.id === 30047)] }
     ],
+    237: [
+      // Silver-haloed Sack
+      { fn: itemExchange, args: [23223, 1025847] }
+    ],
     238: [
       { fn: collectorsEdition, args: [_localisationHelper.misc['Stormblood']] }
     ],
+    241: [
+      // Highland Exploration XIX
+      { fn: retainerVenture, args: [30075] },
+      // Highland Exploration XX
+      { fn: retainerVenture, args: [30079] },
+      // Highland Exploration XXI
+      { fn: retainerVenture, args: [30083] },
+      // Highland Exploration XXII
+      { fn: retainerVenture, args: [30087] },
+      // Woodland Exploration XIX
+      { fn: retainerVenture, args: [30076] },
+      // Woodland Exploration XX
+      { fn: retainerVenture, args: [30080] },
+      // Woodland Exploration XXI
+      { fn: retainerVenture, args: [30084] },
+      // Woodland Exploration XXII
+      { fn: retainerVenture, args: [30088] },
+      // Waterside Exploration XIX
+      { fn: retainerVenture, args: [30077] },
+      // Waterside Exploration XX
+      { fn: retainerVenture, args: [30081] },
+      // Waterside Exploration XXI
+      { fn: retainerVenture, args: [30085] },
+      // Silver-haloed Sack
+      { fn: itemExchange, args: [23223, 1025847] },
+      // Gold-haloed Sack
+      { fn: itemExchange, args: [23224, 1025847] }
+    ],
+    244: [
+      // Silver-haloed Sack
+      { fn: itemExchange, args: [23223, 1025847] },
+      // Gold-haloed Sack
+      { fn: itemExchange, args: [23224, 1025847] }
+    ],
     245: [
       // Shisui of the Violet Tides
-      { fn: instancedContent, args: [instances.find(instance => instance.id === 50)] }
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 50)] },
+      // Silver-haloed Sack
+      { fn: itemExchange, args: [23223, 1025847] }
+    ],
+    246: [
+      // Field Exploration XX
+      { fn: retainerVenture, args: [30078] },
+      // Field Exploration XXII
+      { fn: retainerVenture, args: [30086] },
+      // Silver-haloed Sack
+      { fn: itemExchange, args: [23223, 1025847] }
     ],
     247: [
       // Bardam's Mettle
-      { fn: instancedContent, args: [instances.find(instance => instance.id === 53)] }
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 53)] },
+      // Silver-haloed Sack
+      { fn: itemExchange, args: [23223, 1025847] }
     ],
     249: [
       // Kugane Castle
@@ -418,13 +589,41 @@ module.exports = {
     ],
     258: [
       // The Sirensong Sea
-      { fn: instancedContent, args: [instances.find(instance => instance.id === 52)] }
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 52)] },
+      // Silver-haloed Sack
+      { fn: itemExchange, args: [23223, 1025847] }
     ],
     259: [
       // Deltascape V4.0
       { fn: instancedContent, args: [instances.find(instance => instance.id === 30052)] },
       // Deltascape V4.0 (Savage)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 30056)] }
+    ],
+    261: [
+      // Silver-haloed Sack
+      { fn: itemExchange, args: [23223, 1025847] },
+      // Gold-haloed Sack
+      { fn: itemExchange, args: [23224, 1025847] }
+    ],
+    262: [
+      // Silver-haloed Sack
+      { fn: itemExchange, args: [23223, 1025847] },
+      // Gold-haloed Sack
+      { fn: itemExchange, args: [23224, 1025847] }
+    ],
+    263: [
+      // Silver-haloed Sack
+      { fn: itemExchange, args: [23223, 1025847] },
+      // Gold-haloed Sack
+      { fn: itemExchange, args: [23224, 1025847] }
+    ],
+    267: [
+      // Highland Exploration XXII
+      { fn: retainerVenture, args: [30087] }
+    ],
+    268: [
+      // Field Exploration XXII
+      { fn: retainerVenture, args: [30086] }
     ],
     269: [
       // The Hidden Canals of Uznair
@@ -434,9 +633,19 @@ module.exports = {
       // The Orbonne Monastery
       { fn: instancedContent, args: [instances.find(instance => instance.id === 30077)] }
     ],
+    271: [
+      // Quick Exploration
+      { fn: retainerVenture, args: [30053] },
+      // Woodland Exploration XXII
+      { fn: retainerVenture, args: [30088] }
+    ],
     272: [
       // The Drowned City of Skalla
       { fn: instancedContent, args: [instances.find(instance => instance.id === 58)] }
+    ],
+    273: [
+      // Waterside Exploration XXII
+      { fn: retainerVenture, args: [30089] }
     ],
     279: [
       // Hell's Lid
@@ -631,6 +840,10 @@ module.exports = {
       // Containment Bay P1T6 (Extreme)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 20042)] }
     ],
+    100: [
+      // Gold-trimmed Sack
+      { fn: itemExchange, args: [16173, 1017659] }
+    ],
     101: [
       // Alexander - The Soul of the Creator (Savage)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 30046)] }
@@ -695,6 +908,10 @@ module.exports = {
     158: [
       // The Minstrel's Ballad: Tsukuyomi's Pain
       { fn: instancedContent, args: [instances.find(instance => instance.id === 20056)] }
+    ],
+    159: [
+      // Platinum-haloed Sack
+      { fn: itemExchange, args: [23225, 1025847] }
     ],
     161: [
       // The Great Hunt (Extreme)
@@ -897,5 +1114,25 @@ function recruitAFriend(contentId, days, language) {
   return _localisationHelper.recruitAFriendShort({
     contentId,
     days
+  }, language)
+}
+
+/**
+ * Retainer ventures.
+ * @param {Number} contentId - The ID of the content
+ * @param {Object} retainerVentureId - The retainer venture ID (from `data/retainerVentures.json`)
+ * @param {String} language - The localisation code (e.g. `"en"`)
+ */
+function retainerVenture(contentId, retainerVentureId, language) {
+  const venture = retainerVentures.find(venture => venture.id === retainerVentureId);
+
+  if (!venture) {
+    console.warn(`Unable to find retainer venture data for ${retainerVentureId}. Skipping.`);
+    return;
+  }
+
+  return _localisationHelper.retainerVentureShort({
+    contentId,
+    ...venture
   }, language)
 }

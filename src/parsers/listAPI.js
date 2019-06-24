@@ -236,7 +236,11 @@ function parseMethodDataFiles(id, contentType, language) {
           throw new Error(`An obtain method extension for ${contentType} ${id} is missing an 'args' array.`);
         }
 
-        methods.push(fn(id, ...args, language));
+        const obtainMethod = fn(id, ...args, language);
+
+        if (obtainMethod) {
+          methods.push(obtainMethod);
+        }
       })
     }
   }

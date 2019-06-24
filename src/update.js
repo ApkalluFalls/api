@@ -153,13 +153,18 @@ class API {
       console.time('Data');
       console.info('Starting parsing of misc required data...');
 
-      // Items.
-      const items = await this.crawl(config.items);
-      require('./parsers/items')(items);
+      // // Items.
+      // const items = await this.crawl(config.items);
+      // require('./parsers/items')(items);
 
-      // Currencies.
-      const currencies = await this.crawl(config.currencies);
-      require('./parsers/currencies')(currencies);
+      // // Currencies.
+      // const currencies = await this.crawl(config.currencies);
+      // require('./parsers/currencies')(currencies);
+
+      // Retainer Ventures.
+      const retainerVentureData = await this.crawl(config.retainerVentures.data);
+      const retainerVentureTasks = await this.crawl(config.retainerVentures.tasks);
+      require('./parsers/retainerVentures')(retainerVentureData, retainerVentureTasks);
 
       // // Gathering.
       // const fishingSpots = await this.crawl(config.gathering.fishingSpots);
@@ -192,12 +197,12 @@ class API {
       // );
 
       // // Map data.
-      const maps = await this.crawl(config.maps);
-      await require('./parsers/maps')(maps);
+      // const maps = await this.crawl(config.maps);
+      // await require('./parsers/maps')(maps);
 
-      // Mappy data (NPCs).
-      const npcs = await this.crawl(config.npcs);
-      await require('./parsers/mappy')(npcs);
+      // // Mappy data (NPCs).
+      // const npcs = await this.crawl(config.npcs);
+      // await require('./parsers/mappy')(npcs);
 
       console.info('Finished parsing of misc required data.');
       // console.info('Starting parsing of obtain method data...');

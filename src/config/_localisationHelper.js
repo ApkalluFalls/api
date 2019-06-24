@@ -87,6 +87,11 @@ module.exports = {
   recruitAFriendShort: (entry) => ([
     'recruitAFriendShort', 6, [entry.days]
   ]),
+  retainerVentureShort: (entry, language) => ([
+    'ventureShort',
+    10,
+    [entry.level, entry.name[language]]
+  ]),
   mogStationShort: () => ([
     'mogStationShort', 7
   ]),
