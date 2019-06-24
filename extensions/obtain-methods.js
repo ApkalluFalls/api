@@ -5,6 +5,7 @@ const items = require('../data/items.json');
 const maps = require('../data/maps.json');
 const npcs = require('../data/npcs.json');
 const retainerVentures = require('../data/retainerVentures.json');
+const treasureHunt = require('../data/treasureHunt.json');
 
 module.exports = {
   barding: {
@@ -155,19 +156,27 @@ module.exports = {
       // The Aquapolis
       { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] },
       // Bronze-trimmed Sack
-      { fn: itemExchange, args: [16170, 1017659] }
+      { fn: itemExchange, args: [16170, 1017659] },
+      // Peisteskin Map
+      { fn: timewornMap, args: [5] },
+      // Dragonskin Map
+      { fn: timewornMap, args: [11] }
     ],
     23: [
       // The Aquapolis
       { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] },
       // Bronze-trimmed Sack
-      { fn: itemExchange, args: [16170, 1017659] }
+      { fn: itemExchange, args: [16170, 1017659] },
+      // Boarskin Map
+      { fn: timewornMap, args: [4] }
     ],
     27: [
       // The Aquapolis
       { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] },
       // Bronze-trimmed Sack
-      { fn: itemExchange, args: [16170, 1017659] }
+      { fn: itemExchange, args: [16170, 1017659] },
+      // Toadskin Map
+      { fn: timewornMap, args: [3] }
     ],
     42: [
       // The Wanderer's Palace
@@ -242,7 +251,9 @@ module.exports = {
       // The Aquapolis
       { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] },
       // Bronze-trimmed Sack
-      { fn: itemExchange, args: [16170, 1017659] }
+      { fn: itemExchange, args: [16170, 1017659] },
+      // Unhidden Map
+      { fn: timewornMap, args: [7] }
     ],
     98: [
       { fn: mogStation, args: [] }
@@ -379,7 +390,9 @@ module.exports = {
       // The Aquapolis
       { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] },
       // Bronze-trimmed Sack
-      { fn: itemExchange, args: [16170, 1017659] }
+      { fn: itemExchange, args: [16170, 1017659] },
+      // Dragonskin Map
+      { fn: timewornMap, args: [11] }
     ],
     159: [
       { fn: mogStation, args: [] }
@@ -577,7 +590,9 @@ module.exports = {
     ],
     253: [
       // The Hidden Canals of Uznair
-      { fn: instancedContent, args: [instances.find(instance => instance.id === 55003)] }
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 55003)] },
+      // Gazelleskin Map
+      { fn: timewornMap, args: [13] }
     ],
     254: [
       // The Temple of the Fist
@@ -931,6 +946,18 @@ module.exports = {
     ]
   },
   orchestrion: {
+    165: [,
+      // Gazelleskin Map
+      { fn: timewornMap, args: [13] }
+    ],
+    166: [,
+      // Gazelleskin Map
+      { fn: timewornMap, args: [13] }
+    ],
+    167: [,
+      // Gazelleskin Map
+      { fn: timewornMap, args: [13] }
+    ],
     288: [
       // Hydatos Lockbox
       { fn: itemExchange, args: [24848, 1027127] }
@@ -1134,5 +1161,25 @@ function retainerVenture(contentId, retainerVentureId, language) {
   return _localisationHelper.retainerVentureShort({
     contentId,
     ...venture
+  }, language)
+}
+
+/**
+ * Timeworn Maps.
+ * @param {Number} contentId - The ID of the content
+ * @param {Object} treasureHuntId - The treasure hunt's ID (from `data/treasureHunt.json`)
+ * @param {String} language - The localisation code (e.g. `"en"`)
+ */
+function timewornMap(contentId, treasureHuntId, language) {
+  const item = treasureHunt.find(item => item.id === treasureHuntId);
+
+  if (!item) {
+    console.warn(`Unable to find treasure hunt data for ${treasureHuntId}. Skipping.`);
+    return;
+  }
+
+  return _localisationHelper.retainerVentureShort({
+    contentId,
+    ...item
   }, language)
 }
