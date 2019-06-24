@@ -121,6 +121,11 @@ module.exports = {
       ]
     ])
   },
+  treasureHuntShort: (entry, language) => ([
+    'treasureHuntShort',
+    11,
+    [entry.name[language]]
+  ]),
   misc: {
     'Legacy (1.0)': {
       de: 'Legacy (1.0)',

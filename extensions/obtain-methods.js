@@ -1178,7 +1178,7 @@ function timewornMap(contentId, treasureHuntId, language) {
     return;
   }
 
-  return _localisationHelper.retainerVentureShort({
+  return _localisationHelper.treasureHuntShort({
     contentId,
     ...item
   }, language)
