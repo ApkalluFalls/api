@@ -485,5 +485,23 @@ module.exports = {
       name: 'specialShops',
       specialShopItemIndexes
     }
+  },
+  treasureHunt: {
+    /**
+     * For Treasure Hunt entries (Timeworn Maps) we need to extract the following fields...
+     * `ID` - The hunt's ID;
+     * `ItemName` - The event item's...
+     *   `Name_{lang}` - Localised name;
+     * `MaxPartySize` - Party size;
+     */
+     columns: [
+       'ID',
+        ...helper.localisedColumnProperty(`ItemName.Name`),
+        'MaxPartySize'
+     ],
+      isPaginated: true,
+      log: 'Treasure Hunt (timeworn maps)',
+      method: 'fetch',
+      name: 'treasureHunt'
   }
 }

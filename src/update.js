@@ -166,6 +166,10 @@ class API {
       const retainerVentureTasks = await this.crawl(config.retainerVentures.tasks);
       require('./parsers/retainerVentures')(retainerVentureData, retainerVentureTasks);
 
+      // Treasure Hunt (Timeworn Maps).
+      const treasureHunt = await this.crawl(config.treasureHunt);
+      require('./parsers/treasureHunt')(treasureHunt);
+
       // // Gathering.
       // const fishingSpots = await this.crawl(config.gathering.fishingSpots);
       // const gatheringItems = await this.crawl(config.gathering.items);

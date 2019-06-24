@@ -26,5 +26,6 @@ module.exports = {
   spearfishingItems: () => `${xivapiBase}/spearfishingitem`,
   specialShop: (id) => `${xivapiBase}/specialshop/${id}`,
   specialShops: () => `${xivapiBase}/specialshop`,
-  territoryTypes: () => `${xivapiBase}/territorytype`
+  territoryTypes: () => `${xivapiBase}/territorytype`,
+  treasureHunt: () => `${xivapiBase}/treasurehuntrank`
 }
