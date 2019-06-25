@@ -29,17 +29,28 @@ module.exports = {
     8,
     [entry.year, entry.location[language]]
   ]),
-  fateShort: (entry, language) => ([
-    'fateShort',
-    12,
-    [
-      entry.fate.level,
-      entry.fate.name[language],
-      entry.map.name[language],
-      entry.x,
-      entry.y
-    ]
-  ]),
+  fates: {
+    fateShort: (entry, language) => ([
+      'fateShort',
+      12,
+      [
+        entry.fate.level,
+        entry.fate.name[language],
+        entry.map.name[language],
+        entry.x,
+        entry.y
+      ]
+    ]),
+    instancedFATEShort: (entry, language) => ([
+      'instancedFATEShort',
+      12,
+      [
+        entry.fate.level,
+        entry.fate.name[language],
+        entry.map.name[language]
+      ]
+    ])
+  },
   gatherShort: (entry, language) => ([
     'gatherShort',
     entry.icon,

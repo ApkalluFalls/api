@@ -154,6 +154,10 @@ module.exports = {
       // The Aurum Vale
       { fn: instancedContent, args: [instances.find(instance => instance.id === 5)] }
     ],
+    14: [
+      // Lazy For You
+      { fn: fate, args: [218] }
+    ],
     16: [
       // The Aquapolis
       { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] },
@@ -163,6 +167,10 @@ module.exports = {
       { fn: timewornMap, args: [5] },
       // Dragonskin Map
       { fn: timewornMap, args: [11] }
+    ],
+    18: [
+      // Go, Go, Gorgimera
+      { fn: fate, args: [647] }
     ],
     23: [
       // The Aquapolis
@@ -180,8 +188,17 @@ module.exports = {
       // Toadskin Map
       { fn: timewornMap, args: [3] }
     ],
+    31: [
+      // The Eyes Have It
+      { fn: fate, args: [507] }
+    ],
     34: [
+      // It's Not Lupus
       { fn: fate, args: [335] }
+    ],
+    39: [
+      // Where's The Beef (Diadem)
+      { fn: fate, args: [1035] }
     ],
     42: [
       // The Wanderer's Palace
@@ -391,6 +408,10 @@ module.exports = {
     150: [
       { fn: mogStation, args: [] }
     ],
+    154: [
+      // On Dangerous Ground
+      { fn: fate, args: [855] }
+    ],
     157: [
       // The Aquapolis
       { fn: instancedContent, args: [instances.find(instance => instance.id === 55001)] },
@@ -407,6 +428,8 @@ module.exports = {
       { fn: instancedContent, args: [instances.find(instance => instance.id === 30029)] }
     ],
     162: [
+      // On The Inside (Diadem)
+      { fn: fate, args: [1094] },
       // Silver-haloed Sack
       { fn: itemExchange, args: [23223, 1025847] },
       // Gold-haloed Sack
@@ -466,11 +489,17 @@ module.exports = {
       { fn: instancedContent, args: [instances.find(instance => instance.id === 45)] }
     ],
     190: [
+      // Secret Of The Lost Legend (Diadem)
+      { fn: fate, args: [968] },
       // Silver-haloed Sack
       { fn: itemExchange, args: [23223, 1025847] }
     ],
     192: [
       { fn: mogStation, args: [] }
+    ],
+    194: [
+      // Blood Wings (Diadem)
+      { fn: fate, args: [1050] }
     ],
     195: [
       // The Weeping City of Mhach
@@ -678,14 +707,20 @@ module.exports = {
       { fn: instancedContent, args: [instances.find(instance => instance.id === 30066)] }
     ],
     285: [
+      // Wine And Honey (Eureka Anemos)
+      { fn: fate, args: [1331] },
       // Anemos Lockbox
       { fn: itemExchange, args: [22508, 1025048] }
     ],
     286: [
+      // Short Serket 2 (Eureka Anemos)
+      { fn: fate, args: [1339] },
       // Anemos Lockbox
       { fn: itemExchange, args: [22508, 1025048] }
     ],
     287: [
+      // The Shadow Over Anemos (Eureka Anemos)
+      { fn: fate, args: [1348] },
       // Anemos Lockbox
       { fn: itemExchange, args: [22508, 1025048] }
     ],
@@ -1080,13 +1115,21 @@ function fate(contentId, fateId, language) {
     return;
   }
 
-  return _localisationHelper.fateShort({
+  const response = {
     contentId,
     fate,
-    map,
-    x: info.x,
-    y: info.y
-  }, language)
+    map
+  };
+
+  if (info.x) {
+    return _localisationHelper.fates.fateShort({
+      ...response,
+      x: info.x,
+      y: info.y
+    }, language);
+  }
+
+  return _localisationHelper.fates.instancedFATEShort(response, language);
 }
 
 /**
