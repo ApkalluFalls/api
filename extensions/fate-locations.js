@@ -40,6 +40,12 @@ module.exports = {
     x: 21,
     y: 12
   },
+  // Vedrfolnir Devoteth
+  871: {
+    location: 400,
+    x: 11,
+    y: 36
+  },
   // Secret Of The Lost Legend (Diadem)
   968: {
     location: 512
@@ -55,6 +61,12 @@ module.exports = {
   // On The Inside (Diadem)
   1094: {
     location: 512
+  },
+  // Rattle And Humbaba
+  1194: {
+    location: 620,
+    x: 15,
+    y: 30
   },
   // Wine And Honey (Eureka Anemos)
   1331: {

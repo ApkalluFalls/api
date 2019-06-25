@@ -1,9 +1,12 @@
-const fs = require('fs');
+const bNPCs = require('../../data/bNPCs.json');
 const currencies = require('../../data/currencies.json');
 const customTalk = require('../../data/customTalk.json');
 const currencyParser = require('../parsers/currencies');
-const items = require('../../data/items.json');
+const extendedGilShops = require('../../extensions/gil-shops');
 const extendedSpecialShops = require('../../extensions/special-shops');
+const items = require('../../data/items.json');
+const fs = require('fs');
+const helper = require('../xivapi/helper');
 
 /**
  * Parse recipe data from XIVAPI.
@@ -259,6 +262,46 @@ module.exports = (
       npc: npcId
     })
   });
+
+  // BNPC extension entries.
+  Object.keys(extendedGilShops.bNPCs).forEach(bNPCID => {
+    const id = Number(bNPCID);
+    const bNPC = bNPCs.find(bNPC => bNPC.id === id);
+
+    if (!bNPC) {
+      console.warn(`Unknown BNPC ID extension added for ${id}. Skipping.`);
+      return;
+    }
+
+    const gilShops = extendedGilShops.bNPCs[bNPCID];
+
+    gilShops.forEach(gilShop => {
+      gilShop.Items.forEach(gilShopItem => {
+        const match = allItems.find(item => item.id === gilShopItem.ID);
+
+        if (!match) {
+          console.error(`Unable to map extended BNPC gil shop item ID ${gilShopItem.ID} to an item. Unsure how to proceed.`);
+          return;
+        }
+
+        const {
+          contentId,
+          contentType
+        } = match;
+        
+        if (!parsed[contentType]) {
+          parsed[contentType] = [];
+        };
+    
+        parsed[contentType].push({
+          bNPC,
+          contentId,
+          cost: gilShopItem.PriceMid,
+          currency: gil
+        })
+      })
+    })
+  })
 
   // If there are new currencies, overwrite the currencies JSON file.
   if (currenciesAddedCount > 0) {

@@ -192,17 +192,25 @@ class API {
       // const customTalk = await this.crawl(config.customTalk);
       // await require('./parsers/customTalk')(customTalk);
 
+      // Gil shop data.
+      const gilShops = await this.crawl(config.shops.gilShops);
+      await require('./parsers/gilShops')(gilShops);
+
       // // Special shop data.
       // const specialShops = await this.crawl(config.shops.specialShops);
       // await require('./parsers/specialShops')(specialShops);
 
-      // // // Shops.
-      // const eNPCResidents = await this.crawl(config.shops.eNPCResident);
-      // const gcScripShopItems = await this.crawl(config.shops.gcScripShopItem);
-      // require('./parsers/shops')(
-      //   eNPCResidents,
-      //   gcScripShopItems
-      // );
+      // BNPC data.
+      const bNPCNames = await this.crawl(config.shops.bNPCNames);
+      require('./parsers/bNPCs')(bNPCNames);
+
+      // Shops.
+      const eNPCResidents = await this.crawl(config.shops.eNPCResident);
+      const gcScripShopItems = await this.crawl(config.shops.gcScripShopItem);
+      require('./parsers/shops')(
+        eNPCResidents,
+        gcScripShopItems
+      );
 
       // // Map data.
       // const maps = await this.crawl(config.maps);

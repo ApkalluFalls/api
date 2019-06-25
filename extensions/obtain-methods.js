@@ -33,6 +33,10 @@ module.exports = {
     27: [
       { fn: mogStation, args: [] }
     ],
+    30: [
+      // Vedrfolnir Devoteth
+      { fn: fate, args: [871] }
+    ],
     42: [
       { fn: mogStation, args: [] }
     ],
@@ -42,7 +46,7 @@ module.exports = {
     46: [
       { fn: mogStation, args: [] }
     ],
-    22: [
+    48: [
       // Silver-trimmed Sack
       { fn: itemExchange, args: [16172, 1017659] },
       // Gold-trimmed Sack
@@ -53,6 +57,10 @@ module.exports = {
     ],
     51: [
       { fn: mogStation, args: [] }
+    ],
+    54: [
+      // Vedrfolnir Devoteth
+      { fn: fate, args: [1194] }
     ],
     58: [
       { fn: mogStation, args: [] }

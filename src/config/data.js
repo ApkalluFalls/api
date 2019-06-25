@@ -423,6 +423,21 @@ module.exports = {
     }
   },
   shops: {
+    bNPCNames: {
+      /**
+       * For BNPCBase entries we need to extract the following fields:
+       * `ID` - Used to map other content to the NPC;
+       * `Name_{lang}` - Localised name.
+       */
+      columns: [
+        'ID',
+        ...helper.localisedColumnProperty('Name')
+      ],
+      isPaginated: true,
+      log: 'BNPCNames (for Shops)',
+      method: 'fetch',
+      name: 'bNPCName'
+    },
     eNPCResident: {
       cacheAs: 'npc-shops',
       /**
@@ -472,6 +487,23 @@ module.exports = {
       log: 'Grand Company Shop Items',
       method: 'fetch',
       name: 'gcScripShopItem'
+    },
+    gilShops: {
+      /**
+       * For Gil Shops we need to extract the following fields...
+       * `ID` - The shop's ID;
+       * `Items` - The items the shop sells;
+       * `Name_{lang}` - Localised name.
+       */
+      columns: [
+        'ID',
+        'Items',
+        ...helper.localisedColumnProperty(`Name`),
+      ],
+      isPaginated: true,
+      log: 'Gil Shops',
+      method: 'fetch',
+      name: 'gilShops'
     },
     specialShops: {
       /**

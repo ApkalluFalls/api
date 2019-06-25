@@ -178,6 +178,14 @@ function parseMethodDataFiles(id, contentType, language) {
 
   if (shops[contentType]) {
     shops[contentType].filter(shopEntry => shopEntry.contentId === id).forEach(match => {
+      // If it's a BNPC entry, we have all the data we need already.
+      if (match.bNPC) {
+        methods.push(_localisationHelper.shop.gilAfterFateShort({
+          ...match
+        }, language));
+        return;
+      }
+
       const npc = npcs.find(entry => entry.id === match.npc);
 
       const {

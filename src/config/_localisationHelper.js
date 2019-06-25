@@ -130,6 +130,15 @@ module.exports = {
         entry.npc.y
       ]
     ]),
+    gilAfterFateShort: (entry, language) => ([
+      'gilAfterFateShort',
+      1,
+      [
+        entry.cost,
+        entry.currency.name[language],
+        entry.bNPC.name[language]
+      ]
+    ]),
     specialShort: (entry, language) => ([
       'specialShopShort',
       1,
