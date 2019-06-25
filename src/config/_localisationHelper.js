@@ -136,7 +136,12 @@ module.exports = {
       [
         entry.cost,
         entry.currency.name[language],
-        entry.bNPC.name[language]
+        entry.bNPC.name[language],
+        entry.fate.level,
+        entry.fate.name[language],
+        entry.map.name[language],
+        entry.x,
+        entry.y
       ]
     ]),
     specialShort: (entry, language) => ([

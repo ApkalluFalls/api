@@ -10,6 +10,18 @@
  * https://garlandtools.org/db/#fate/335.
  */
 module.exports = {
+  // Clearing the Hive
+  160: {
+    location: 153,
+    x: 21,
+    y: 16
+  },
+  // Attack on Highbridge: Act III
+  194: {
+    location: 145,
+    x: 22,
+    y: 21
+  },
   // Lazy For You
   218: {
     location: 152,
@@ -21,6 +33,12 @@ module.exports = {
     location: 137,
     x: 31,
     y: 34
+  },
+  // Poor Maid's Misfortune
+  453: {
+    location: 139,
+    x: 11,
+    y: 24
   },
   // The Eyes Have It
   507: {

@@ -5,21 +5,25 @@
  *
  * Remember that `npm run update data` will need running to apply any changes.
  */
+const fates = require('../data/fates.json');
 const gilShops = require('../data/gilShops.json');
 
 module.exports = {
   bNPCs: {
     // Junkmonger Nonoroon appars after the 'Poor Maid's Misfortune' FATE
-    1237: [
-      gilShops.find(gilShop => gilShop.ID === 262404)
-    ],
+    1237: [{
+      fate: fates.find(fate => fate.id === 453),
+      shop: gilShops.find(gilShop => gilShop.ID === 262404)
+    }],
     // Chachamun appears after the 'Attack on Highbridge: Act III' FATE
-    1245: [
-      gilShops.find(gilShop => gilShop.ID === 262406)
-    ],
+    1245: [{
+      fate: fates.find(fate => fate.id === 194),
+      shop: gilShops.find(gilShop => gilShop.ID === 262406)
+    }],
     // Boughbury Trader appears after the 'Clearing the Hive' FATE
-    2164: [
-      gilShops.find(gilShop => gilShop.ID === 262407)
-    ]
+    2164: [{
+      fate: fates.find(fate => fate.id === 160),
+      shop: gilShops.find(gilShop => gilShop.ID === 262407)
+    }]
   }
 }

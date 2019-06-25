@@ -21,7 +21,9 @@ module.exports = (data,) => {
       Items: entry.Items.filter(shopItem => {
         return allItems.find(item => item.id === shopItem.ID);
       }).map(shopItem => {
-        const response = {};
+        const response = {
+          PriceMid: shopItem.PriceMid
+        };
 
         for (const column of itemConfig.columns) {
           response[column] = shopItem[column];

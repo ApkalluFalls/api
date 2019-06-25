@@ -273,10 +273,18 @@ module.exports = (
       return;
     }
 
-    const gilShops = extendedGilShops.bNPCs[bNPCID];
+    extendedGilShops.bNPCs[bNPCID].forEach(({ fate, shop }) => {
+      if (!fate) {
+        console.warn(`Missing 'fate' key for gil shop extension on BNPC ID ${id}. Skipping.`);
+        return;
+      }
 
-    gilShops.forEach(gilShop => {
-      gilShop.Items.forEach(gilShopItem => {
+      if (!shop) {
+        console.warn(`Missing 'shop' key for gil shop extension on BNPC ID ${id}. Skipping.`);
+        return;
+      }
+
+      shop.Items.forEach(gilShopItem => {
         const match = allItems.find(item => item.id === gilShopItem.ID);
 
         if (!match) {
@@ -297,7 +305,8 @@ module.exports = (
           bNPC,
           contentId,
           cost: gilShopItem.PriceMid,
-          currency: gil
+          currency: gil,
+          fate
         })
       })
     })

@@ -77,7 +77,9 @@ function parseMethodDataFiles(id, contentType, language) {
   const gathering = require('../../data/methods/gathering.json');
   const quests = require('../../data/methods/quests.json');
   const shops = require('../../data/methods/shops.json');
+
   const extensions = (require(`../../extensions/obtain-methods`))[contentType] || {};
+  const fateLocations = require('../../extensions/fate-locations');
 
   if (achievementMapping[contentType]) {
     achievementMapping[contentType].filter(achievement => achievement.contentId === id).forEach(match => {
@@ -178,10 +180,28 @@ function parseMethodDataFiles(id, contentType, language) {
 
   if (shops[contentType]) {
     shops[contentType].filter(shopEntry => shopEntry.contentId === id).forEach(match => {
-      // If it's a BNPC entry, we have all the data we need already.
+      // If it's a BNPC entry, we simply find the associated FATE location and return that.
       if (match.bNPC) {
+        const fateId = match.fate.id;
+        const fateLocationInfo = fateLocations[fateId];
+
+        if (!fateLocationInfo) {
+          console.warn(`An extension is required for FATE ${fateId}'s location. Skipping.`);
+          return;
+        }
+
+        const map = maps.find(map => map.id === fateLocationInfo.location);
+      
+        if (!map) {
+          console.warn(`FATE ${fateId}'s extension is pointing to an invalid location. Skipping.`);
+          return;
+        }      
+
         methods.push(_localisationHelper.shop.gilAfterFateShort({
-          ...match
+          ...match,
+          map,
+          x: fateLocationInfo.x,
+          y: fateLocationInfo.y
         }, language));
         return;
       }
