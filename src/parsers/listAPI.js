@@ -203,7 +203,7 @@ function parseMethodDataFiles(id, contentType, language) {
 
       if (!map) {
         if (language === 'en') {
-          console.warn(`Missing map data for NPC ${npc.id} ${npc.name.en}. Override can be added to /extensions/npc.js. Skipping.`);
+          console.warn(`Missing map data for NPC ${npc.id} ${npc.name.en}. Override can be added to /extensions/npc-locations.js. Skipping.`);
         }
         return;
       }

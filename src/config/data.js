@@ -117,6 +117,23 @@ module.exports = {
     method: 'fetch',
     name: 'customTalk'
   },
+  fates: {
+    /**
+     * For FATEs we need to extract the following fields:
+     * `ClassJobLevel` - The required level;
+     * `ID` - To link other content to a given FATE;
+     * `Name_{lang}` - Localised name.
+     */
+    columns: [
+      'ClassJobLevel',
+      'ID',
+      ...helper.localisedColumnProperty('Name')
+    ],
+    isPaginated: true,
+    log: 'FATEs',
+    method: 'fetch',
+    name: 'fates'
+  },
   gathering: {
     fishingSpots: {
       /**

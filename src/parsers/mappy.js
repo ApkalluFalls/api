@@ -26,7 +26,7 @@ module.exports = async (npcs) => {
   console.info('Map data fetched; parsing...');
 
   const data = await new Promise(resolve => {
-    const customNPCData = require('../../extensions/npcs.js');
+    const customNPCData = require('../../extensions/npc-locations.js');
 
     const parsed = {
       npcs: [...customNPCData]

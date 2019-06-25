@@ -575,6 +575,7 @@ async function parseMethodIcons() {
     { path: '/i/092000/092102.png', as: 9 }, // Item Exchange.
     { path: '/i/092000/092051.png', as: 10 }, // Retainer Venture.
     { path: '/i/092000/092077.png', as: 11 }, // Treasure Hunt.
+    { path: '/i/092000/092006.png', as: 12 }, // FATEs.
   ];
 
   await processIconGroup(paths, 'methods', { resize: 24 });

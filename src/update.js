@@ -161,14 +161,18 @@ class API {
       // const currencies = await this.crawl(config.currencies);
       // require('./parsers/currencies')(currencies);
 
-      // Retainer Ventures.
-      const retainerVentureData = await this.crawl(config.retainerVentures.data);
-      const retainerVentureTasks = await this.crawl(config.retainerVentures.tasks);
-      require('./parsers/retainerVentures')(retainerVentureData, retainerVentureTasks);
+      // // Retainer Ventures.
+      // const retainerVentureData = await this.crawl(config.retainerVentures.data);
+      // const retainerVentureTasks = await this.crawl(config.retainerVentures.tasks);
+      // require('./parsers/retainerVentures')(retainerVentureData, retainerVentureTasks);
 
-      // Treasure Hunt (Timeworn Maps).
-      const treasureHunt = await this.crawl(config.treasureHunt);
-      require('./parsers/treasureHunt')(treasureHunt);
+      // // Treasure Hunt (Timeworn Maps).
+      // const treasureHunt = await this.crawl(config.treasureHunt);
+      // require('./parsers/treasureHunt')(treasureHunt);
+
+      // FATEs.
+      const fates = await this.crawl(config.fates);
+      require('./parsers/fates')(fates);
 
       // // Gathering.
       // const fishingSpots = await this.crawl(config.gathering.fishingSpots);

@@ -5,6 +5,7 @@ module.exports = {
   achievements: () => `${xivapiBase}/achievement`,
   barding: () => `${xivapiBase}/buddyequip`,
   customTalk: () => `${xivapiBase}/customtalk`,
+  fates: () => `${xivapiBase}/fate`,
   gilShop: (id) => `${xivapiBase}/gilshop/${id}`,
   emote: (id) => `${xivapiBase}/emote/${id}`,
   emotes: () => `${xivapiBase}/emote`,

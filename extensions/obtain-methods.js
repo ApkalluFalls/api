@@ -1,5 +1,7 @@
 const _localisationHelper = require('../src/config/_localisationHelper');
 const achievements = require('../data/content/achievements.json');
+const fateLocations = require('./fate-locations');
+const fates = require('../data/fates.json');
 const instances = require('../data/instances.json');
 const items = require('../data/items.json');
 const maps = require('../data/maps.json');
@@ -177,6 +179,9 @@ module.exports = {
       { fn: itemExchange, args: [16170, 1017659] },
       // Toadskin Map
       { fn: timewornMap, args: [3] }
+    ],
+    34: [
+      { fn: fate, args: [335] }
     ],
     42: [
       // The Wanderer's Palace
@@ -714,8 +719,17 @@ module.exports = {
       // Alphascape V4.0 (Savage)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 30076)] }
     ],
+    309: [
+      { fn: fanFestival, args: [2019, { de: 'Paris', en: 'Paris', fr: 'Paris', ja: 'パリ' }]},
+      { fn: mogStation, args: [] }
+    ],
+    310: [
+      { fn: fanFestival, args: [2019, { de: 'Tokyo', en: 'Tokyo', fr: 'Tokyo', ja: '東京' }] },
+      { fn: mogStation, args: [] }
+    ],
     311: [
-      { fn: fanFestival, args: [2018, { de: 'Las Vegas', en: 'Las Vegas', fr: 'Las Vegas', ja: 'ラスベガス' }]}
+      { fn: fanFestival, args: [2018, { de: 'Las Vegas', en: 'Las Vegas', fr: 'Las Vegas', ja: 'ラスベガス' }]},
+      { fn: mogStation, args: [] }
     ],
     312: [
       // Saint Mociannes Arboretum (Hard)
@@ -807,8 +821,8 @@ module.exports = {
     ],
     71: [
       { fn: fanFestival, args: [2018, { de: 'Las Vegas', en: 'Las Vegas', fr: 'Las Vegas', ja: 'ラスベガス' }]},
-      { fn: fanFestival, args: [2018, { de: 'Paris', en: 'Paris', fr: 'Paris', ja: 'パリ' }]},
-      { fn: fanFestival, args: [2018, { de: 'Tokyo', en: 'Tokyo', fr: 'Tokyo', ja: '東京' }]}
+      { fn: fanFestival, args: [2019, { de: 'Paris', en: 'Paris', fr: 'Paris', ja: 'パリ' }]},
+      { fn: fanFestival, args: [2019, { de: 'Tokyo', en: 'Tokyo', fr: 'Tokyo', ja: '東京' }]}
     ],
     74: [
       { fn: mogStation, args: [] }
@@ -1039,6 +1053,43 @@ function fanFestivalStream(contentId, year, location, language) {
 }
 
 /**
+ * Timeworn Maps.
+ * @param {Number} contentId - The ID of the content
+ * @param {Number} fateId - The FATE's ID (from `data/fates.json`)
+ * @param {String} language - The localisation code (e.g. `"en"`)
+ */
+function fate(contentId, fateId, language) {
+  const fate = fates.find(fate => fate.id === fateId);
+
+  if (!fate) {
+    console.warn(`Unable to find FATE ${fateId}. Skipping.`);
+    return;
+  }
+
+  const info = fateLocations[fate.id];
+
+  if (!info) {
+    console.warn(`An extension is required for FATE ${fateId}'s location. Skipping.`);
+    return;
+  }
+
+  const map = maps.find(map => map.id === info.location);
+
+  if (!map) {
+    console.warn(`FATE ${fateId}'s extension is pointing to an invalid location. Skipping.`);
+    return;
+  }
+
+  return _localisationHelper.fateShort({
+    contentId,
+    fate,
+    map,
+    x: info.x,
+    y: info.y
+  }, language)
+}
+
+/**
  * Instanced content like dungeons.
  * @param {Number} contentId - The ID of the content
  * @param {Object} instance - The instance object (from `data/instances.json`)
@@ -1147,7 +1198,7 @@ function recruitAFriend(contentId, days, language) {
 /**
  * Retainer ventures.
  * @param {Number} contentId - The ID of the content
- * @param {Object} retainerVentureId - The retainer venture ID (from `data/retainerVentures.json`)
+ * @param {Number} retainerVentureId - The retainer venture ID (from `data/retainerVentures.json`)
  * @param {String} language - The localisation code (e.g. `"en"`)
  */
 function retainerVenture(contentId, retainerVentureId, language) {
@@ -1167,7 +1218,7 @@ function retainerVenture(contentId, retainerVentureId, language) {
 /**
  * Timeworn Maps.
  * @param {Number} contentId - The ID of the content
- * @param {Object} treasureHuntId - The treasure hunt's ID (from `data/treasureHunt.json`)
+ * @param {Number} treasureHuntId - The treasure hunt's ID (from `data/treasureHunt.json`)
  * @param {String} language - The localisation code (e.g. `"en"`)
  */
 function timewornMap(contentId, treasureHuntId, language) {
