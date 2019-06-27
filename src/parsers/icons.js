@@ -302,29 +302,29 @@ function mapIconPath(iconPath) {
   switch (pathAfterReplace) {
     // Crafting classes
     case 'alchemist':
-      return { path: '/i/091000/091037.png', as: 'c1' };
+      return { path: '/i/094000/094537.png', as: 'c1' };
     case 'armorer':
-      return { path: '/i/091000/091033.png', as: 'c2' };
+      return { path: '/i/094000/094533.png', as: 'c2' };
     case 'blacksmith':
-      return { path: '/i/091000/091032.png', as: 'c3' };
+      return { path: '/i/094000/094532.png', as: 'c3' };
     case 'carpenter':
-      return { path: '/i/091000/091031.png', as: 'c4' };
+      return { path: '/i/094000/094531.png', as: 'c4' };
     case 'culinarian':
-      return { path: '/i/091000/091038.png', as: 'c5' };
+      return { path: '/i/094000/094538.png', as: 'c5' };
     case 'goldsmith':
-      return { path: '/i/091000/091034.png', as: 'c6' };
+      return { path: '/i/094000/094534.png', as: 'c6' };
     case 'leatherworker':
-      return { path: '/i/091000/091035.png', as: 'c7' };
+      return { path: '/i/094000/094535.png', as: 'c7' };
     case 'weaver':
-      return { path: '/i/091000/091036.png', as: 'c8' };
+      return { path: '/i/094000/094536.png', as: 'c8' };
 
     // Gathering classes
     case '60438': // Miner
-      return { path: '/i/091000/091039.png', as: 'g1' };
+      return { path: '/i/094000/094539.png', as: 'g1' };
     case '60432': // Botanist
-      return { path: '/i/091000/091040.png', as: 'g2' };
+      return { path: '/i/094000/094540.png', as: 'g2' };
     case '60929': // Fisher
-      return { path: '/i/091000/091041.png', as: 'g3' };
+      return { path: '/i/094000/094541.png', as: 'g3' };
 
     // Quests
     case '71201': // Regular quests
@@ -352,7 +352,7 @@ function mapIconPath(iconPath) {
     case '80120': // Event quest: Chinese New Year: Boar
     case '80121': // Event quest: Monster Hunter collaboration
     case '80123': // Event quest: FFXV collaboration
-      return { path: '/i/091000/091012.png', as: 'q3' };
+      return { path: '/i/094000/094512.png', as: 'q3' };
 
 
     default:
@@ -564,18 +564,18 @@ async function parseMethodIcons() {
     ...getCraftingIconPaths(),
     ...getGatheringIconPaths(),
     ...getQuestJournalIconPaths(),
-    { path: '/i/091000/091019.png', as: 1 }, // Shop.
-    { path: '/i/091000/091013.png', as: 2 }, // Achievement.
-    { path: '/i/091000/091016.png', as: 3 }, // Collectors Edition.
-    { path: '/i/091000/091106.png', as: 4 }, // Instanced Content.
-    { path: '/i/091000/091003.png', as: 5 }, // Legacy-related.
-    { path: '/i/091000/091044.png', as: 6 }, // Recruit a Friend campaign.
-    { path: '/i/091000/091065.png', as: 7 }, // Mog Station.
-    { path: '/i/091000/091047.png', as: 8 }, // Fan Festival.
-    { path: '/i/091000/091102.png', as: 9 }, // Item Exchange.
-    { path: '/i/091000/091051.png', as: 10 }, // Retainer Venture.
-    { path: '/i/091000/091077.png', as: 11 }, // Treasure Hunt.
-    { path: '/i/091000/091006.png', as: 12 }, // FATEs.
+    { path: '/i/094000/094519.png', as: 1 }, // Shop.
+    { path: '/i/094000/094513.png', as: 2 }, // Achievement.
+    { path: '/i/094000/094516.png', as: 3 }, // Collectors Edition.
+    { path: '/i/094000/094606.png', as: 4 }, // Instanced Content.
+    { path: '/i/094000/094503.png', as: 5 }, // Legacy-related.
+    { path: '/i/094000/094544.png', as: 6 }, // Recruit a Friend campaign.
+    { path: '/i/094000/094565.png', as: 7 }, // Mog Station.
+    { path: '/i/094000/094547.png', as: 8 }, // Fan Festival.
+    { path: '/i/094000/094602.png', as: 9 }, // Item Exchange.
+    { path: '/i/094000/094551.png', as: 10 }, // Retainer Venture.
+    { path: '/i/094000/094577.png', as: 11 }, // Treasure Hunt.
+    { path: '/i/094000/094506.png', as: 12 }, // FATEs.
   ];
 
   await processIconGroup(paths, 'methods', { resize: 24 });
