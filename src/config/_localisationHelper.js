@@ -1,11 +1,11 @@
 module.exports = {
   achievementShort: (entry, language) => ([
-    'achievementShort',
+    'achievement',
     2,
     [entry.name[language]]
   ]),
   collectorsEditionShort: (entry, language) => ([
-    'collectorsEditionShort',
+    'collectorsEdition',
     3,
     [entry.expansion[language]],
     {
@@ -13,15 +13,15 @@ module.exports = {
     }
   ]),
   craftShort: (entry, language) => ([
-    'craftShort',
+    'craft',
     entry.icon,
     [entry.job.level, entry.job.name[language], new Array(entry.job.stars).fill('★').join('')]
   ]),
   defaultShort: () => ([
-    'defaultShort', 14, []
+    'byDefault', 14, []
   ]),
   externalPromotionShort: (entry, language) => ([
-    'promoShort',
+    'promo',
     8,
     [typeof entry.name === 'object' ? entry.name[language] : entry.name],
     {
@@ -29,7 +29,7 @@ module.exports = {
     }
   ]),
   fanFestivalShort: (entry, language) => ([
-    'fanFestShort',
+    'fanFest',
     8,
     [entry.year, entry.location[language]],
     {
@@ -38,7 +38,7 @@ module.exports = {
     }
   ]),
   fanFestivalStreamShort: (entry, language) => ([
-    'fanFestStreamShort',
+    'fanFestStream',
     8,
     [entry.year, entry.location[language]],
     {
@@ -48,7 +48,7 @@ module.exports = {
   ]),
   fates: {
     fateShort: (entry, language) => ([
-      'fateShort',
+      'fate',
       12,
       [
         entry.fate.level,
@@ -59,7 +59,7 @@ module.exports = {
       ]
     ]),
     instancedFATEShort: (entry, language) => ([
-      'instancedFATEShort',
+      'instancedFATE',
       12,
       [
         entry.fate.level,
@@ -69,22 +69,22 @@ module.exports = {
     ])
   },
   gatherShort: (entry, language) => ([
-    'gatherShort',
+    'gather',
     entry.icon,
     [entry.job.level, entry.job.name[language], new Array(entry.job.stars).fill('★').join('')]
   ]),
   genericShort: (entry, language) => ([
-    'genericShort',
+    'generic',
     13,
     [entry.text[language]]
   ]),
   instanceShort: (entry, language) => ([
-    'instanceShort',
+    'instance',
     4,
     [entry.level, entry.name[language], entry.type[language]]
   ]),
   itemExchangeShort: (entry, language) => ([
-    'itemExchangeShort',
+    'itemExchange',
     9,
     [
       entry.item.name[language],
@@ -95,7 +95,7 @@ module.exports = {
     ]
   ]),
   legacyLevelGoalShort: (entry, language) => ([
-    'legacyLevelGoalShort',
+    'legacyLevelGoal',
     5,
     [
       entry.level,
@@ -106,7 +106,7 @@ module.exports = {
     }
   ]),
   legacyStatusShort: (entry, language) => ([
-    'legacyStatusShort',
+    'legacyStatus',
     5,
     [
       entry.days,
@@ -119,7 +119,7 @@ module.exports = {
   ]),
   quest: {
     eventQuestShort: (quest, language) => ([
-      'eventQuestShort',
+      'eventQuest',
       'q3',
       [quest.level, quest.name[language], quest.journal.category[language]],
       {
@@ -128,41 +128,41 @@ module.exports = {
       }
     ]),
     instantShort: (quest, language) => ([
-      'questInstantShort',
+      'questInstant',
       'q1',
       [quest.level, quest.name[language], quest.journal.category[language]]
     ]),
     msqShort: (quest, language) => ([
-      'msqShort',
+      'msq',
       'q2',
       [quest.level, quest.name[language], quest.journal.category[language]]
     ]),
     questShort: (quest, language) => ([
-      'questShort',
+      'quest',
       'q1',
       [quest.level, quest.name[language], quest.journal.category[language]]
     ])
   },
   recruitAFriendShort: (entry) => ([
-    'recruitAFriendShort', 6, [entry.days],
+    'recruitAFriend', 6, [entry.days],
     {
       promo: true
     }
   ]),
   retainerVentureShort: (entry, language) => ([
-    'ventureShort',
+    'venture',
     10,
     [entry.level, entry.name[language]]
   ]),
   mogStationShort: () => ([
-    'mogStationShort', 7, undefined,
+    'mogStation', 7, undefined,
     {
       promo: true
     }
   ]),
   shop: {
     gilShort: (entry, language) => ([
-      'gilShopShort',
+      'gilShop',
       1,
       [
         entry.cost,
@@ -174,7 +174,7 @@ module.exports = {
       ]
     ]),
     gilAfterFateShort: (entry, language) => ([
-      'gilAfterFateShort',
+      'gilAfterFate',
       1,
       [
         entry.cost,
@@ -188,7 +188,7 @@ module.exports = {
       ]
     ]),
     specialShort: (entry, language) => ([
-      'specialShopShort',
+      'specialShop',
       1,
       [
         entry.cost,
@@ -201,7 +201,7 @@ module.exports = {
     ])
   },
   treasureHuntShort: (entry, language) => ([
-    'treasureHuntShort',
+    'treasureHunt',
     11,
     [entry.name[language]]
   ]),
