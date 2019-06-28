@@ -18,8 +18,9 @@ module.exports = async () => {
   await parseContentIcons('minions');
   await parseContentIcons('mounts');
 
-  // Chocobo barding has a slightly different structure.
+  // Chocobo barding and Orchestrion rolls have a slightly different structure.
   await parseBardingIcons();
+  await parseOrchestrionIcons();
 
   // Helper icons.
   await parseCraftingItemIcons();
@@ -399,7 +400,7 @@ async function minifySavedIcons(savedImagePaths = [], folderRef = '', config) {
   });
 
   console.info(`Finished minifying ${folderRef} icons.`);
-  console.time(`${folderRef}Minify`);
+  console.timeEnd(`${folderRef}Minify`);
 }
 
 /**
@@ -585,13 +586,33 @@ async function parseMethodIcons() {
 }
 
 /**
+ * Parse and create sprite sheet for data/content/orchestrion.json entries.
+ */
+async function parseOrchestrionIcons() {
+  console.time('OrchestrionIcons');
+  const content = require('../../data/content/orchestrion.json');
+
+  const files = fs.readdirSync('./icons-raw/orchestrion');
+
+  await processIconGroup(
+    undefined,
+    'orchestrion',
+    undefined,
+    files.filter(file => /\.png$/.test(file))
+  );
+
+  console.timeEnd('OrchestrionIcons');
+}
+
+/**
  * 
  * @param {Array} paths - An array of image paths to process.
  * @param {String} folderRef - A reference to a folder within the top-level icons-raw folder.
  * @param {Object} [config] - Additional options to pass through to the generator.
+ * @param {Array} [preSavedIcons] - Pre-saved icons (bypasses fetch step).
  */
-async function processIconGroup(paths = [], folderRef = '', config) {
-  const savedIcons = await fetchIconsFromPaths(paths, folderRef);
+async function processIconGroup(paths = [], folderRef = '', config, preSavedIcons) {
+  const savedIcons = preSavedIcons || await fetchIconsFromPaths(paths, folderRef);
 
   if (!savedIcons) {
     console.info(`No new ${folderRef} icons found; skipping.`);

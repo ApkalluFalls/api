@@ -135,6 +135,7 @@ module.exports = (data, config) => {
       case 'Orchestrion':
         response.category = content.OrchestrionUiparam.OrchestrionCategoryTargetID;
         response.description = helper.getLocalisedNamesObject(content, 'Description');
+        response.icon = `o${response.category}`;
         response.order = content.OrchestrionUiparam.Order;
         break;
     }
