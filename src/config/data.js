@@ -57,6 +57,8 @@ const questItemIDFields = [
   'ItemReward05'
 ];
 
+const questScriptArgs = 50;
+
 const recipeIngredientMax = 10;
 
 const specialShopItemIndexes = [
@@ -321,25 +323,35 @@ module.exports = {
      * `ClassJobLevel0` - The quest's level;
      * `Icon` - Icon path for the sprite sheet;
      * `IconID` - Icon ID to pull from the sprite sheet;
+     * `ID` - Quest ID for mapping;
      * `ItemReward{00...n}` - Item ID fields defined in `questItemIDFields`;
      * `JournalGenre` - The quest's Journal entry;
      * `Name_{lang}` - Localised name;
+     * `ScriptArg{0...n}` - Script argument fields defined in `questScriptArgs`
+     * `ScriptInstruction{0...n}` - Script instruction fields defined in `questScriptArgs`
      */
     columns: [
       'ClassJobLevel0',
       ...questItemIDFields,
       'Icon',
       'IconID',
+      'ID',
       'JournalGenre',
       ...helper.localisedColumnProperty('Name'),
+      ...(new Array(questScriptArgs).fill(1).reduce((arr, _, index) => {
+        return [
+          ...arr,
+          `ScriptArg${index}`,
+          `ScriptInstruction${index}`
+        ]
+      }, []))
     ],
-    indexes: 'quest',
+    isPaginated: true,
     log: 'Quests',
-    method: 'search',
-    query: questItemIDFields.map(idField => ({
-      range: { [idField]: { gt: 0 }}
-    })),
-    questItemIDFields
+    method: 'fetch',
+    name: 'quests',
+    questItemIDFields,
+    questScriptArgs
   },
   recipes: {
     /**
