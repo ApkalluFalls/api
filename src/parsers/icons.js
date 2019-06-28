@@ -576,6 +576,8 @@ async function parseMethodIcons() {
     { path: '/i/094000/094551.png', as: 10 }, // Retainer Venture.
     { path: '/i/094000/094577.png', as: 11 }, // Treasure Hunt.
     { path: '/i/094000/094506.png', as: 12 }, // FATEs.
+    { path: '/i/094000/094572.png', as: 13 }, // Generic descriptions.
+    { path: '/i/094000/094568.png', as: 14 }, // Default content.
   ];
 
   await processIconGroup(paths, 'methods', { resize: 24 });

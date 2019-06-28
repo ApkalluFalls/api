@@ -33,15 +33,14 @@ module.exports = (contentType, language = 'en') => {
 
     if (contentType === 'achievements') {
       response[keys.category] = entry.category;
-      response[keys.description] = entry.description.en;
+      response[keys.description] = entry.description;
       response[keys.kind] = entry.kind;
     } else if (contentType === 'orchestrion') {
       response[keys.category] = entry.category;
-      response[keys.description] = entry.description.en;
-      response[keys.methods] = parseMethodDataFiles(id, contentType, language);
+      response[keys.methods] = parseMethodDataFiles(id, contentType, language, entry);
       response[keys.order] = entry.order;
     } else {
-      response[keys.methods] = parseMethodDataFiles(id, contentType, language);
+      response[keys.methods] = parseMethodDataFiles(id, contentType, language, entry);
     }
 
     if (response.undefined && language === 'en') {
@@ -65,8 +64,9 @@ module.exports = (contentType, language = 'en') => {
  * @param {Number} id - The content's unique identifier
  * @param {String} contentType - The type of content (e.g. `"mounts"`)
  * @param {String} language - The localisation code (e.g. `"en"`)
+ * @param {String} contentData- The content's data returned from the API.
  */
-function parseMethodDataFiles(id, contentType, language) {
+function parseMethodDataFiles(id, contentType, language, contentData) {
   const methods = [];
 
   const maps = require('../../data/maps.json');
@@ -270,6 +270,29 @@ function parseMethodDataFiles(id, contentType, language) {
           methods.push(obtainMethod);
         }
       })
+    }
+  }
+
+  if (!methods.length) {
+    switch (contentType) {
+      // Some Emotes are unlocked initially, so we can mark those as such.
+      case 'emotes': {
+        if (contentData.link === 0) {
+          methods.push(_localisationHelper.defaultShort({
+            id
+          }, language));
+        }
+        break;
+      }
+
+      // Orchestrions have descriptions in-game which can be used by default.
+      case 'orchestrion': {
+        methods.push(_localisationHelper.genericShort({
+          id,
+          text: contentData.description
+        }, language));
+        break;
+      }
     }
   }
 

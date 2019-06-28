@@ -7,27 +7,44 @@ module.exports = {
   collectorsEditionShort: (entry, language) => ([
     'collectorsEditionShort',
     3,
-    [entry.expansion[language]]
+    [entry.expansion[language]],
+    {
+      promo: true
+    }
   ]),
   craftShort: (entry, language) => ([
     'craftShort',
     entry.icon,
     [entry.job.level, entry.job.name[language], new Array(entry.job.stars).fill('★').join('')]
   ]),
+  defaultShort: () => ([
+    'defaultShort', 14, []
+  ]),
   externalPromotionShort: (entry, language) => ([
     'promoShort',
     8,
-    [typeof entry.name === 'object' ? entry.name[language] : entry.name]
+    [typeof entry.name === 'object' ? entry.name[language] : entry.name],
+    {
+      promo: true
+    }
   ]),
   fanFestivalShort: (entry, language) => ([
     'fanFestShort',
     8,
-    [entry.year, entry.location[language]]
+    [entry.year, entry.location[language]],
+    {
+      event: true,
+      unavailable: true
+    }
   ]),
   fanFestivalStreamShort: (entry, language) => ([
     'fanFestStreamShort',
     8,
-    [entry.year, entry.location[language]]
+    [entry.year, entry.location[language]],
+    {
+      event: true,
+      unavailable: true
+    }
   ]),
   fates: {
     fateShort: (entry, language) => ([
@@ -56,6 +73,11 @@ module.exports = {
     entry.icon,
     [entry.job.level, entry.job.name[language], new Array(entry.job.stars).fill('★').join('')]
   ]),
+  genericShort: (entry, language) => ([
+    'genericShort',
+    13,
+    [entry.text[language]]
+  ]),
   instanceShort: (entry, language) => ([
     'instanceShort',
     4,
@@ -78,7 +100,10 @@ module.exports = {
     [
       entry.level,
       entry.expansion[language]
-    ]
+    ],
+    {
+      unavailable: true
+    }
   ]),
   legacyStatusShort: (entry, language) => ([
     'legacyStatusShort',
@@ -87,13 +112,20 @@ module.exports = {
       entry.days,
       entry.months,
       entry.expansion[language]
-    ]
+    ],
+    {
+      unavailable: true
+    }
   ]),
   quest: {
     eventQuestShort: (quest, language) => ([
       'eventQuestShort',
       'q3',
-      [quest.level, quest.name[language], quest.journal.category[language]]
+      [quest.level, quest.name[language], quest.journal.category[language]],
+      {
+        event: true,
+        unavailable: true
+      }
     ]),
     msqShort: (quest, language) => ([
       'msqShort',
@@ -107,7 +139,10 @@ module.exports = {
     ])
   },
   recruitAFriendShort: (entry) => ([
-    'recruitAFriendShort', 6, [entry.days]
+    'recruitAFriendShort', 6, [entry.days],
+    {
+      promo: true
+    }
   ]),
   retainerVentureShort: (entry, language) => ([
     'ventureShort',
@@ -115,7 +150,10 @@ module.exports = {
     [entry.level, entry.name[language]]
   ]),
   mogStationShort: () => ([
-    'mogStationShort', 7
+    'mogStationShort', 7, undefined,
+    {
+      promo: true
+    }
   ]),
   shop: {
     gilShort: (entry, language) => ([

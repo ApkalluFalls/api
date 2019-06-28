@@ -153,52 +153,52 @@ class API {
       console.time('Data');
       console.info('Starting parsing of misc required data...');
 
-      // // Items.
-      // const items = await this.crawl(config.items);
-      // require('./parsers/items')(items);
+      // Items.
+      const items = await this.crawl(config.items);
+      require('./parsers/items')(items);
 
-      // // Currencies.
-      // const currencies = await this.crawl(config.currencies);
-      // require('./parsers/currencies')(currencies);
+      // Currencies.
+      const currencies = await this.crawl(config.currencies);
+      require('./parsers/currencies')(currencies);
 
-      // // Retainer Ventures.
-      // const retainerVentureData = await this.crawl(config.retainerVentures.data);
-      // const retainerVentureTasks = await this.crawl(config.retainerVentures.tasks);
-      // require('./parsers/retainerVentures')(retainerVentureData, retainerVentureTasks);
+      // Retainer Ventures.
+      const retainerVentureData = await this.crawl(config.retainerVentures.data);
+      const retainerVentureTasks = await this.crawl(config.retainerVentures.tasks);
+      require('./parsers/retainerVentures')(retainerVentureData, retainerVentureTasks);
 
-      // // Treasure Hunt (Timeworn Maps).
-      // const treasureHunt = await this.crawl(config.treasureHunt);
-      // require('./parsers/treasureHunt')(treasureHunt);
+      // Treasure Hunt (Timeworn Maps).
+      const treasureHunt = await this.crawl(config.treasureHunt);
+      require('./parsers/treasureHunt')(treasureHunt);
 
       // FATEs.
       const fates = await this.crawl(config.fates);
       require('./parsers/fates')(fates);
 
-      // // Gathering.
-      // const fishingSpots = await this.crawl(config.gathering.fishingSpots);
-      // const gatheringItems = await this.crawl(config.gathering.items);
-      // const gatheringPoints = await this.crawl(config.gathering.points);
-      // const gatheringTypes = await this.crawl(config.gathering.types);
-      // const spearFishingItems = await this.crawl(config.gathering.spearFishingItems);
-      // require('./parsers/gathering')(
-      //   gatheringPoints,
-      //   gatheringItems,
-      //   gatheringTypes,
-      //   fishingSpots,
-      //   spearFishingItems
-      // );
+      // Gathering.
+      const fishingSpots = await this.crawl(config.gathering.fishingSpots);
+      const gatheringItems = await this.crawl(config.gathering.items);
+      const gatheringPoints = await this.crawl(config.gathering.points);
+      const gatheringTypes = await this.crawl(config.gathering.types);
+      const spearFishingItems = await this.crawl(config.gathering.spearFishingItems);
+      require('./parsers/gathering')(
+        gatheringPoints,
+        gatheringItems,
+        gatheringTypes,
+        fishingSpots,
+        spearFishingItems
+      );
 
-      // // Custom Talk entries.
-      // const customTalk = await this.crawl(config.customTalk);
-      // await require('./parsers/customTalk')(customTalk);
+      // Custom Talk entries.
+      const customTalk = await this.crawl(config.customTalk);
+      await require('./parsers/customTalk')(customTalk);
 
       // Gil shop data.
       const gilShops = await this.crawl(config.shops.gilShops);
       await require('./parsers/gilShops')(gilShops);
 
-      // // Special shop data.
-      // const specialShops = await this.crawl(config.shops.specialShops);
-      // await require('./parsers/specialShops')(specialShops);
+      // Special shop data.
+      const specialShops = await this.crawl(config.shops.specialShops);
+      await require('./parsers/specialShops')(specialShops);
 
       // BNPC data.
       const bNPCNames = await this.crawl(config.shops.bNPCNames);
@@ -212,27 +212,27 @@ class API {
         gcScripShopItems
       );
 
-      // // Map data.
-      // const maps = await this.crawl(config.maps);
-      // await require('./parsers/maps')(maps);
+      // Map data.
+      const maps = await this.crawl(config.maps);
+      await require('./parsers/maps')(maps);
 
-      // // Mappy data (NPCs).
-      // const npcs = await this.crawl(config.npcs);
-      // await require('./parsers/mappy')(npcs);
+      // Mappy data (NPCs).
+      const npcs = await this.crawl(config.npcs);
+      await require('./parsers/mappy')(npcs);
 
       console.info('Finished parsing of misc required data.');
-      // console.info('Starting parsing of obtain method data...');
+      console.info('Starting parsing of obtain method data...');
       
-      // const quests = await this.crawl(config.quests);
-      // require('./parsers/quests')(quests);
+      const quests = await this.crawl(config.quests);
+      require('./parsers/quests')(quests);
 
-      // const recipes = await this.crawl(config.recipes);
-      // require('./parsers/recipes')(recipes);
+      const recipes = await this.crawl(config.recipes);
+      require('./parsers/recipes')(recipes);
 
-      // const instances = await this.crawl(config.instances);
-      // require('./parsers/instances')(instances);
+      const instances = await this.crawl(config.instances);
+      require('./parsers/instances')(instances);
 
-      // console.info('Finished parsing of obtain methods.');
+      console.info('Finished parsing of obtain methods.');
       console.timeEnd('Data');
       return;
     }
