@@ -164,6 +164,7 @@ function parseMethodDataFiles(id, contentType, language, contentData) {
         icon
       } = match;
       
+      let extra;
       let type;
 
       if (icon === 71201) {
@@ -171,10 +172,13 @@ function parseMethodDataFiles(id, contentType, language, contentData) {
       } else if (icon === 71221) {
         type = 'questShort';
       } else {
+        extra = {
+          event: true
+        }
         type = 'eventQuestShort';
       }
 
-      methods.push(_localisationHelper.quest[type](match, language));
+      methods.push(_localisationHelper.quest[type](match, language, extra));
     });
   }
 

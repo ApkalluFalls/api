@@ -4,16 +4,14 @@ const items = require('../../data/items.json');
 
 /**
  * Return the parsed quest object.
- * @param {Number} contentId - The matching content ID.
  * @param {Object} quest - The quest object.
  */
-function getParsedQuestObject(contentId, quest) {
+function getParsedQuestObject(quest) {
   const {
     JournalGenre
   } = quest;
 
   return {
-    contentId: contentId,
     journal: {
       category: helper.getLocalisedNamesObject(JournalGenre.JournalCategory),
       genre: helper.getLocalisedNamesObject(JournalGenre)
@@ -31,7 +29,8 @@ function getParsedQuestObject(contentId, quest) {
  */
 module.exports = (data) => {
   const config = require('../config/data').quests;
-  const parsed = {};
+  const methods = {};
+  const parsed = [];
 
   const allItems = Object.values(items).reduce((arr, itemGroup) => ([
     ...arr,
@@ -74,51 +73,33 @@ module.exports = (data) => {
       contentType
     } = item;
     
-    if (!parsed[contentType]) {
-      parsed[contentType] = [];
+    if (!methods[contentType]) {
+      methods[contentType] = [];
     }
 
-    parsed[contentType].push(getParsedQuestObject(item.contentId, quest))
+    methods[contentType].push({
+      contentId: item.contentId,
+      ...getParsedQuestObject(quest)
+    });
   });
-
-  // Quests with scripts (auto-awarded content without needing an item).
-  const instructionFields = new Array(config.questScriptArgs).fill(1).map((_, index) => (
-    `ScriptInstruction${index}`
-  ));
-
-  const scriptInstructions = [{
-    contentType: 'emotes',
-    instruction: 'EMOTE0'
-  }, {
-    contentType: 'mounts',
-    instruction: 'MOUNT0'
-  }, {
-    contentType: 'minions',
-    instruction: 'COMPANION0'
-  }]
-
-  data.forEach(quest => {
-    instructionFields.forEach((instructionField, index) => {
-      scriptInstructions.forEach(scriptInstruction => {
-        if (quest[instructionField] === scriptInstruction.instruction) {
-          if (!parsed[scriptInstruction.contentType]) {
-            parsed[scriptInstruction.contentType] = [];
-          }
-
-          console.warn(quest[instructionField], quest[`ScriptArg${index}`], quest.ID, quest.Name_en);
-          
-          parsed[scriptInstruction.contentType].push((
-            getParsedQuestObject(quest[`ScriptArg${index}`], quest)
-          ));
-        }
-      })
-    })
-  })
 
   fs.writeFileSync(
     './data/methods/quests.json',
+    JSON.stringify(methods),
+    'utf8'
+  );
+
+  data.filter(quest => {
+    return quest.Name_en && quest.JournalGenre;
+  }).forEach(quest => {
+    parsed.push(getParsedQuestObject(quest));
+  });
+
+  fs.writeFileSync(
+    './data/quests.json',
     JSON.stringify(parsed),
     'utf8'
   );
+
   console.info(`${config.log} data parsed.`);
 };

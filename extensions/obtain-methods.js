@@ -6,6 +6,7 @@ const instances = require('../data/instances.json');
 const items = require('../data/items.json');
 const maps = require('../data/maps.json');
 const npcs = require('../data/npcs.json');
+const quests = require('../data/quests.json');
 const retainerVentures = require('../data/retainerVentures.json');
 const treasureHunt = require('../data/treasureHunt.json');
 
@@ -846,6 +847,10 @@ module.exports = {
       // Akh Afah Amphitheatre (Extreme)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 20025)] }
     ],
+    50: [
+      // Fetters of Lament
+      { fn: questInstant, args: [67204] }
+    ],
     54: [
       { fn: collectorsEdition, args: [_localisationHelper.misc['Heavensward']] }
     ],
@@ -1230,6 +1235,19 @@ function legacyStatus(contentId, days, months, expansion, language) {
 function mogStation(contentId, language) {
   return _localisationHelper.mogStationShort({
     contentId
+  }, language)
+}
+
+function questInstant(contentId, questId, language) {
+  const quest = quests.find(quest => quest.quest === questId);
+
+  if (!quest) {
+    console.warn(`Unable to find quest with ID ${questId}. Skipping.`);
+    return;
+  }
+  return _localisationHelper.quest.instantShort({
+    contentId,
+    ...quest
   }, language)
 }
 

@@ -127,6 +127,11 @@ module.exports = {
         unavailable: true
       }
     ]),
+    instantShort: (quest, language) => ([
+      'questInstantShort',
+      'q1',
+      [quest.level, quest.name[language], quest.journal.category[language]]
+    ]),
     msqShort: (quest, language) => ([
       'msqShort',
       'q2',
