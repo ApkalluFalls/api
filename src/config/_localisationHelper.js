@@ -129,17 +129,17 @@ module.exports = {
     ]),
     instantShort: (quest, language) => ([
       'questInstant',
-      'q1',
+      'q2',
       [quest.level, quest.name[language], quest.journal.category[language]]
     ]),
     msqShort: (quest, language) => ([
       'msq',
-      'q2',
+      'q1',
       [quest.level, quest.name[language], quest.journal.category[language]]
     ]),
     questShort: (quest, language) => ([
       'quest',
-      'q1',
+      'q2',
       [quest.level, quest.name[language], quest.journal.category[language]]
     ])
   },
