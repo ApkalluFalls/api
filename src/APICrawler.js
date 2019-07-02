@@ -110,7 +110,7 @@ module.exports = class APICrawler {
       ++this.errors;
 
       if (pageIn === 1) {
-        console.timeEnd(log);
+        console.time(log);
       }
 
       console.info(`API retry attempt ${this.errors}.`);
