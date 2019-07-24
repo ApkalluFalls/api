@@ -163,7 +163,7 @@ class API {
     
     if (name === 'data') {
       console.time('Data');
-      // console.info('Starting parsing of misc required data...');
+      console.info('Starting parsing of misc required data...');
 
       // Items.
       const items = await this.crawl(config.items);
