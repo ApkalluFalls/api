@@ -11,8 +11,20 @@ module.exports = [
   16172,
   // Gold-trimmed Sack
   16173,
+  // Season Three Lone Wolf Voucher C
+  17659,
+  // Season Three Pack Wolf Voucher C
+  17662,
+  // Season Four Lone Wolf Voucher C
+  17667,
+  // Season Four Pack Wolf Voucher C
+  17670,
   // Anemos Lockbox
   22508,
+  // Season Seven Pack Wolf Voucher C
+  23119,
+  // Season Eight Pack Wolf Voucher B
+  23121,
   // Pagos Lockbox
   23142,
   // Silver-haloed Sack

@@ -840,6 +840,10 @@ module.exports = {
       // The Striking Tree (Extreme)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 20023)] }
     ],
+    41: [
+      // The Ties that Bind
+      { fn: questInstant, args: [67114] }
+    ],
     42: [
       { fn: mogStation, args: [] }
     ],

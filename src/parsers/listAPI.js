@@ -35,6 +35,7 @@ module.exports = (contentType, language = 'en') => {
       response[keys.category] = entry.category;
       response[keys.description] = entry.description;
       response[keys.kind] = entry.kind;
+      response[keys.points] = Number(entry.points);
     } else if (contentType === 'orchestrion') {
       response[keys.category] = entry.category;
       response[keys.methods] = parseMethodDataFiles(id, contentType, language, entry);
