@@ -38,7 +38,7 @@ module.exports = (contentType, language = 'en') => {
       response[keys.points] = Number(entry.points);
       
       const availability = config.getAvailability(entry);
-      if (availability && Object.keys(availability)) {
+      if (availability && Object.keys(availability).length) {
         response[keys.availability] = availability;
       }
     } else if (contentType === 'orchestrion') {

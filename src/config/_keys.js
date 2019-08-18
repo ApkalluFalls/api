@@ -25,6 +25,12 @@ module.exports = {
     patch: 'p',
     points: 'x'
   },
+  overview: {
+    pointsTotal: 'p',
+    pointsTotalEvents: 'pE',
+    pointsTotalLegacy: 'pL',
+    total: 't'
+  },
   patches: {
     banner: 'b',
     date: 'd',

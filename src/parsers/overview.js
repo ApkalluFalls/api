@@ -1,5 +1,6 @@
 const fs = require('fs');
 const helper = require('../xivapi/helper');
+const _keys = require('../config/_keys');
 const achievements = require('../../docs/en/achievements.json');
 const barding = require('../../docs/en/barding.json');
 const emotes = require('../../docs/en/emotes.json');
@@ -11,42 +12,58 @@ const orchestrion = require('../../docs/en/orchestrion.json');
  * Parse recipe data from XIVAPI.
  */
 module.exports = () => {
+  const keys = _keys.overview;
+
   const parsed = {};
 
   if (achievements) {
     parsed.achievements = {
-      total: achievements.length,
-      pointsTotal: achievements.reduce((points, achievement) => achievement.x += points, 0)
+      [keys.total]: achievements.length,
+
+      // The pointsTotal includes everything which doesn't have a limited availability.
+      [keys.pointsTotal]: achievements.filter((
+        achievement => !achievement[_keys.lists.availability]
+      )).reduce((points, achievement) => achievement[_keys.lists.points] += points, 0),
+
+      // Only seasonal event achievements.
+      [keys.pointsTotalEvents]: achievements.filter((
+        achievement => achievement[_keys.lists.availability] && achievement[_keys.lists.availability][_keys.achievementAvailability.event]
+      )).reduce((points, achievement) => achievement[_keys.lists.points] += points, 0),
+
+      // Only legacy achievements.
+      [keys.pointsTotalLegacy]: achievements.filter((
+        achievement => achievement[_keys.lists.availability] && achievement[_keys.lists.availability][_keys.achievementAvailability.legacy]
+      )).reduce((points, achievement) => achievement[_keys.lists.points] += points, 0)
     }
   }
 
   if (barding) {
     parsed.barding = {
-      total: barding.length
+      [keys.total]: barding.length
     }
   }
 
   if (emotes) {
     parsed.emotes = {
-      total: emotes.length
+      [keys.total]: emotes.length
     }
   }
 
   if (minions) {
     parsed.minions = {
-      total: minions.length
+      [keys.total]: minions.length
     }
   }
 
   if (mounts) {
     parsed.mounts = {
-      total: mounts.length
+      [keys.total]: mounts.length
     }
   }
 
   if (orchestrion) {
     parsed.orchestrion = {
-      total: orchestrion.length
+      [keys.total]: orchestrion.length
     }
   }
 
