@@ -1,3 +1,10 @@
+/**
+ * This object defines the API key structure.
+ * Rather than repeating "description" over and over again for each piece of content, for example,
+ * here we convert that into just "d". This is used to reduce download sizes. As an example, For a
+ * content list with 1000 entries, converting "description" to "d" for each row would save 10,000
+ * bytes!
+ */
 module.exports = {
   lists: {
     category: 'c',
@@ -15,6 +22,14 @@ module.exports = {
     methods: 'm',
     order: 'o',
     patch: 'p',
-    points: 'x'
+    points: 'x',
+  },
+  patches: {
+    banner: 'b',
+    date: 'd',
+    id: 'id',
+    isExpansion: 'e',
+    name: 'n',
+    version: 'v'
   }
 };

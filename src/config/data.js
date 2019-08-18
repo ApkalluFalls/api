@@ -315,6 +315,12 @@ module.exports = {
     method: 'fetch',
     name: 'eNPCResident',
   },
+  patches: {
+    isPaginated: false,
+    log: 'PatchList',
+    method: 'fetch',
+    name: 'patchlist'
+  },
   quests: {
     /**
      * For quests we need to extract the following fields:

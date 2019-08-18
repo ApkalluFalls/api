@@ -1,6 +1,9 @@
 const fs = require('fs');
 const APICrawler = require('./APICrawler');
 const listAPI = require('./parsers/listAPI');
+const patchesAPI = require('./parsers/patchesAPI');
+
+const supportedLanguages = ['de', 'en', 'fr', 'ja'];
 
 class API {
   async crawl(config) {
@@ -136,7 +139,15 @@ class API {
     if (name === 'overview') {
       console.time('Overview');
       console.info('Piecing together data points...');
+
+      // Data totals.
       require('./parsers/overview')();
+
+      // Localised patches.
+      for (const supportedLanguage of supportedLanguages) {
+        await patchesAPI(supportedLanguage);
+      }
+
       console.info('Finished piecing together data points.');
       console.timeEnd('Overview');
       return;
@@ -149,10 +160,9 @@ class API {
       console.info(`Starting creation of ${contentName} website-fetchable data.`);
 
       // Parse lists in various languages.
-      await listAPI(contentName, 'de');
-      await listAPI(contentName, 'en');
-      await listAPI(contentName, 'fr');
-      await listAPI(contentName, 'ja');
+      for (const supportedLanguage of supportedLanguages) {
+        await listAPI(contentName, supportedLanguage);
+      }
 
       console.info(`Finished creating ${contentName} website-fetchable data.`);
       console.timeEnd(`Website ${contentName} data`);
@@ -163,6 +173,13 @@ class API {
     
     if (name === 'data') {
       console.time('Data');
+      console.info('Parsing patch list...');
+
+      // Patches.
+      const patches = await this.crawl(config.patches);
+      require('./parsers/patches')(patches);
+
+      console.info('Finished parsing of patch list.');
       console.info('Starting parsing of misc required data...');
 
       // Items.

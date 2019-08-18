@@ -24,6 +24,7 @@ module.exports = {
   mount: (id) => `${xivapiBase}/mount/${id}`,
   mounts: () => `${xivapiBase}/mount`,
   orchestrion: () => `${xivapiBase}/orchestrion`,
+  patchlist: () => `${xivapiBase}/patchlist`,
   quests: () => `${xivapiBase}/quest`,
   retainerVentures: () => `${xivapiBase}/retainertask`,
   retainerVenturesRandom: () => `${xivapiBase}/retainertaskrandom`,
