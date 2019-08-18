@@ -39,7 +39,7 @@ module.exports = {
     name: 'n',
     version: 'v'
   },
-  achievementAvailability: {
+  contentFilters: {
     event: 'e',
     legacy: 'l',
     startingCity: 'c'

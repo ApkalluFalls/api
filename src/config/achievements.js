@@ -22,7 +22,7 @@ module.exports = {
     getAvailability: (achievement) => {
       const response = {};
 
-      const keys = _keys.achievementAvailability;
+      const keys = _keys.contentFilters;
 
       switch (achievement.category) {
         case 0:

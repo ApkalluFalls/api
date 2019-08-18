@@ -29,12 +29,12 @@ module.exports = () => {
 
       // Only seasonal event achievements.
       [keys.pointsTotalEvents]: achievements.filter((
-        achievement => achievement[_keys.lists.availability] && achievement[_keys.lists.availability][_keys.achievementAvailability.event]
+        achievement => achievement[_keys.lists.availability] && achievement[_keys.lists.availability][_keys.contentFilters.event]
       )).reduce((points, achievement) => achievement[_keys.lists.points] += points, 0),
 
       // Only legacy achievements.
       [keys.pointsTotalLegacy]: achievements.filter((
-        achievement => achievement[_keys.lists.availability] && achievement[_keys.lists.availability][_keys.achievementAvailability.legacy]
+        achievement => achievement[_keys.lists.availability] && achievement[_keys.lists.availability][_keys.contentFilters.legacy]
       )).reduce((points, achievement) => achievement[_keys.lists.points] += points, 0)
     }
   }
