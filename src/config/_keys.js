@@ -32,6 +32,7 @@ module.exports = {
     availableLegacy: 'aL',
     availableRealWorldEvent: 'aX',
     availableStorePurchase: 'aM',
+    availableUnknown: 'aU',
     pointsTotal: 'p',
     pointsTotalEvents: 'pE',
     pointsTotalLegacy: 'pL',

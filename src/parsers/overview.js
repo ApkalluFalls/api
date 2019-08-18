@@ -37,6 +37,13 @@ function getAllIDsMatchingContentFilters(content) {
   const contentWithMethods = content.filter(entry =>  entry.m.length);
   const response = {};
 
+  // Unknown.
+  if (content.length - contentWithMethods.length > 0) {
+    response[_keys.overview.availableUnknown] = content.filter((
+      entry =>  !entry.m.length
+    )).map(entry => entry[_keys.lists.id]);
+  }
+
   // Events.
   const contentFromEvents = getContentMatchingFilter(contentWithMethods, keys.event);
   if (contentFromEvents.length) {
