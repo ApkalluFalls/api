@@ -9,7 +9,69 @@ const mounts = require('../../docs/en/mounts.json');
 const orchestrion = require('../../docs/en/orchestrion.json');
 
 /**
- * Parse recipe data from XIVAPI.
+ * Return an array of content IDs which are available in-game right now.
+ * @param {Array} content - The content array.
+ */
+function getAllAvailableIDs(content) {
+  return content.filter(entry => {
+    if (!entry.m.length) {
+      return false;
+    }
+
+    return entry.m.find(method => !method[3]);
+  }).map(entry => entry[_keys.lists.id]);
+}
+
+/**
+ * Return an object of IDs categorised by content filters.
+ * @param {Array} content - The content array.
+ */
+function getAllIDsMatchingContentFilters(content) {
+  function getContentMatchingFilter(content, filterKey) {
+    return content.filter(entry => {
+      return entry.m.find(method => method[3] && method[3][filterKey])
+    }).map(entry => entry[_keys.lists.id]);
+  }
+
+  const keys = _keys.contentFilters;
+  const contentWithMethods = content.filter(entry =>  entry.m.length);
+  const response = {};
+
+  // Events.
+  const contentFromEvents = getContentMatchingFilter(contentWithMethods, keys.event);
+  if (contentFromEvents.length) {
+    response[_keys.overview.availableEvent] = contentFromEvents;
+  }
+
+  // Legacy.
+  const unusedContentFromLegacy = getContentMatchingFilter(contentWithMethods, keys.legacy);
+  if (unusedContentFromLegacy.length) {
+    response[_keys.overview.availableLegacy] = unusedContentFromLegacy;
+  }
+
+  // Promotions.
+  const contentFromPromo = getContentMatchingFilter(contentWithMethods, keys.externalPromo);
+  if (contentFromPromo.length) {
+    response[_keys.overview.availableExternalPromo] = contentFromPromo;
+  }
+
+  // Real-world events.
+  const contentFromRealWorldEvents = getContentMatchingFilter(contentWithMethods, keys.realWorldEvent);
+  if (contentFromRealWorldEvents.length) {
+    response[_keys.overview.availableRealWorldEvent] = contentFromRealWorldEvents;
+  }
+
+  // Store purchases.
+  const contentFromStorePurchase = getContentMatchingFilter(contentWithMethods, keys.storePurchase);
+  if (contentFromStorePurchase.length) {
+    response[_keys.overview.availableStorePurchase] = contentFromStorePurchase;
+  }
+
+  return response;
+}
+
+/**
+ * Generate total counts and arrays.
  */
 module.exports = () => {
   const keys = _keys.overview;
@@ -41,25 +103,29 @@ module.exports = () => {
 
   if (barding) {
     parsed.barding = {
-      [keys.total]: barding.length
+      [keys.available]: getAllAvailableIDs(barding),
+      ...getAllIDsMatchingContentFilters(barding)
     }
   }
 
   if (emotes) {
     parsed.emotes = {
-      [keys.total]: emotes.length
+      [keys.available]: getAllAvailableIDs(emotes),
+      ...getAllIDsMatchingContentFilters(emotes)
     }
   }
 
   if (minions) {
     parsed.minions = {
-      [keys.total]: minions.length
+      [keys.available]: getAllAvailableIDs(minions),
+      ...getAllIDsMatchingContentFilters(minions)
     }
   }
 
   if (mounts) {
     parsed.mounts = {
-      [keys.total]: mounts.length
+      [keys.available]: getAllAvailableIDs(mounts),
+      ...getAllIDsMatchingContentFilters(mounts)
     }
   }
 

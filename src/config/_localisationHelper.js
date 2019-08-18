@@ -1,3 +1,6 @@
+const _keys = require('../config/_keys');
+const keys = _keys.contentFilters;
+
 module.exports = {
   achievementShort: (entry, language) => ([
     'achievement',
@@ -9,7 +12,7 @@ module.exports = {
     3,
     [entry.expansion[language]],
     {
-      promo: true
+      [keys.storePurchase]: true
     }
   ]),
   craftShort: (entry, language) => ([
@@ -25,7 +28,7 @@ module.exports = {
     8,
     [typeof entry.name === 'object' ? entry.name[language] : entry.name],
     {
-      promo: true
+      [keys.externalPromo]: true
     }
   ]),
   fanFestivalShort: (entry, language) => ([
@@ -33,8 +36,7 @@ module.exports = {
     8,
     [entry.year, entry.location[language]],
     {
-      event: true,
-      unavailable: true
+      [keys.realWorldEvent]: true
     }
   ]),
   fanFestivalStreamShort: (entry, language) => ([
@@ -42,8 +44,7 @@ module.exports = {
     8,
     [entry.year, entry.location[language]],
     {
-      event: true,
-      unavailable: true
+      [keys.realWorldEvent]: true
     }
   ]),
   fates: {
@@ -102,7 +103,7 @@ module.exports = {
       entry.expansion[language]
     ],
     {
-      unavailable: true
+      [keys.legacy]: true
     }
   ]),
   legacyStatusShort: (entry, language) => ([
@@ -114,7 +115,7 @@ module.exports = {
       entry.expansion[language]
     ],
     {
-      unavailable: true
+      [keys.legacy]: true
     }
   ]),
   quest: {
@@ -123,8 +124,7 @@ module.exports = {
       'q3',
       [quest.level, quest.name[language], quest.journal.category[language]],
       {
-        event: true,
-        unavailable: true
+        [keys.event]: true
       }
     ]),
     instantShort: (quest, language) => ([
@@ -146,7 +146,7 @@ module.exports = {
   recruitAFriendShort: (entry) => ([
     'recruitAFriend', 6, [entry.days],
     {
-      promo: true
+      [keys.realWorldEvent]: true
     }
   ]),
   retainerVentureShort: (entry, language) => ([
@@ -157,7 +157,7 @@ module.exports = {
   mogStationShort: () => ([
     'mogStation', 7, undefined,
     {
-      promo: true
+      [keys.storePurchase]: true
     }
   ]),
   shop: {

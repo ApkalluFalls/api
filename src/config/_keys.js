@@ -26,6 +26,12 @@ module.exports = {
     points: 'x'
   },
   overview: {
+    available: 'a',
+    availableEvent: 'aE',
+    availableExternalPromo: 'aP',
+    availableLegacy: 'aL',
+    availableRealWorldEvent: 'aX',
+    availableStorePurchase: 'aM',
     pointsTotal: 'p',
     pointsTotalEvents: 'pE',
     pointsTotalLegacy: 'pL',
@@ -41,7 +47,10 @@ module.exports = {
   },
   contentFilters: {
     event: 'e',
+    externalPromo: 'p',
     legacy: 'l',
-    startingCity: 'c'
+    realWorldEvent: 'x',
+    startingCity: 'c',
+    storePurchase: 'm'
   }
 };
