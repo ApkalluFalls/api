@@ -14,7 +14,9 @@ const orchestrion = require('../../docs/en/orchestrion.json');
 module.exports = () => {
   const keys = _keys.overview;
 
-  const parsed = {};
+  const parsed = {
+    keys: _keys
+  };
 
   if (achievements) {
     parsed.achievements = {
