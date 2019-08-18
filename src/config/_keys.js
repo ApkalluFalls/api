@@ -7,6 +7,7 @@
  */
 module.exports = {
   lists: {
+    availability: 'a',
     category: 'c',
     description: 'd',
     icon: 'i',
@@ -22,7 +23,7 @@ module.exports = {
     methods: 'm',
     order: 'o',
     patch: 'p',
-    points: 'x',
+    points: 'x'
   },
   patches: {
     banner: 'b',
@@ -31,5 +32,10 @@ module.exports = {
     isExpansion: 'e',
     name: 'n',
     version: 'v'
+  },
+  achievementAvailability: {
+    event: 'e',
+    legacy: 'l',
+    startingCity: 'c'
   }
 };

@@ -36,6 +36,11 @@ module.exports = (contentType, language = 'en') => {
       response[keys.description] = entry.description;
       response[keys.kind] = entry.kind;
       response[keys.points] = Number(entry.points);
+      
+      const availability = config.getAvailability(entry);
+      if (availability && Object.keys(availability)) {
+        response[keys.availability] = availability;
+      }
     } else if (contentType === 'orchestrion') {
       response[keys.category] = entry.category;
       response[keys.methods] = parseMethodDataFiles(id, contentType, language, entry);
