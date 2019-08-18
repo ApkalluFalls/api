@@ -5,13 +5,13 @@ module.exports = {
     columns: [
       'AchievementCategory',
       ...helper.localisedColumnProperty(`Description`),
-      'GamePatch.ID',
       'Icon',
       'IconID',
       'ID',
       'Item',
       'ItemTargetID',
       ...helper.localisedColumnProperty(`Name`),
+      'Patch',
       'Points'
     ],
     isPaginated: true,

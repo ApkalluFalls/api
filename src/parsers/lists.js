@@ -95,11 +95,11 @@ module.exports = (data, config) => {
     console.info(`${name} rewards parsed.`);
   }
 
-  const parsed = filteredData.map(content => {
+  const parsed = filteredData.map((content, index) => {
     const response = {
       id: content.ID,
       name: helper.getLocalisedNamesObject(content),
-      patch: content.GamePatch.ID
+      patch: content.Patch
     };
 
     if (name !== 'Barding') {

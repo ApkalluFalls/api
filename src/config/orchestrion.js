@@ -4,10 +4,10 @@ module.exports = {
   list: {
     columns: [
       ...helper.localisedColumnProperty(`Description`),
-      'GamePatch.ID',
       'ID',
       ...helper.localisedColumnProperty(`Name`),
-      'OrchestrionUiparam'
+      'OrchestrionUiparam',
+      'Patch'
     ],
     isPaginated: true,
     method: 'fetch',

@@ -4,11 +4,11 @@ module.exports = {
   list: {
     columns: [
       'EmoteCategoryTargetID',
-      'GamePatch.ID',
       'Icon',
       'IconID',
       'ID',
       ...helper.localisedColumnProperty(`Name`),
+      'Patch',
       'TextCommandTargetID',
       'UnlockLink'
     ],

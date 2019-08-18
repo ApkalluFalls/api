@@ -28,7 +28,7 @@ module.exports = (language = 'en') => {
     }
 
     if (entry.isExpansion) {
-      [keys.isExpansion] = true;
+      response[keys.isExpansion] = true;
     }
 
     return response;

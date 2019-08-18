@@ -3,7 +3,6 @@ const helper = require('../xivapi/helper');
 module.exports = {
   list: {
     columns: [
-      'GamePatch.ID',
       'GrandCompanyTargetID',
       'IconBody',
       'IconBodyID',
@@ -13,6 +12,7 @@ module.exports = {
       'IconLegsID',
       'ID',
       ...helper.localisedColumnProperty(`Name`),
+      'Patch',
       ...helper.localisedColumnProperty(`Plural`),
       ...helper.localisedColumnProperty(`Singular`)
     ],

@@ -3,12 +3,12 @@ const helper = require('../xivapi/helper');
 module.exports = {
   list: {
     columns: [
-      'GamePatch.ID',
       'Icon',
       'IconID',
       'IconSmall',
       'ID',
-      ...helper.localisedColumnProperty(`Name`)
+      ...helper.localisedColumnProperty(`Name`),
+      'Patch'
     ],
     isPaginated: true,
     method: 'fetch',
