@@ -75,7 +75,10 @@ module.exports = {
     ])
   },
   forumContestShort: () => ([
-    'forumContest', 16, []
+    'forumContest', 16, [],
+    {
+      [keys.externalPromo]: true
+    }
   ]),
   gatherShort: (entry, language) => ([
     'gather',
