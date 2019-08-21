@@ -441,6 +441,21 @@ module.exports = {
       // Bronze-trimmed Sack
       { fn: itemExchange, args: [16170, 1017659] }
     ],
+    86: [
+      { fn: gardening, args: [8184, 144] }
+    ],
+    87: [
+      { fn: gardening, args: [8185, 144] }
+    ],
+    88: [
+      { fn: gardening, args: [8186, 144] }
+    ],
+    89: [
+      { fn: gardening, args: [8187, 144] }
+    ],
+    90: [
+      { fn: gardening, args: [8188, 144] }
+    ],
     91: [
       { fn: mogStation, args: [] }
     ],
@@ -1500,6 +1515,28 @@ function fate(contentId, fateId, language) {
 function forumContest(contentId, language) {
   return _localisationHelper.forumContestShort({
     contentId
+  }, language)
+}
+
+/**
+ * 
+ * @param {Number} contentId - The ID of the content
+ * @param {Number} itemId - The seed item's ID
+ * @param {Number} hoursToGrow - The minimum time the item requires to grow 
+ * @param {String} language - The localisation code (e.g. `"en"`)
+ */
+function gardening(contentId, itemId, hoursToGrow, language) {
+  const item = items.misc.find(item => item.id === itemId);
+
+  if (!item) {
+    console.warn(`Unable to find a gardening item with ID ${itemId}. Skipping.`);
+    return;
+  }
+
+  return _localisationHelper.gardeningShort({
+    contentId,
+    item,
+    hoursToGrow
   }, language)
 }
 

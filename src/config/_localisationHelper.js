@@ -88,6 +88,14 @@ module.exports = {
       [keys.externalPromo]: true
     }
   ]),
+  gardeningShort: (entry, language) => ([
+    'gardening',
+    18,
+    [
+      entry.item.name[language],
+      entry.hoursToGrow
+    ]
+  ]),
   gatherShort: (entry, language) => ([
     'gather',
     entry.icon,
@@ -238,7 +246,7 @@ module.exports = {
     11,
     [entry.name[language]]
   ]),
-  yokaiWatchShort: (quest, language) => ([
+  yokaiWatchShort: (entry, language) => ([
     'yokaiWatch',
     'q3',
     [],

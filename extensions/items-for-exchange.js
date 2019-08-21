@@ -3,6 +3,16 @@
  * items, such as Gold-trimmed Sacks from Palace of the Dead.
  */
 module.exports = [
+  // Onion Prince Seeds
+  8184,
+  // Eggplant Knight Seeds
+  8185,
+  // Garlic Jester Seeds
+  8186,
+  // Tomato King Seeds
+  8187,
+  // Mandragora Queen Seeds
+  8188,
   // Bronze-trimmed Sack
   16170,
   // Iron-trimmed Sack

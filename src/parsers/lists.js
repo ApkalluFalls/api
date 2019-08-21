@@ -37,6 +37,13 @@ module.exports = (data, config) => {
        */
       case 'Emotes':
         return content.TextCommandTargetID !== 0;
+
+      /**
+       * Wind-up Leader and Minion of Light each randomly spawn 1 of 3 minions, however only 1
+       * entry is required, the others are just there for the sake of having associated data.
+       */
+      case 'Minions':
+        return content.ID === 71 || content.ID < 68 || content.ID > 74;
     }
 
     return true;
