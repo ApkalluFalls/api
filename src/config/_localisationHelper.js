@@ -15,6 +15,11 @@ module.exports = {
       [keys.storePurchase]: true
     }
   ]),
+  companionChocoboShort: (entry, language) => ([
+    'companionChocobo',
+    15,
+    [entry.skillTree]
+  ]),
   craftShort: (entry, language) => ([
     'craft',
     entry.icon,
@@ -69,6 +74,9 @@ module.exports = {
       ]
     ])
   },
+  forumContestShort: () => ([
+    'forumContest', 16, []
+  ]),
   gatherShort: (entry, language) => ([
     'gather',
     entry.icon,

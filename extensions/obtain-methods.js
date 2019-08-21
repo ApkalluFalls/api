@@ -24,6 +24,18 @@ module.exports = {
       // Officially enlist in the Immortal Flames.
       { fn: achievementAuto, args: [achievements.find(achievement => achievement.id === 529)] }
     ],
+    13: [
+      // Complete the Chocobo Companion's Defender skill tree.
+      { fn: companionChocobo, args: ['defender'] }
+    ],
+    14: [
+      // Complete the Chocobo Companion's Attacker skill tree.
+      { fn: companionChocobo, args: ['attacker'] }
+    ],
+    15: [
+      // Complete the Chocobo Companion's Healer skill tree.
+      { fn: companionChocobo, args: ['healer'] }
+    ],
     17: [
       { fn: collectorsEdition, args: [_localisationHelper.misc['A Realm Reborn']] }
     ],
@@ -34,9 +46,12 @@ module.exports = {
     27: [
       { fn: mogStation, args: [] }
     ],
-    30: [
+    31: [
       // Vedrfolnir Devoteth
       { fn: fate, args: [871] }
+    ],
+    36: [
+      { fn: forumContest, args: [] }
     ],
     42: [
       { fn: mogStation, args: [] }
@@ -73,6 +88,10 @@ module.exports = {
     66: [
       // Heat-warped Lockbox
       { fn: itemExchange, args: [24142, 1026502] }
+    ],
+    68: [
+      // Kugane Ohashi
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 20059)] }
     ]
   },
   emotes: {
@@ -1062,6 +1081,19 @@ function collectorsEdition(contentId, expansion, language) {
 }
 
 /**
+ * Companion chocobo-related.
+ * @param {Number} contentId - The ID of the content
+ * @param {String} skillTree - The skill tree related to the content (e.g. `"defender"`)
+ * @param {String} language - The localisation code (e.g. `"en"`)
+ */
+function companionChocobo(contentId, skillTree, language) {
+  return _localisationHelper.companionChocoboShort({
+    contentId,
+    skillTree
+  }, language)
+}
+
+/**
  * External Promotional events.
  * @param {Number} contentId - The ID of the content
  * @param {String} name - The promotion's name (e.g. `"'Dr Pepper-Kampagne!"`)
@@ -1147,6 +1179,17 @@ function fate(contentId, fateId, language) {
   }
 
   return _localisationHelper.fates.instancedFATEShort(response, language);
+}
+
+/**
+ * Forum contests.
+ * @param {Number} contentId - The ID of the content
+ * @param {String} language - The localisation code (e.g. `"en"`)
+ */
+function forumContest(contentId, language) {
+  return _localisationHelper.forumContestShort({
+    contentId
+  }, language)
 }
 
 /**

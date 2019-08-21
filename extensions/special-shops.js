@@ -24,5 +24,17 @@ module.exports = {
   1025848: [
     // Exchange artifacts
     specialShops.find(specialShop => specialShop.ID === 1769871)
+  ],
+  // Siulmet
+  1027385: [
+    specialShops.find(specialShop => specialShop.ID === 1769959)
+  ],
+  // Pedronille
+  1027538: [
+    specialShops.find(specialShop => specialShop.ID === 1769958)
+  ],
+  // Gramsol
+  1027998: [
+    specialShops.find(specialShop => specialShop.ID === 1769958)
   ]
 }

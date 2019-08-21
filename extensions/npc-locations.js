@@ -17,7 +17,8 @@ module.exports = [
   1028400, 1016093, 1023940, 1023794, 1018128, 1018129, 1018130, 1017844, 1017230, 1012135,
   1016902, 1016903, 1016904, 1005159, 1025313, 1017172, 1016264, 1019804, 1010753, 1010757,
   1010761, 1010780, 1010781, 1010782, 1010790, 1010791, 1010792, 1010793, 1010794, 1010795,
-  1005970, 1009290, 1005790, 1005792, 1005794, 1010175, 1025048, 1025950, 1026502, 1027127
+  1005970, 1009290, 1005790, 1005792, 1005794, 1010175, 1025048, 1025950, 1026502, 1027127,
+  // 1027538, 1027998
 ].map(id => {
   let location;
   let x;
@@ -140,12 +141,22 @@ module.exports = [
       location = 795;
       x = 16;
       y = 23;
-    break;
+      break;
     case 1027127: // Expedition Lockpick (Eureka Hydatos)
-    location = 827;
-    x = 20;
-    y = 14;
-  break;
+      location = 827;
+      x = 20;
+      y = 14;
+      break;
+    // case 1027538: // Pedronille (The Crystarium)
+    //   location = 819;
+    //   x = 11.1;
+    //   y = 13.6;
+    //   break;
+    // case 1027998: // Gramsol (Eulmore)
+    //   location = 820;
+    //   x = 11.1;
+    //   y = 13.6;
+    //   break;
     default:
       throw new Error(`NPC extension ${id} added to array but not handled in mapping.`);
   }
