@@ -214,13 +214,63 @@ module.exports = {
     144: [
       { fn: squareEnixStore, args: ['FINAL FANTASY XIV MEISTER QUALITY FIGURE – SHIVA'] }
     ],
+    145: [
+      // Eternity, Loyalty, Honesty
+      { fn: questInstant, args: [67921] }
+    ],
     146: [
       { fn: mogStation, args: [] }
+    ],
+    148: [
+      // Letters from No One
+      { fn: questInstant, args: [67899] }
     ],
     149: [
       { fn: mogStation, args: [] }
     ],
     153: [
+      { fn: mogStation, args: [] }
+    ],
+    154: [
+      // Confederate Consternation
+      { fn: questInstant, args: [68016] }
+    ],
+    155: [
+      // Dear Leader I - 10 successfull Squadron command missions
+      { fn: achievementAuto, args: [achievements.find(achievement => achievement.id === 1966)] }
+    ],
+    156: [
+      // Dear Leader I - 10 successfull Squadron command missions
+      { fn: achievementAuto, args: [achievements.find(achievement => achievement.id === 1966)] }
+    ],
+    157: [
+      // Dear Leader I - 10 successfull Squadron command missions
+      { fn: achievementAuto, args: [achievements.find(achievement => achievement.id === 1966)] }
+    ],
+    158: [
+      // Dear Leader I - 10 successfull Squadron command missions
+      { fn: achievementAuto, args: [achievements.find(achievement => achievement.id === 1966)] }
+    ],
+    166: [
+      // Arenvald's Adventure
+      { fn: questInstant, args: [68498] }
+    ],
+    172: [
+      // Greetings from the East
+      { fn: questInstant, args: [68558] }
+    ],
+    173: [
+      { fn: mogStation, args: [] }
+    ],
+    174: [
+      { fn: mogStation, args: [] }
+    ],
+    175: [
+      { fn: squareEnixStore, args: ['FINAL FANTASY XIV MEISTER QUALITY FIGURE – ULTIMA'] }
+    ],
+    178: [
+      // Tonight, the Stars Align
+      { fn: achievementAuto, args: [achievements.find(achievement => achievement.id === 2014)], filters: { [keys.event]: true } },
       { fn: mogStation, args: [] }
     ],
     181: [
@@ -229,14 +279,55 @@ module.exports = {
       // Cold-warped Lockbox
       { fn: itemExchange, args: [23379, 1025950] }
     ],
+    183: [
+      // Emissary of the Dawn
+      { fn: questInstant, args: [68612] }
+    ],
+    185: [
+      { fn: mogStation, args: [] }
+    ],
+    186: [
+      { fn: mogStation, args: [] }
+    ],
+    187: [
+      // The Fire-bird Down Below
+      { fn: questInstant, args: [68688] }
+    ],
+    188: [
+      // The Hidden Canals of Uznair
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 55003)] }
+    ],
     189: [
       // Heat-warped Lockbox
       { fn: itemExchange, args: [24142, 1026502] }
     ],
+    190: [
+      // The Call
+      { fn: questInstant, args: [68684] }
+    ],
+    191: [
+      { fn: companionApp, args: [] }
+    ],
+    194: [
+      // What a Wonder-full World
+      { fn: questInstant, args: [68700] }
+    ],
     195: [
       // Moisture-warped Lockbox
       { fn: itemExchange, args: [24849, 1027127] }
-    ]
+    ],
+    197: [
+      // The Sabotender Shimmy
+      { fn: questInstant, args: [68743], filters: { [keys.event]: true } },
+    ],
+    198: [
+      // Don't Do the Dewprism
+      { fn: questInstant, args: [68704] }
+    ],
+    199: [
+      // Learning to Lali-ho
+      { fn: questInstant, args: [69095] }
+    ],
   },
   minions: {
     5: [
@@ -1143,6 +1234,17 @@ function collectorsEdition(contentId, expansion, language) {
     contentId,
     expansion
   }, language);
+}
+
+/**
+ * Companion app (Mobile).
+ * @param {Number} contentId - The ID of the content
+ * @param {String} language - The localisation code (e.g. `"en"`)
+ */
+function companionApp(contentId, language) {
+  return _localisationHelper.companionAppShort({
+    contentId
+  }, language)
 }
 
 /**

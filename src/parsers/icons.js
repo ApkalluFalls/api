@@ -581,6 +581,7 @@ async function parseMethodIcons() {
     { path: '/i/094000/094568.png', as: 14 }, // Default content.
     { path: '/i/094000/094542.png', as: 15 }, // Chocobo.
     { path: '/i/094000/094566.png', as: 16 }, // Prize winner (e.g. Forum Contest).
+    { path: '/i/094000/094514.png', as: 17 }, // Companion app.
   ];
 
   await processIconGroup(paths, 'methods', { resize: 24 });

@@ -15,6 +15,14 @@ module.exports = {
       [keys.storePurchase]: true
     }
   ]),
+  companionAppShort: () => ([
+    'companionApp',
+    17,
+    [],
+    {
+      [keys.externalPromo]: true
+    }
+  ]),
   companionChocoboShort: (entry, language) => ([
     'companionChocobo',
     15,

@@ -299,7 +299,7 @@ function parseMethodDataFiles(id, contentType, language, contentData) {
     switch (contentType) {
       // Some Emotes are unlocked initially, so we can mark those as such.
       case 'emotes': {
-        if (contentData.link === 0) {
+        if (contentData.link === 0 || contentData.link === 340) {
           methods.push(_localisationHelper.defaultShort({
             id
           }, language));
