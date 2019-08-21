@@ -263,7 +263,8 @@ function parseMethodDataFiles(id, contentType, language, contentData) {
       extension.forEach(method => {
         const {
           fn,
-          args
+          args,
+          filters
         } = method;
   
         if (typeof fn !== 'function') {
@@ -275,6 +276,17 @@ function parseMethodDataFiles(id, contentType, language, contentData) {
         }
 
         const obtainMethod = fn(id, ...args, language);
+
+        if (filters) {
+          if (obtainMethod[3]) {
+            obtainMethod[3] = {
+              ...obtainMethod[3],
+              ...filters
+            }
+          } else {
+            obtainMethod[3] = filters;
+          }
+        }
 
         if (obtainMethod) {
           methods.push(obtainMethod);
@@ -307,7 +319,7 @@ function parseMethodDataFiles(id, contentType, language, contentData) {
   }
 
   if (language === 'en' && !methods.length) {
-    console.warn(`No known obtain methods for ${contentType} ${id}.`);
+    console.warn(`No known obtain methods for ${contentType} ${id}: ${contentData.name.en}`);
     global.missingObtainMethods += 1;
   }
 

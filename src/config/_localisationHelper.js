@@ -211,6 +211,12 @@ module.exports = {
       ]
     ])
   },
+  squareEnixStoreShort: (entry) => ([
+    'squareEnixStore', 7, [entry.item],
+    {
+      [keys.storePurchase]: true
+    }
+  ]),
   treasureHuntShort: (entry, language) => ([
     'treasureHunt',
     11,

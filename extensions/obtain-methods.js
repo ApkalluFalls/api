@@ -9,6 +9,8 @@ const npcs = require('../data/npcs.json');
 const quests = require('../data/quests.json');
 const retainerVentures = require('../data/retainerVentures.json');
 const treasureHunt = require('../data/treasureHunt.json');
+const _keys = require('../src/config/_keys');
+const keys = _keys.contentFilters;
 
 module.exports = {
   barding: {
@@ -95,11 +97,35 @@ module.exports = {
     ]
   },
   emotes: {
+    59: [
+      // Acting the Part
+      { fn: questInstant, args: [66538] }
+    ],
     62: [
       { fn: mogStation, args: [] }
     ],
     63: [
       { fn: mogStation, args: [] }
+    ],
+    85: [
+      // Toss Fit Workout
+      { fn: questInstant, args: [66846] }
+    ],
+    101: [
+      // Good for What Ales You
+      { fn: questInstant, args: [66962] }
+    ],
+    102: [
+      // Saw That One Coming
+      { fn: questInstant, args: [66961] }
+    ],
+    103: [
+      // Help Me, Lord of the Dance
+      { fn: questInstant, args: [66963] }
+    ],
+    104: [
+      // The Hammer
+      { fn: questInstant, args: [66852] }
     ],
     109: [
       { fn: mogStation, args: [] }
@@ -107,14 +133,47 @@ module.exports = {
     110: [
       { fn: mogStation, args: [] }
     ],
+    113: [
+      // The Ties that Bind
+      { fn: questInstant, args: [67114] }
+    ],
+    114: [
+      // Her Last Vow
+      { fn: questInstant, args: [66038] }
+    ],
     115: [
       { fn: recruitAFriend, args: [30] }
+    ],
+    120: [
+      // Sundrop the Beat
+      { fn: questInstant, args: [67705] }
+    ],
+    121: [
+      // Causes and Costs
+      { fn: questInstant, args: [67777] }
+    ],
+    122: [
+      // A Spectacle for the Ages
+      { fn: questInstant, args: [67775] }
     ],
     123: [
       { fn: mogStation, args: [] }
     ],
     124: [
       { fn: mogStation, args: [] }
+    ],
+    125: [
+      // An Inspector's Gadget
+      { fn: questInstant, args: [67671], filters: { [keys.event]: true } },
+      { fn: mogStation, args: [] }
+    ],
+    126: [
+      // Piecing Together the Past
+      { fn: questInstant, args: [67862] }
+    ],
+    127: [
+      // The Burdens We Bear
+      { fn: questInstant, args: [67015] }
     ],
     128: [
       { fn: mogStation, args: [] }
@@ -143,11 +202,17 @@ module.exports = {
     136: [
       { fn: mogStation, args: [] }
     ],
+    138: [
+      { fn: squareEnixStore, args: ['FINAL FANTASY XIV MEISTER QUALITY FIGURE – ODIN'] }
+    ],
     142: [
       { fn: mogStation, args: [] }
     ],
     143: [
       { fn: mogStation, args: [] }
+    ],
+    144: [
+      { fn: squareEnixStore, args: ['FINAL FANTASY XIV MEISTER QUALITY FIGURE – SHIVA'] }
     ],
     146: [
       { fn: mogStation, args: [] }
@@ -1328,6 +1393,19 @@ function retainerVenture(contentId, retainerVentureId, language) {
   return _localisationHelper.retainerVentureShort({
     contentId,
     ...venture
+  }, language)
+}
+
+/**
+ * Square Enix store purchase.
+ * @param {Number} contentId - The ID of the content
+ * @param {String} item - The item required to purchase
+ * @param {String} language - The localisation code (e.g. `"en"`)
+ */
+function squareEnixStore(contentId, item, language) {
+  return _localisationHelper.squareEnixStoreShort({
+    contentId,
+    item
   }, language)
 }
 
