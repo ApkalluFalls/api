@@ -330,6 +330,9 @@ module.exports = {
     ],
   },
   minions: {
+    4: [
+      { fn: preOrder, args: [_localisationHelper.misc['A Realm Reborn']] }
+    ],
     5: [
       { fn: collectorsEdition, args: [_localisationHelper.misc['Legacy (1.0)']] },
       { fn: collectorsEdition, args: [_localisationHelper.misc['A Realm Reborn']] }
@@ -399,6 +402,9 @@ module.exports = {
       // Copperbell Mines (Hard)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 18)] }
     ],
+    55: [
+      { fn: squareEnixStore, args: ['BEFORE METEOR FINAL FANTASY® XIV ORIGINAL SOUNDTRACK'] }
+    ],
     56: [
       // Field Exploration XIII
       { fn: retainerVenture, args: [30013] },
@@ -420,6 +426,9 @@ module.exports = {
     ],
     64: [
       { fn: mogStation, args: [] }
+    ],
+    78: [
+      { fn: squareEnixStore, args: ['FINAL FANTASY® XIV: A REALM REBORN™ ORIGINAL SOUNDTRACK'] }
     ],
     79: [
       { fn: collectorsEdition, args: [_localisationHelper.misc['A Realm Reborn']] }
@@ -526,12 +535,21 @@ module.exports = {
       // Bronze-trimmed Sack
       { fn: itemExchange, args: [16170, 1017659] }
     ],
+    113: [
+      { fn: squareEnixStore, args: ['FINAL FANTASY® XIV: A REALM REBORN™ THE ART OF EORZEA - ANOTHER DAWN'] }
+    ],
+    114: [
+      { fn: squareEnixStore, args: ['FINAL FANTASY® XIV: A REALM REBORN™ DELIVERY MOOGLE'] }
+    ],
     121: [
       { fn: mogStation, args: [] }
     ],
     122: [
       // Battle In The Big Keep
       { fn: instancedContent, args: [instances.find(instance => instance.id === 20030)] }
+    ],
+    128: [
+      { fn: preOrder, args: [_localisationHelper.misc['Heavensward']] }
     ],
     129: [
       { fn: collectorsEdition, args: [_localisationHelper.misc['Heavensward']] }
@@ -592,9 +610,18 @@ module.exports = {
     150: [
       { fn: mogStation, args: [] }
     ],
+    151: [
+      { fn: squareEnixStore, args: ['FINAL FANTASY® XIV: HEAVENSWARD™ EMERALD CARBUNCLE'] }
+    ],
+    152: [
+      { fn: squareEnixStore, args: ['FINAL FANTASY® XIV: HEAVENSWARD™ TOPAZ CARBUNCLE'] }
+    ],
     154: [
       // On Dangerous Ground
       { fn: fate, args: [855] }
+    ],
+    155: [
+      { fn: squareEnixStore, args: ['BEFORE THE FALL: FINAL FANTASY® XIV ORIGINAL SOUNDTRACK'] }
     ],
     157: [
       // The Aquapolis
@@ -610,6 +637,9 @@ module.exports = {
     160: [
       // The Void Ark
       { fn: instancedContent, args: [instances.find(instance => instance.id === 30029)] }
+    ],
+    161: [
+      { fn: squareEnixStore, args: ['FINAL FANTASY® XIV: HEAVENSWARD™ THE ART OF ISHGARD - STONE AND STEEL'] }
     ],
     162: [
       // On The Inside (Diadem)
@@ -656,6 +686,9 @@ module.exports = {
       // Gold-haloed Sack
       { fn: itemExchange, args: [23224, 1025847] }
     ],
+    182: [
+      { fn: squareEnixStore, args: ['HEAVENSWARD: FINAL FANTASY® XIV ORIGINAL SOUNDTRACK'] }
+    ],
     185: [
       // Silver-haloed Sack
       { fn: itemExchange, args: [23223, 1025847] },
@@ -695,6 +728,48 @@ module.exports = {
       // Silver-haloed Sack
       { fn: itemExchange, args: [23223, 1025847] }
     ],
+    200: [
+      { fn: yokaiWatch, args: [] }
+    ],
+    201: [
+      { fn: yokaiWatch, args: [] }
+    ],
+    202: [
+      { fn: yokaiWatch, args: [] }
+    ],
+    203: [
+      { fn: yokaiWatch, args: [] }
+    ],
+    204: [
+      { fn: yokaiWatch, args: [] }
+    ],
+    205: [
+      { fn: yokaiWatch, args: [] }
+    ],
+    206: [
+      { fn: yokaiWatch, args: [] }
+    ],
+    207: [
+      { fn: yokaiWatch, args: [] }
+    ],
+    208: [
+      { fn: yokaiWatch, args: [] }
+    ],
+    209: [
+      { fn: yokaiWatch, args: [] }
+    ],
+    210: [
+      { fn: yokaiWatch, args: [] }
+    ],
+    211: [
+      { fn: yokaiWatch, args: [] }
+    ],
+    212: [
+      { fn: yokaiWatch, args: [] }
+    ],
+    214: [
+      { fn: squareEnixStore, args: ['ENCYCLOPAEDIA EORZEA - THE WORLD OF FINAL FANTASY XIV'] }
+    ],
     215: [
       // Alexander - The Soul of the Creator
       { fn: instancedContent, args: [instances.find(instance => instance.id === 30042)] },
@@ -733,9 +808,15 @@ module.exports = {
     227: [
       { fn: mogStation, args: [] }
     ],
+    229: [
+      { fn: squareEnixStore, args: ['FINAL FANTASY® XIV HEAVENSWARD™ THE ART OF ISHGARD - THE SCARS OF WAR'] }
+    ],
     232: [
       // Dun Scaith
       { fn: instancedContent, args: [instances.find(instance => instance.id === 30047)] }
+    ],
+    233: [
+      { fn: squareEnixStore, args: ['THE FAR EDGE OF FATE: FINAL FANTASY® XIV ORIGINAL SOUNDTRACK'] }
     ],
     237: [
       // Silver-haloed Sack
@@ -743,6 +824,9 @@ module.exports = {
     ],
     238: [
       { fn: collectorsEdition, args: [_localisationHelper.misc['Stormblood']] }
+    ],
+    239: [
+      { fn: preOrder, args: [_localisationHelper.misc['Stormblood']] }
     ],
     241: [
       // Highland Exploration XIX
@@ -801,6 +885,9 @@ module.exports = {
     249: [
       // Kugane Castle
       { fn: instancedContent, args: [instances.find(instance => instance.id === 57)] }
+    ],
+    251: [
+      { fn: squareEnixStore, args: ['FINAL FANTASY® XIV: STORMBLOOD™ ART OF THE REVOLUTION - WESTERN MEMORIES'] }
     ],
     252: [
       // Doma Castle
@@ -924,6 +1011,9 @@ module.exports = {
       // Pagos Lockbox
       { fn: itemExchange, args: [23142, 1025950] }
     ],
+    297: [
+      { fn: squareEnixStore, args: ['STORMBLOOD: FINAL FANTASY® XIV ORIGINAL SOUNDTRACK'] }
+    ],
     299: [
       // The Ridorana Lighthouse
       { fn: instancedContent, args: [instances.find(instance => instance.id === 30068)] }
@@ -960,13 +1050,22 @@ module.exports = {
       // Heat-warped Lockbox
       { fn: itemExchange, args: [24142, 1026502] }
     ],
+    317: [
+      { fn: preOrder, args: [_localisationHelper.misc['Shadowbringers']] }
+    ],
     319: [
       // Moisture-warped Lockbox
       { fn: itemExchange, args: [24849, 1027127] }
     ],
+    320: [
+      { fn: squareEnixStore, args: ['FINAL FANTASY XIV: STORMBLOOD | ART OF THE REVOLUTION - EASTERN MEMORIES'] }
+    ],
     321: [
       // The Ghimlyt Dark
       { fn: instancedContent, args: [instances.find(instance => instance.id === 64)] }
+    ],
+    325: [
+      { fn: collectorsEdition, args: [_localisationHelper.misc['Shadowbringers']] }
     ]
   },
   mounts: {
@@ -1169,9 +1268,18 @@ module.exports = {
       // Platinum-haloed Sack
       { fn: itemExchange, args: [23225, 1025847] }
     ],
+    160: [
+      { fn: mogStation, args: [] }
+    ],
     161: [
       // The Great Hunt (Extreme)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 20054)] }
+    ],
+    170: [
+      { fn: collectorsEdition, args: [_localisationHelper.misc['Shadowbringers']] }
+    ],
+    171: [
+      { fn: mogStation, args: [] }
     ],
     172: [
       // Hell's Kier (Extreme)
@@ -1181,12 +1289,24 @@ module.exports = {
       // Alphascape V4.0 (Savage)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 30076)] }
     ],
+    175: [
+      { fn: mogStation, args: [] }
+    ],
+    177: [
+      { fn: externalPromotion, args: ['FFXIV and Amazon.com® Free DLC Giveaway!'] }
+    ],
     182: [
       // The Wreath of Snakes (Extreme)
       { fn: instancedContent, args: [instances.find(instance => instance.id === 20061)] }
     ]
   },
   orchestrion: {
+    114: [
+      { fn: squareEnixStore, args: ['FINAL FANTASY® XIV: DUALITY'] }
+    ],
+    115: [
+      { fn: squareEnixStore, args: ['FINAL FANTASY® XIV: DUALITY'] }
+    ],
     165: [,
       // Gazelleskin Map
       { fn: timewornMap, args: [13] }
@@ -1199,6 +1319,24 @@ module.exports = {
       // Gazelleskin Map
       { fn: timewornMap, args: [13] }
     ],
+    191: [
+      { fn: squareEnixStore, args: ['EORZEAN SYMPHONY: FINAL FANTASY® XIV ORCHESTRAL ALBUM'] }
+    ],
+    192: [
+      { fn: squareEnixStore, args: ['EORZEAN SYMPHONY: FINAL FANTASY® XIV ORCHESTRAL ALBUM'] }
+    ],
+    277: [
+      { fn: squareEnixStore, args: ['FINAL FANTASY XIV - THE BEST'] }
+    ],
+    278: [
+      { fn: squareEnixStore, args: ['FINAL FANTASY XIV - THE BEST'] }
+    ],
+    279: [
+      { fn: squareEnixStore, args: ['THE PRIMALS ZEPP TOUR 2018 - TRIAL BY SHADOW'] }
+    ],
+    280: [
+      { fn: squareEnixStore, args: ['THE PRIMALS ZEPP TOUR 2018 - TRIAL BY SHADOW'] }
+    ],
     288: [
       // Hydatos Lockbox
       { fn: itemExchange, args: [24848, 1027127] }
@@ -1206,6 +1344,12 @@ module.exports = {
     289: [
       // Moisture-warped Lockbox
       { fn: itemExchange, args: [24849, 1027127] }
+    ],
+    305: [
+      { fn: squareEnixStore, args: ['JOURNEYS: FINAL FANTASY XIV ARRANGEMENT ALBUM'] }
+    ],
+    306: [
+      { fn: squareEnixStore, args: ['JOURNEYS: FINAL FANTASY XIV ARRANGEMENT ALBUM'] }
     ]
   }
 };
@@ -1452,6 +1596,19 @@ function mogStation(contentId, language) {
   }, language)
 }
 
+/**
+ * Expansion pre-order
+ * @param {Number} contentId - The ID of the content
+ * @param {String} expansion - The expansion the content belongs to. (e.g. `"heavensward"`)
+ * @param {String} language - The localisation code (e.g. `"en"`)
+ */
+function preOrder(contentId, expansion, language) {
+  return _localisationHelper.preOrderShort({
+    contentId,
+    expansion
+  }, language);
+}
+
 function questInstant(contentId, questId, language) {
   const quest = quests.find(quest => quest.quest === questId);
 
@@ -1528,5 +1685,16 @@ function timewornMap(contentId, treasureHuntId, language) {
   return _localisationHelper.treasureHuntShort({
     contentId,
     ...item
+  }, language)
+}
+
+/**
+ * Yo-kai Watch cross-over event.
+ * @param {Number} contentId - The ID of the content
+ * @param {String} language - The localisation code (e.g. `"en"`)
+ */
+function yokaiWatch(contentId, language) {
+  return _localisationHelper.yokaiWatchShort({
+    contentId
   }, language)
 }

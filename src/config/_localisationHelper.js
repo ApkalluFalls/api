@@ -137,6 +137,20 @@ module.exports = {
       [keys.legacy]: true
     }
   ]),
+  mogStationShort: () => ([
+    'mogStation', 7, undefined,
+    {
+      [keys.storePurchase]: true
+    }
+  ]),
+  preOrderShort: (entry, language) => ([
+    'preOrder', 7, [
+      entry.expansion[language]
+    ],
+    {
+      [keys.storePurchase]: true
+    }
+  ]),
   quest: {
     eventQuestShort: (quest, language) => ([
       'eventQuest',
@@ -172,12 +186,6 @@ module.exports = {
     'venture',
     10,
     [entry.level, entry.name[language]]
-  ]),
-  mogStationShort: () => ([
-    'mogStation', 7, undefined,
-    {
-      [keys.storePurchase]: true
-    }
   ]),
   shop: {
     gilShort: (entry, language) => ([
@@ -230,6 +238,14 @@ module.exports = {
     11,
     [entry.name[language]]
   ]),
+  yokaiWatchShort: (quest, language) => ([
+    'yokaiWatch',
+    'q3',
+    [],
+    {
+      [keys.event]: true
+    }
+  ]),
   misc: {
     'Legacy (1.0)': {
       de: 'Legacy (1.0)',
@@ -254,6 +270,12 @@ module.exports = {
       en: 'Stormblood',
       fr: 'Stormblood',
       jp: '紅蓮のリベレーター'
+    },
+    'Shadowbringers': {
+      de: 'Shadowbringers',
+      en: 'Shadowbringers',
+      fr: 'Shadowbringers',
+      jp: 'Shadowbringers'
     }
   }
 }
