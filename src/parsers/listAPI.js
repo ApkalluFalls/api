@@ -33,7 +33,7 @@ module.exports = (contentType, language = 'en') => {
 
     if (contentType === 'achievements') {
       response[keys.category] = entry.category;
-      response[keys.description] = entry.description;
+      response[keys.description] = entry.description[language] || entry.description.en;
       response[keys.kind] = entry.kind;
       response[keys.points] = Number(entry.points);
       
