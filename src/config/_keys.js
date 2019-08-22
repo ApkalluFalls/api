@@ -46,7 +46,8 @@ module.exports = {
     pointsTotalEvents: 'pE',
     pointsTotalLegacy: 'pL',
     rel: 'r',
-    total: 't'
+    total: 't',
+    unlockedByDefault: 'd'
   },
   patches: {
     banner: 'b',

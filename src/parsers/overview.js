@@ -37,17 +37,30 @@ const expansions = [{
 function getAchievementPointsPerExpansion(achievements) {
   const response = {};
 
-  const { lists: listsKeys } = _keys;
-
   expansions.forEach(expansion => {
-    response[expansion[_keys.overview.rel]] = achievements.filter((
+    const expansionAchievements = achievements.filter((
       entry => (
         entry[_keys.lists.patch] >= expansion[_keys.overview.patchFirst]
         && entry[_keys.lists.patch] <= expansion[_keys.overview.patchLast]
       )
-    )).reduce((points, achievement) => {
-      return points + achievement[listsKeys.points];
-    }, 0);
+    ));
+
+    response[expansion[_keys.overview.rel]] = {
+      // The pointsTotal includes everything which doesn't have a limited availability.
+      [_keys.overview.pointsTotal]: expansionAchievements.filter((
+        achievement => !achievement[_keys.lists.availability]
+      )).reduce((points, achievement) => achievement[_keys.lists.points] + points, 0),
+
+      // Only seasonal event achievements.
+      [_keys.overview.pointsTotalEvents]: expansionAchievements.filter((
+        achievement => achievement[_keys.lists.availability] && achievement[_keys.lists.availability][_keys.contentFilters.event]
+      )).reduce((points, achievement) => achievement[_keys.lists.points] + points, 0),
+
+      // Only legacy achievements.
+      [_keys.overview.pointsTotalLegacy]: expansionAchievements.filter((
+        achievement => achievement[_keys.lists.availability] && achievement[_keys.lists.availability][_keys.contentFilters.legacy]
+      )).reduce((points, achievement) => achievement[_keys.lists.points] + points, 0)
+    }
   });
 
   return response;
@@ -155,23 +168,6 @@ module.exports = () => {
   if (achievements) {
     parsed.achievements = {
       [keys.total]: achievements.length,
-
-      // The pointsTotal includes everything which doesn't have a limited availability.
-      [keys.pointsTotal]: achievements.filter((
-        achievement => !achievement[_keys.lists.availability]
-      )).reduce((points, achievement) => achievement[_keys.lists.points] + points, 0),
-
-      // Only seasonal event achievements.
-      [keys.pointsTotalEvents]: achievements.filter((
-        achievement => achievement[_keys.lists.availability] && achievement[_keys.lists.availability][_keys.contentFilters.event]
-      )).reduce((points, achievement) => achievement[_keys.lists.points] + points, 0),
-
-      // Only legacy achievements.
-      [keys.pointsTotalLegacy]: achievements.filter((
-        achievement => achievement[_keys.lists.availability] && achievement[_keys.lists.availability][_keys.contentFilters.legacy]
-      )).reduce((points, achievement) => achievement[_keys.lists.points] + points, 0),
-
-      // Expansion-linked IDs.
       ...getAchievementPointsPerExpansion(achievements)
     }
   }
@@ -187,6 +183,9 @@ module.exports = () => {
   if (emotes) {
     parsed.emotes = {
       [keys.available]: getAllAvailableIDs(emotes),
+      [keys.unlockedByDefault]: emotes.filter((
+        emote => emote[_keys.lists.methods] && emote[_keys.lists.methods][0][0] === "byDefault"
+      )).map(emote => emote.id),
       ...getAllIDsMatchingContentFilters(emotes),
       ...getIDsPerExpansion(emotes)
     }
