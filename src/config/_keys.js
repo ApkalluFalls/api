@@ -6,6 +6,12 @@
  * bytes!
  */
 module.exports = {
+  expansions: {
+    aRealmReborn: 'arr',
+    heavensward: 'hw',
+    stormblood: 'sb',
+    shadowbringers: 'shb'
+  },
   lists: {
     availability: 'a',
     category: 'c',
@@ -33,9 +39,13 @@ module.exports = {
     availableRealWorldEvent: 'aX',
     availableStorePurchase: 'aM',
     availableUnknown: 'aU',
+    name: 'n',
+    patchFirst: 'f',
+    patchLast: 'l',
     pointsTotal: 'p',
     pointsTotalEvents: 'pE',
     pointsTotalLegacy: 'pL',
+    rel: 'r',
     total: 't'
   },
   patches: {

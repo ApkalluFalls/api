@@ -1,12 +1,34 @@
 const fs = require('fs');
-const helper = require('../xivapi/helper');
 const _keys = require('../config/_keys');
+const _localisationHelper = require('../config/_localisationHelper');
 const achievements = require('../../docs/en/achievements.json');
 const barding = require('../../docs/en/barding.json');
 const emotes = require('../../docs/en/emotes.json');
 const minions = require('../../docs/en/minions.json');
 const mounts = require('../../docs/en/mounts.json');
 const orchestrion = require('../../docs/en/orchestrion.json');
+
+const expansions = [{
+  [_keys.overview.name]: _localisationHelper.misc['A Realm Reborn'],
+  [_keys.overview.patchFirst]: 0,
+  [_keys.overview.patchLast]: 18,
+  [_keys.overview.rel]: _keys.expansions.aRealmReborn
+}, {
+  [_keys.overview.name]: _localisationHelper.misc['Heavensward'],
+  [_keys.overview.patchFirst]: 19,
+  [_keys.overview.patchLast]: 35,
+  [_keys.overview.rel]: _keys.expansions.heavensward
+}, {
+  [_keys.overview.name]: _localisationHelper.misc['Stormblood'],
+  [_keys.overview.patchFirst]: 36,
+  [_keys.overview.patchLast]: 57,
+  [_keys.overview.rel]: _keys.expansions.stormblood
+}, {
+  [_keys.overview.name]: _localisationHelper.misc['Shadowbringers'],
+  [_keys.overview.patchFirst]: 58,
+  [_keys.overview.patchLast]: 999,
+  [_keys.overview.rel]: _keys.expansions.shadowbringers
+}]
 
 /**
  * Return an array of content IDs which are available in-game right now.
@@ -20,6 +42,25 @@ function getAllAvailableIDs(content) {
 
     return entry.m.find(method => !method[3]);
   }).map(entry => entry[_keys.lists.id]);
+}
+
+/**
+ * Return an object of IDs categorised by game expansion.
+ * @param {Array} content - The content array.
+ */
+function getIDsPerExpansion(content) {
+  const response = {};
+
+  expansions.forEach(expansion => {
+    response[expansion[_keys.overview.rel]] = content.filter((
+      entry => (
+        entry[_keys.lists.patch] >= expansion[_keys.overview.patchFirst]
+        && entry[_keys.lists.patch] <= expansion[_keys.overview.patchLast]
+      )
+    )).map(entry => entry.id)
+  });
+
+  return response;
 }
 
 /**
@@ -104,41 +145,49 @@ module.exports = () => {
       // Only legacy achievements.
       [keys.pointsTotalLegacy]: achievements.filter((
         achievement => achievement[_keys.lists.availability] && achievement[_keys.lists.availability][_keys.contentFilters.legacy]
-      )).reduce((points, achievement) => achievement[_keys.lists.points] += points, 0)
+      )).reduce((points, achievement) => achievement[_keys.lists.points] += points, 0),
+
+      // Expansion-linked IDs.
+      ...getIDsPerExpansion(achievements)
     }
   }
 
   if (barding) {
     parsed.barding = {
       [keys.available]: getAllAvailableIDs(barding),
-      ...getAllIDsMatchingContentFilters(barding)
+      ...getAllIDsMatchingContentFilters(barding),
+      ...getIDsPerExpansion(barding)
     }
   }
 
   if (emotes) {
     parsed.emotes = {
       [keys.available]: getAllAvailableIDs(emotes),
-      ...getAllIDsMatchingContentFilters(emotes)
+      ...getAllIDsMatchingContentFilters(emotes),
+      ...getIDsPerExpansion(emotes)
     }
   }
 
   if (minions) {
     parsed.minions = {
       [keys.available]: getAllAvailableIDs(minions),
-      ...getAllIDsMatchingContentFilters(minions)
+      ...getAllIDsMatchingContentFilters(minions),
+      ...getIDsPerExpansion(minions)
     }
   }
 
   if (mounts) {
     parsed.mounts = {
       [keys.available]: getAllAvailableIDs(mounts),
-      ...getAllIDsMatchingContentFilters(mounts)
+      ...getAllIDsMatchingContentFilters(mounts),
+      ...getIDsPerExpansion(mounts)
     }
   }
 
   if (orchestrion) {
     parsed.orchestrion = {
-      [keys.total]: orchestrion.length
+      [keys.total]: orchestrion.length,
+      ...getIDsPerExpansion(orchestrion)
     }
   }
 
