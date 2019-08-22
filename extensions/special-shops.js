@@ -29,12 +29,33 @@ module.exports = {
   1027385: [
     specialShops.find(specialShop => specialShop.ID === 1769959)
   ],
+  // Zumutt
+  1027497: [
+    specialShops.find(specialShop => specialShop.ID === 1769960)
+  ],
   // Pedronille
   1027538: [
     specialShops.find(specialShop => specialShop.ID === 1769958)
   ],
+  // Sul Lad
+  1027665: [
+    specialShops.find(specialShop => specialShop.ID === 1769962)
+  ],
+  // Goushs Ooan
+  1027666: [
+    specialShops.find(specialShop => specialShop.ID === 1769964)
+  ],
+  // Nacille
+  1027709: [
+    specialShops.find(specialShop => specialShop.ID === 1769963)
+  ],
+  // Halden
+  1027892: [
+    specialShops.find(specialShop => specialShop.ID === 1769961)
+  ],
   // Gramsol
   1027998: [
+    specialShops.find(specialShop => specialShop.ID === 1769957),
     specialShops.find(specialShop => specialShop.ID === 1769958)
   ]
 }

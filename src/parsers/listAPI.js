@@ -1,6 +1,7 @@
 const fs = require('fs');
 const _keys = require('../config/_keys');
 const _localisationHelper = require('../config/_localisationHelper');
+const getMethodFromOrchestrionDescription = require('../parsers/orchestrionRollDescriptions');
 
 /**
  * Create content lists with base data and short obtain method strings.
@@ -205,7 +206,7 @@ function parseMethodDataFiles(id, contentType, language, contentData) {
         if (!map) {
           console.warn(`FATE ${fateId}'s extension is pointing to an invalid location. Skipping.`);
           return;
-        }      
+        }
 
         methods.push(_localisationHelper.shop.gilAfterFateShort({
           ...match,
@@ -309,10 +310,20 @@ function parseMethodDataFiles(id, contentType, language, contentData) {
 
       // Orchestrions have descriptions in-game which can be used by default.
       case 'orchestrion': {
-        methods.push(_localisationHelper.genericShort({
-          id,
-          text: contentData.description
-        }, language));
+        const extractedMethods = getMethodFromOrchestrionDescription(contentData, language);
+
+        if (extractedMethods) {
+          extractedMethods.forEach(extractedMethod => methods.push(extractedMethod));
+        } else {
+          if (language === 'en') {
+            console.warn(`Defaulting method for orchestrion roll ${id}: ${contentData.description.en}`);
+          }
+
+          methods.push(_localisationHelper.genericShort({
+            id,
+            text: contentData.description
+          }, language));
+        }
         break;
       }
     }

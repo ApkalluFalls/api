@@ -1322,6 +1322,14 @@ module.exports = {
     115: [
       { fn: squareEnixStore, args: ['FINAL FANTASY® XIV: DUALITY'] }
     ],
+    161: [
+      // The Evil Seed
+      { fn: fate, args: [1129] }
+    ],
+    162: [
+      // Never Say Daimyo
+      { fn: fate, args: [1172] }
+    ],
     165: [,
       // Gazelleskin Map
       { fn: timewornMap, args: [13] }
@@ -1339,6 +1347,30 @@ module.exports = {
     ],
     192: [
       { fn: squareEnixStore, args: ['EORZEAN SYMPHONY: FINAL FANTASY® XIV ORCHESTRAL ALBUM'] }
+    ],
+    208: [
+      // Anemos Lockbox
+      { fn: itemExchange, args: [22508, 1025048] }
+    ],
+    209: [
+      // Anemos Lockbox
+      { fn: itemExchange, args: [22508, 1025048] }
+    ],
+    253: [
+      // Deltascape V1.0
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 30049)] },
+      // Deltascape V2.0
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 30050)] },
+      // Deltascape V3.0
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 30051)] }
+    ],
+    256: [
+      // Sigmascape V1.0
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 30059)] },
+      // Sigmascape V2.0
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 30060)] },
+      // Sigmascape V3.0
+      { fn: instancedContent, args: [instances.find(instance => instance.id === 30061)] }
     ],
     277: [
       { fn: squareEnixStore, args: ['FINAL FANTASY XIV - THE BEST'] }
@@ -1359,6 +1391,10 @@ module.exports = {
     289: [
       // Moisture-warped Lockbox
       { fn: itemExchange, args: [24849, 1027127] }
+    ],
+    290: [
+      // The Baldesion Arsenal
+      { fn: fate, args: [1422] }
     ],
     305: [
       { fn: squareEnixStore, args: ['JOURNEYS: FINAL FANTASY XIV ARRANGEMENT ALBUM'] }

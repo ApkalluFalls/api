@@ -80,6 +80,18 @@ module.exports = {
   1094: {
     location: 512
   },
+  // The Evil Seed
+  1129: {
+    location: 612,
+    x: 15,
+    y: 22
+  },
+  // Never Say Daimyo
+  1172: {
+    location: 613,
+    x: 17,
+    y: 9
+  },
   // Rattle And Humbaba
   1194: {
     location: 620,
@@ -97,5 +109,11 @@ module.exports = {
   // The Shadow Over Anemos (Eureka Anemos)
   1348: {
     location: 732
+  },
+  // The Baldesion Arsenal: Expedition Support (Eureka Hydatos)
+  1422: {
+    location: 827,
+    x: 18,
+    y: 28
   }
 };
