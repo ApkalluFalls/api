@@ -125,7 +125,8 @@ module.exports = () => {
   const keys = _keys.overview;
 
   const parsed = {
-    keys: _keys
+    keys: _keys,
+    expansions
   };
 
   if (achievements) {
