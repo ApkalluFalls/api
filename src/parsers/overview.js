@@ -31,6 +31,29 @@ const expansions = [{
 }]
 
 /**
+ * Return an object of points values categorised by game expansion.
+ * @param {Array} achievements - The achievements array.
+ */
+function getAchievementPointsPerExpansion(achievements) {
+  const response = {};
+
+  const { lists: listsKeys } = _keys;
+
+  expansions.forEach(expansion => {
+    response[expansion[_keys.overview.rel]] = achievements.filter((
+      entry => (
+        entry[_keys.lists.patch] >= expansion[_keys.overview.patchFirst]
+        && entry[_keys.lists.patch] <= expansion[_keys.overview.patchLast]
+      )
+    )).reduce((points, achievement) => {
+      return points + achievement[listsKeys.points];
+    }, 0);
+  });
+
+  return response;
+}
+
+/**
  * Return an array of content IDs which are available in-game right now.
  * @param {Array} content - The content array.
  */
@@ -136,20 +159,20 @@ module.exports = () => {
       // The pointsTotal includes everything which doesn't have a limited availability.
       [keys.pointsTotal]: achievements.filter((
         achievement => !achievement[_keys.lists.availability]
-      )).reduce((points, achievement) => achievement[_keys.lists.points] += points, 0),
+      )).reduce((points, achievement) => achievement[_keys.lists.points] + points, 0),
 
       // Only seasonal event achievements.
       [keys.pointsTotalEvents]: achievements.filter((
         achievement => achievement[_keys.lists.availability] && achievement[_keys.lists.availability][_keys.contentFilters.event]
-      )).reduce((points, achievement) => achievement[_keys.lists.points] += points, 0),
+      )).reduce((points, achievement) => achievement[_keys.lists.points] + points, 0),
 
       // Only legacy achievements.
       [keys.pointsTotalLegacy]: achievements.filter((
         achievement => achievement[_keys.lists.availability] && achievement[_keys.lists.availability][_keys.contentFilters.legacy]
-      )).reduce((points, achievement) => achievement[_keys.lists.points] += points, 0),
+      )).reduce((points, achievement) => achievement[_keys.lists.points] + points, 0),
 
       // Expansion-linked IDs.
-      ...getIDsPerExpansion(achievements)
+      ...getAchievementPointsPerExpansion(achievements)
     }
   }
 
