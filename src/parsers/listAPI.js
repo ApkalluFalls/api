@@ -37,6 +37,16 @@ module.exports = (contentType, language = 'en') => {
       response[keys.description] = entry.description[language] || entry.description.en;
       response[keys.kind] = entry.kind;
       response[keys.points] = Number(entry.points);
+
+      const { title } = entry;
+      if (title) {
+        response[keys.title] = {
+          [keys.id]: title.id,
+          [keys.isPrefix]: title.isPrefix,
+          [keys.name]: title.name[language],
+          [keys.nameFemale]: title.nameFemale[language]
+        };
+      }
       
       const availability = config.getAvailability(entry);
       if (availability && Object.keys(availability).length) {

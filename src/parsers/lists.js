@@ -119,6 +119,16 @@ module.exports = (data, config) => {
         response.kind = content.AchievementCategory.AchievementKind.ID;
         response.description = helper.getLocalisedNamesObject(content, 'Description');
         response.points = content.Points;
+        
+        const { Title } = content;
+        if (Title) {
+          response.title = {
+            id: Title.ID,
+            isPrefix: Title.IsPrefix,
+            name: helper.getLocalisedNamesObject(Title, 'Name'),
+            nameFemale: helper.getLocalisedNamesObject(Title, 'NameFemale')
+          }
+        }
 
         break;
 

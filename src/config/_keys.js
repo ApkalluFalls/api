@@ -22,14 +22,17 @@ module.exports = {
     iconHead: 'i2',
     iconLegs: 'i3',
     id: 'id',
+    isPrefix: 'f',
     kind: 'k',
     name: 'n',
+    nameFemale: 'nF',
     namePlural: 'nP',
     nameSingular: 'nS',
     methods: 'm',
     order: 'o',
     patch: 'p',
-    points: 'x'
+    points: 'x',
+    title: 't'
   },
   overview: {
     available: 'a',

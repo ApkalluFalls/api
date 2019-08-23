@@ -13,7 +13,8 @@ module.exports = {
       'ItemTargetID',
       ...helper.localisedColumnProperty(`Name`),
       'Patch',
-      'Points'
+      'Points',
+      'Title'
     ],
     /**
      * Determine the availability of an achievement.

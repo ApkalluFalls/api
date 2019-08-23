@@ -72,11 +72,15 @@ function getAchievementPointsPerExpansion(achievements) {
  */
 function getAllAvailableIDs(content) {
   return content.filter(entry => {
-    if (!entry.m.length) {
+    if (entry.isTitle) {
+      return !entry[_keys.lists.availability];
+    }
+
+    if (!entry[_keys.lists.methods].length) {
       return false;
     }
 
-    return entry.m.find(method => !method[3]);
+    return entry[_keys.lists.methods].find(method => !method[3]);
   }).map(entry => entry[_keys.lists.id]);
 }
 
@@ -106,18 +110,36 @@ function getIDsPerExpansion(content) {
 function getAllIDsMatchingContentFilters(content) {
   function getContentMatchingFilter(content, filterKey) {
     return content.filter(entry => {
-      return entry.m.find(method => method[3] && method[3][filterKey])
+      // Titles use availability instead of a methods array.
+      if (entry.isTitle) {
+        return entry[_keys.lists.availability] && entry[_keys.lists.availability][filterKey];
+      }
+      return entry[_keys.lists.methods].find(method => method[3] && method[3][filterKey])
     }).map(entry => entry[_keys.lists.id]);
   }
 
   const keys = _keys.contentFilters;
-  const contentWithMethods = content.filter(entry =>  entry.m.length);
+  const contentWithMethods = content.filter(entry => {
+    // Titles use availability instead of a methods array.
+    if (entry.isTitle) {
+      return entry[_keys.lists.availability];
+    }
+
+    return entry[_keys.lists.methods].length;
+  });
   const response = {};
 
   // Unknown.
   if (content.length - contentWithMethods.length > 0) {
     response[_keys.overview.availableUnknown] = content.filter((
-      entry =>  !entry.m.length
+      entry => {
+        // Ignore Titles.
+        if (entry.isTitle) {
+          return false;
+        }
+
+        return !entry[_keys.lists.methods].length;
+      }
     )).map(entry => entry[_keys.lists.id]);
   }
 
@@ -169,6 +191,21 @@ module.exports = () => {
     parsed.achievements = {
       [keys.total]: achievements.length,
       ...getAchievementPointsPerExpansion(achievements)
+    }
+
+    const titles = achievements.filter((
+      achievement => achievement[_keys.lists.title]
+    )).map(achievement => ({
+      [_keys.lists.availability]: achievement[_keys.lists.availability],
+      [_keys.lists.patch]: achievement[_keys.lists.patch],
+      ...achievement[_keys.lists.title],
+      isTitle: true
+    }));
+
+    parsed.titles = {
+      [keys.available]: getAllAvailableIDs(titles),
+      ...getAllIDsMatchingContentFilters(titles),
+      ...getIDsPerExpansion(titles)
     }
   }
 
