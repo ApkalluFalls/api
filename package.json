@@ -8,7 +8,7 @@
   "license": "MIT",
   "dependencies": {
     "cli-progress": "^2.1.1",
-    "fast-csv": "^2.5.0",
+    "fast-csv": "^4.3.6",
     "imagemin": "^5.3.1",
     "imagemin-advpng": "^5.0.0",
     "imagemin-gm": "^2.0.1",
