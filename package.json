@@ -11,7 +11,7 @@
     "fast-csv": "^2.5.0",
     "imagemin": "^5.3.1",
     "imagemin-advpng": "^5.0.0",
-    "imagemin-gm": "^2.0.1",
+    "imagemin-gm": "^2.0.2",
     "imagemin-optipng": "^7.0.0",
     "imagemin-pngcrush": "^6.0.0",
     "imagemin-pngout": "^4.0.0",
